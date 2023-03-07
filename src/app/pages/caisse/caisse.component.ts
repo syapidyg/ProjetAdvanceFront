@@ -116,7 +116,7 @@ export class CaisseComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  editCaisse(caisse: CaisseResponseModel) {
+  editCaisse(caisse: any) {
     this.isDisabled = false;
     this.initFormLogin(caisse);
   }

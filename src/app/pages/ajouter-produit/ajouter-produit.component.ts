@@ -69,22 +69,25 @@ export class AjouterProduitComponent implements OnInit {
 
     this.initForm(null, null);
     this.getFamille();
-    // this.id = this.route.snapshot.params.id;
-    // console.log(this.id);
-    // this.editProduit(this.id);
+    this.id = this.route.snapshot.params.id;
+    console.log(this.id);
+    if (this.id) {
+      this.editProduit(this.id);
+    }
+
     // this.selectCategorie();
     // this.selectForme();
 
   }
 
   // tslint:disable-next-line: typedef
-  // editProduit(id: number) {
-  //   this.produitService.get(`${READ_ONE_PRODUIT}/${id}`)
-  //     .then((response: any) => {
-  //       console.log(response, response);
-  //       this.initForm(response.data, response.data.famille);
-  //     });
-  // }
+  editProduit(id: number) {
+    this.produitService.get(`${READ_ONE_PRODUIT}/${id}`)
+      .then((response: any) => {
+        console.log(response, response);
+        this.initForm(response.data, response.data.famille);
+      });
+  }
 
   // public selectFamille(): any{
   //   this.getfamille().then((data) => {
@@ -160,7 +163,7 @@ export class AjouterProduitComponent implements OnInit {
       .then((result: any) => {
         console.log('result', result);
         this.isLoading = !this.isLoading;
-        this.notif.success('Caisse enregistré avec succès ');
+        this.notif.success('Produit enregistré avec succès ');
         window.location.reload();
       }, err => {
         console.log(err);

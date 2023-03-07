@@ -55,7 +55,7 @@
                                                             <select class="form-control form-select"
                                                                 formControlName="idfamille">
                                                                 <option *ngFor="let famille of datafamille"
-                                                                    value={{famille?.id}}>{{famille?.name}}</option>
+                                                                    value="{{famille?.id}}">{{famille?.name}}</option>
                                                             </select>
                                                         </div>
                                                     </div><!--col-->
@@ -72,7 +72,7 @@
                                                             <select class="form-control form-select"
                                                                 formControlName="categorie">
                                                                 <option *ngFor="let categorie of categorieList"
-                                                                    value={{categorie.name}}>{{categorie.name}}</option>
+                                                                    value="{{categorie.name}}">{{categorie.name}}</option>
                                                             </select>
                                                         </div>
                                                     </div><!--col-->

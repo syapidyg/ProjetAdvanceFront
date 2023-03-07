@@ -26,7 +26,7 @@ export class ListerProduitComponent implements OnInit {
   p = 1; // Page courante
   pageSize = 5; // Nombre d'éléments par page
   collectionSize = this.data.length;
-  public dataRead: ProduitResponseModel[] = [];
+  public dataRead!: ProduitResponseModel;
 
   constructor(
     private produitService: ProduitService,
@@ -39,6 +39,7 @@ export class ListerProduitComponent implements OnInit {
   ngOnInit(): void {
 
     this.getProduit();
+
   }
 
   onPageChange(pageNumber: number) {
@@ -59,14 +60,14 @@ export class ListerProduitComponent implements OnInit {
     });
   }
 
-  // // tslint:disable-next-line: typedef
-  // readOneProduit(produit: ProduitResponseModel) {
-  //   this.produitService.get(READ_ONE_PRODUIT + '/' + produit.id).then((response: any) => {
-  //     console.log(response);
-  //     this.isDisabled = true;
-  //     this.initFormLogin(produit);
-  //   });
-  // }
+  // tslint:disable-next-line: typedef
+  readOneProduit(produit: any) {
+    this.produitService.get(READ_ONE_PRODUIT + '/' + produit.id).then((response: any) => {
+      this.dataRead = response.data;
+      console.log(response);
+    });
+
+  }
 
   // tslint:disable-next-line: typedef
   deleteProduit(produit: ProduitResponseModel) {
@@ -115,19 +116,7 @@ export class ListerProduitComponent implements OnInit {
   //   });
   // }
 
-  // tslint:disable-next-line: typedef
-  private initForm(data: any ) {
-    this.form = this.fb.group({
-      id: [data ? data.id : null],
-      idfamille: [data ? data.idfamille : ' ', Validators.required],
-      dci: [data ? data.dci : ' ', Validators.required],
-      forme: [data ? data.forme : ' ', Validators.required],
-      categorie: [data ? data.categorie : ' ', Validators.required],
-      dosage: [data ? data.dosage : ' ', Validators.required],
-      pa: [data ? data.pa : ' ', Validators.required],
-      pv: [data ? data.pv : ' ', Validators.required]
-    });
-  }
+ 
 
   recupId(produit: ProduitResponseModel) {
     this.router.navigate(['/produits/ajouter/', produit.id]);
