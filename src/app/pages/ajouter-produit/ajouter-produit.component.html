@@ -1,0 +1,122 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">AJOUTER DES PRODUITS</h4>
+                        <p>Le formulaire suivant permet <strong class="text-primary">d'ajouter un produit
+                            </strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a [routerLink]="['/produits/liste']">Liste des produits</a>
+                                    </li>
+                                    <li  class="breadcrumb-item active">Ajout d'un
+                                        produit
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <form [formGroup]="form" class="form-validate is-alter">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner">
+                                                <div class="row gy-4">
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="nom">DCI Produit</label>
+                                                            <input type="text" formControlName="dci"
+                                                                class="form-control" id="name"
+                                                                placeholder="DCI du produit" required>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="famille">Famille</label>
+                                                            <select class="form-control form-select"
+                                                                formControlName="idfamille">
+                                                                <option *ngFor="let famille of datafamille"
+                                                                    value={{famille?.id}}>{{famille?.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="dosage">Dosage</label>
+                                                            <input type="text" formControlName="dosage"
+                                                                class="form-control" id="dosage" placeholder="dosage">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="Categorie">Categorie</label>
+                                                            <select class="form-control form-select"
+                                                                formControlName="categorie">
+                                                                <option *ngFor="let categorie of categorieList"
+                                                                    value={{categorie.name}}>{{categorie.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="forme">Forme</label>
+                                                            <select class="form-control form-select"
+                                                                formControlName="forme">
+                                                                <option *ngFor="let forme of formeList"
+                                                                    value="{{forme.name}}">{{forme.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div><!--col-->
+
+                                                    <!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="pa">Prix d'achat</label>
+                                                            <input type="number" formControlName="pa"
+                                                                class="form-control" id="pa" placeholder="prix d'achat"
+                                                                required>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="pv">Prix de vente</label>
+                                                            <input type="number" formControlName="pv"
+                                                                class="form-control" id="pv" placeholder="Prix de vente"
+                                                                required>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <button type="submit" (click)="save()"
+                                                                class="btn btn-primary">Ajouter
+                                                                produit</button>
+                                                        </div>
+                                                    </div><!--col-->
+                                                </div><!--row-->
+                                            </div><!-- .card-inner-group -->
+                                        </div><!-- .card -->
+                                    </form>
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div>

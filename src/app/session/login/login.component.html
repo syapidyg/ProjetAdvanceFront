@@ -1,0 +1,134 @@
+<div class="nk-body ui-rounder npc-default pg-auth">
+    <div class="nk-app-root">
+        <!-- main @s -->
+        <div class="nk-main ">
+            <!-- wrap @s -->
+            <div class="nk-wrap nk-wrap-nosidebar">
+                <!-- content @s -->
+                <div class="nk-content ">
+                    <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
+                        <!-- <div class="brand-logo pb-4 text-center">
+                            <a href="html/index.html" class="logo-link">
+                                <img class="logo-light logo-img l" src="./images/logo.png"
+                                    srcset="./images/logo2x.png 2x" alt="logo"> </a>
+                        </div> -->
+                        <!-- <a href="html/index.html" class="logo-link">
+                            <img class="logo-light logo-img logo-img-lg"
+                                src="https://cdn.pixabay.com/photo/2012/04/15/18/54/snake-34904_960_720.png" alt="logo">
+                        </a> -->
+                        <div class="card card-bordered">
+                            <div class="card-inner card-inner-lg">
+                                <div class="nk-block-head">
+                                    <div class="nk-block-head-content">
+                                        <h4 class="nk-block-title">Login</h4>
+                                        <div class="nk-block-des">
+                                            <p>Connectez vous via votre username et votre mot de passe.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form [formGroup]="form">
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="username">Username</label>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <input type="text" formControlName="username"
+                                                class="form-control form-control-lg" id="username"
+                                                placeholder="Entrez votre username">
+                                        </div>
+                                        <span
+                                            *ngIf="(submitted || form.controls.username.touched) && form.controls.username.errors "
+                                            style="color: rgb(255, 75, 75);">
+                                            le username est requis </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <label class="form-label" for="password">Mot de Passe</label>
+                                            <a class="link link-primary link-sm" href="#">Mot de passe oublié?</a>
+                                        </div>
+                                        <div class="form-control-wrap">
+                                            <a href="#" class="form-icon form-icon-right passcode-switch lg"
+                                                data-target="password">
+                                                <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                                                <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                            </a>
+                                            <input type="password" formControlName="password"
+                                                class="form-control form-control-lg" id="password"
+                                                placeholder="Entrez votre mot de passe">
+                                            <span
+                                                *ngIf="(submitted || form.controls.password.touched) && form.controls.password.errors "
+                                                style="color: rgb(255, 75, 75);">Le
+                                                mot de passe est requis
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-lg btn-primary btn-block" (click)="login()">Login
+                                            <div *ngIf="isLoading" class="d-flex justify-content-center">
+                                                <span class="spinner-border spinner-border-sm" role="status"
+                                                    aria-hidden="true">
+                                                </span>
+                                            </div>
+                                        </button>
+
+                                    </div>
+                                </form>
+                                <div class="form-note-s2 text-center pt-4"> Nouveau sur la plate-forme? Contactez votre
+                                    administrateur
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nk-footer nk-auth-footer-full">
+                        <div class="container wide-lg">
+                            <div class="row g-3">
+                                <div class="col-lg-6 order-lg-last">
+                                    <ul class="nav nav-sm justify-content-center justify-content-lg-end">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Termes & Conditions</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Aide</a>
+                                        </li>
+                                        <li class="nav-item dropup">
+                                            <a class="dropdown-toggle dropdown-indicator has-indicator nav-link"
+                                                data-bs-toggle="dropdown" data-offset="0,10"><span>Français</span></a>
+                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
+                                                <ul class="language-list">
+                                                    <li>
+                                                        <a href="#" class="language-item">
+                                                            <span class="language-name">Français</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="language-item">
+                                                            <span class="language-name">Anglais</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="nk-block-content text-center text-lg-left">
+                                        <p class="text-soft">&copy; 2023 Syapi_DYG. Tous droits reservés.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- wrap @e -->
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+    <!-- app-root @e -->
+    <!-- JavaScript -->
+    <!-- select region modal -->
+
+</div>
