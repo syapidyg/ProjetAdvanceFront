@@ -42,15 +42,16 @@ export class ListerProduitComponent implements OnInit {
 
   }
 
+  // tslint:disable-next-line: typedef
   onPageChange(pageNumber: number) {
     this.p = pageNumber;
   }
 
+  // tslint:disable-next-line: typedef
   onPageSizeChange() {
     this.collectionSize = this.data.length;
     this.p = 1;
   }
-
 
   // tslint:disable-next-line: typedef
   getProduit() {
@@ -116,8 +117,7 @@ export class ListerProduitComponent implements OnInit {
   //   });
   // }
 
- 
-
+  // tslint:disable-next-line: typedef
   recupId(produit: ProduitResponseModel) {
     this.router.navigate(['/produits/ajouter/', produit.id]);
   }
