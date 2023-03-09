@@ -8,15 +8,15 @@
             <div class="nk-block-head">
                 <div class="nk-block-head-content d-flex justify-content-between">
                     <div>
-                        <h4 class="nk-block-title">LISTE DES CAISSES</h4>
-                        <p>Le tableau suivant liste <strong class="text-primary">les caisses et ses differentes
+                        <h4 class="nk-block-title">LISTE DES PATIENTS</h4>
+                        <p>Le tableau suivant liste <strong class="text-primary">les patients et ses differentes
                                 operations</strong>.</p>
                         <div>
                             <nav>
                                 <ul class="breadcrumb breadcrumb-arrow">
                                     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Caisses
+                                    <li class="breadcrumb-item active">Patients
                                     </li>
                                 </ul>
                             </nav>
@@ -25,9 +25,9 @@
                 </div>
                 <div class="d-flex flex-row-reverse flex-item justify-content-between">
                     <li class="nk-block-tools-opt">
-                        <a (click)="editCaisse(null)" data-bs-toggle="modal" data-bs-target="#modalForm"
+                        <a (click)="editPatient(null)" data-bs-toggle="modal" data-bs-target="#modalForm"
                             class="btn btn-primary d-none d-md-inline-flex"><em
-                                class="icon ni ni-plus"></em><span>Ajouter une caisse</span></a>
+                                class="icon ni ni-plus"></em><span>Ajouter un patient</span></a>
                     </li>
                 </div>
             </div>
@@ -74,21 +74,25 @@
                                         <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
                                             #</th>
                                         <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Nom</th>
-                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Description</th>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Numero</th>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Email</th>
                                         <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let caisse of data | paginate: { itemsPerPage: pageSize, currentPage: p } ; let i=index ">
+                                        *ngFor="let patient of data | paginate: { itemsPerPage: pageSize, currentPage: p } ; let i=index ">
                                         <td class="odd">
                                             <a><span>{{i+1}}</span></a>
                                         </td>
                                         <td class="even">
-                                            <span class="title">{{caisse?.name}}</span>
+                                            <span class="title">{{patient?.name}}</span>
                                         </td>
                                         <td class="odd">
-                                            <span class="title">{{caisse?.description}}</span>
+                                            <span class="title">{{patient?.number}}</span>
+                                        </td>
+                                        <td class="odd">
+                                            <span class="title">{{patient?.email}}</span>
                                         </td>
                                         <td class="tb-tnx-action nk-tb-col tb-col">
                                             <div class="">
@@ -102,15 +106,15 @@
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li data-bs-toggle="modal"
                                                                         data-bs-target="#modalForm"><a
-                                                                            (click)="readOneCaisse(caisse)"><em
+                                                                            (click)="readOnePatient(patient)"><em
                                                                                 class="icon ni ni-eye"></em><span>Voir
                                                                                 Details</span></a></li>
                                                                     <li data-bs-toggle="modal"
                                                                         data-bs-target="#modalForm"><a
-                                                                            (click)="editCaisse(caisse)"><em
+                                                                            (click)="editPatient(patient)"><em
                                                                                 class="icon ni ni-edit"></em><span>Editer
                                                                             </span></a></li>
-                                                                    <li><a (click)="deleteCaisse(caisse)"><em
+                                                                    <li><a (click)="deletePatient(patient)"><em
                                                                                 class="icon ni ni-trash"></em><span>Supprimer
                                                                             </span></a></li>
                                                                 </ul>
@@ -132,6 +136,8 @@
                             <li> <pagination-controls [directionLinks]="true" [autoHide]="true"
                                     (pageChange)="p = $event" class="bg-primary"></pagination-controls></li>
                         </div>
+                        <!-- <button mat-button (click)="openDialog()">Launch dialog</button> -->
+
                         <!-- pagination -->
                         <!-- <div class="row align-items-center">
                             <div class="col-7 col-sm-12 col-md-9">
@@ -174,12 +180,12 @@
 
     </div>
 </div>
-<!-- Caisse Modal -->
+<!-- Patient Modal -->
 <div class="modal fade modal-lg" id="modalForm">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Caisse</h5>
+                <h5 class="modal-title">Patient</h5>
                 <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <em class="icon ni ni-cross"></em>
                 </a>
@@ -187,26 +193,38 @@
             <div class="modal-body">
                 <form [formGroup]="form" class="form-validate is-alter">
                     <div class="form-group">
-                        <label class="form-label" for="nom">Nom de la caisse</label>
+                        <label class="form-label" for="nom">Nom du patient</label>
                         <div class="form-control-wrap">
-                            <input type="text" class="form-control" formControlName="nom" id="nom" required
-                                [attr.disabled]="isDisabled? isDisabled: null">
-                            <!-- <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="caisse?.id" value={{caisse?.nom}} required> -->
-                            <span *ngIf="(submitted || form.controls.nom.touched) && form.controls.nom.errors "
+                            <input type="text" class="form-control" formControlName="name" id="nom" required
+                              [attr.disabled]="isDisabled? isDisabled: null">
+                            <!-- <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="patient?.id" value={{patient?.nom}} required> -->
+                            <span *ngIf="(submitted || f.name.touched) && f.name.errors "
                                 style="color: rgb(255, 75, 75);">
-                                Le nom de la caisse est requis
+                                Le nom du patient est requis
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="description">Description de la caisse</label>
+                        <label class="form-label" for="number">Numero du patient</label>
                         <div class="form-control-wrap">
-                            <input type="text" class="form-control" formControlName="description" id="description"
+                            <input type="text" class="form-control" formControlName="number" id="number"
                                 [attr.disabled]="isDisabled? isDisabled: null">
                             <span
-                                *ngIf="(submitted || form.controls.description.touched) && form.controls.description.errors "
+                                *ngIf="(submitted || f.number.touched) && f.number.errors "
                                 style="color: rgb(255, 75, 75);">
-                                La description est requise
+                                Le numero est requis
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email du patient</label>
+                        <div class="form-control-wrap">
+                            <input type="text" class="form-control" formControlName="email" id="email"
+                                [attr.disabled]="isDisabled? isDisabled: null">
+                            <span
+                                *ngIf="(submitted || f.email.touched) && f.email.errors "
+                                style="color: rgb(255, 75, 75);">
+                                Une adresse mail au bon format est requise
                             </span>
                         </div>
                     </div>
@@ -223,8 +241,8 @@
                 </form>
             </div>
             <div class="modal-footer bg-light">
-                <span class="sub-text">CAISSE</span>
+                <span class="sub-text">PATIENT</span>
             </div>
         </div>
     </div>
-</div><!-- Caisse Modal -->
+</div><!-- Patient Modal -->

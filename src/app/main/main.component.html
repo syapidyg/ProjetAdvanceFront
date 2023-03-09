@@ -59,45 +59,29 @@
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
-                                        <a href="html/pharmacy/manufacturer.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Manufacturer List</span></a>
+                                        <a [routerLink]="['/fournisseurs/ajouter']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Ajouter un fournisseur</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="html/pharmacy/manufacturer-ledger.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Manufacturer Ledger</span></a>
+                                        <a [routerLink]="['/patients/liste']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Liste des fournisseurs</span></a>
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-text no-sub ">
-                                <a [routerLink]="['/caisses']" routerLinkActive="router-link-active" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-wallet-fill"></em></span>
-                                    <span class="nk-menu-text">Caisses</span>
-                                </a>
-                                <!-- .nk-menu-sub -->
-                            </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <!-- .nk-menu-item -->
+                            <li class="nk-menu-item no-sub">
+                                <a [routerLink]="['/patients/ajouter']"  class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-user-circle-fill"></em></span>
                                     <span class="nk-menu-text">Patients</span>
                                 </a>
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="html/pharmacy/member.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Member</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pharmacy/members-profile-regular.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Members Profile</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pharmacy/attendence.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Attendence</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pharmacy/salary.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Salary</span></a>
-                                    </li>
-                                </ul><!-- .nk-menu-sub -->
+                                <!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item no-sub">
+                                <a [routerLink]="['/caisses']"  class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-circle-fill"></em></span>
+                                    <span class="nk-menu-text">Caisses</span>
+                                </a>
+                                <!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">

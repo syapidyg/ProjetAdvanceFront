@@ -1,0 +1,131 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">AJOUTER DES PRODUITS</h4>
+                        <p>Le formulaire suivant permet <strong class="text-primary">d'ajouter un produit
+                            </strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a [routerLink]="['/produits/liste']">Liste des
+                                            produits</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Ajout d'un
+                                        produit
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <form [formGroup]="form" class="form-validate is-alter">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner">
+                                                <div class="row gy-4">
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="nom">Nom du
+                                                                fournisseur</label>
+                                                            <input placeholder="Nom du fournisseur" type="text"
+                                                                formControlName="name" class="form-control" id="name"
+                                                                required>
+                                                            <span
+                                                                *ngIf="(submitted || f.name.touched) && f.name.errors "
+                                                                style="color: rgb(255, 75, 75);">
+                                                                Le nom du fournisseur est requis
+                                                            </span>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="number">Numero</label>
+                                                            <input placeholder="number" type="text" formControlName="number"
+                                                                class="form-control" id="number" 
+                                                                required>
+                                                            <span
+                                                                *ngIf="(submitted || f.number.touched) && f.number.errors "
+                                                                style="color: rgb(255, 75, 75);">
+                                                                Le Numero du patient est requis
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!--col-->
+                                                    <!--col-->
+
+                                                    <!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="email">Email</label>
+                                                            <input type="email" formControlName="email"
+                                                                class="form-control" id="email" placeholder="Adresse Email"
+                                                                required>
+                                                            <span
+                                                                *ngIf="(submitted || f.email.touched) && f.email.errors "
+                                                                style="color: rgb(255, 75, 75);">
+                                                                L'adresse mail est du patient est requis
+                                                            </span>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="address">Adresse</label>
+                                                            <input type="address" formControlName="adress"
+                                                                class="form-control" id="pv" placeholder="address"
+                                                                required>
+                                                            <span
+                                                                *ngIf="(submitted || f.adress.touched) && f.adress.errors "
+                                                                style="color: rgb(255, 75, 75);">
+                                                                L'adresse du fournisseur est requis
+                                                            </span>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="city">Ville</label>
+                                                            <input type="city" formControlName="city"
+                                                                class="form-control" id="pv" placeholder="Ville"
+                                                                required>
+                                                            <span
+                                                                *ngIf="(submitted || f.city.touched) && f.city.errors "
+                                                                style="color: rgb(255, 75, 75);">
+                                                                La ville du fournisseur est requis
+                                                            </span>
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <button type="submit" (click)="save()"
+                                                                class="btn btn-primary">Ajouter
+                                                                produit</button>
+                                                        </div>
+                                                    </div><!--col-->
+                                                </div><!--row-->
+                                            </div><!-- .card-inner-group -->
+                                        </div><!-- .card -->
+                                    </form>
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div>

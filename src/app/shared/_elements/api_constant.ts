@@ -25,3 +25,17 @@ export const ADD_FAMILLE = FAMILLE + `/create`;
 export const READ_FAMILLE = FAMILLE + `/read`;
 export const READ_ONE_FAMILLE = FAMILLE + `/readOne`;
 export const DELETE_FAMILLE = FAMILLE + `/delete`;
+
+// API du controlleur de patient
+export const PATIENT = SERVEUR + `/client`;
+export const ADD_PATIENT = PATIENT + `/create`;
+export const READ_PATIENT = PATIENT + `/read`;
+export const READ_ONE_PATIENT = PATIENT + `/readOne`;
+export const DELETE_PATIENT = PATIENT + `/delete`;
+
+// API du controlleur de Fournisseur
+export const FOURNISSEUR = SERVEUR + `/fournisseur`;
+export const ADD_FOURNISSEUR = FOURNISSEUR + `/create`;
+export const READ_FOURNISSEUR = FOURNISSEUR + `/read`;
+export const READ_ONE_FOURNISSEUR = FOURNISSEUR + `/readOne`;
+export const DELETE_FOURNISSEUR = FOURNISSEUR + `/delete`;

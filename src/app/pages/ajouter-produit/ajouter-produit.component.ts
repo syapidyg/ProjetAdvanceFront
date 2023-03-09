@@ -169,6 +169,7 @@ export class AjouterProduitComponent implements OnInit {
         console.log(err);
         this.notif.danger('Echec lors de l\'enregistrement ');
         this.isLoading = !this.isLoading;
+        this.router.navigate(['/produits/ajouter']);
       });
 
     this.router.navigate(['/produits/liste']);

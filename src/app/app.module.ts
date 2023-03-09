@@ -13,13 +13,17 @@ import { LoginComponent } from './session/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Select2Module } from 'ng-select2-component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { authInterceptorProviders } from './shared/_helpers/auth.interceptor';
 import { UserGuardService } from './shared/_helpers/user-guard.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AjouterProduitComponent } from './pages/ajouter-produit/ajouter-produit.component';
 import { FamilleComponent } from './pages/famille/famille.component';
 import { ListerProduitComponent } from './pages/lister-produit/lister-produit.component';
+import { AjouterPatientComponent } from './pages/ajouter-patient/ajouter-patient.component';
+import { ModalTestComponent } from './modal/modal-test/modal-test.component';
+import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter-fournisseur.component';
+import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fournisseur.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +34,12 @@ import { ListerProduitComponent } from './pages/lister-produit/lister-produit.co
     RegisterComponent,
     LoginComponent,
     AjouterProduitComponent,
+    AjouterFournisseurComponent,
     FamilleComponent,
-    ListerProduitComponent
+    ListerProduitComponent,
+    AjouterPatientComponent,
+    ModalTestComponent,
+    ListerFournisseurComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,7 @@ import { ListerProduitComponent } from './pages/lister-produit/lister-produit.co
     FormsModule,
     NgxPaginationModule,
     NgSelectModule,
+    MatDialogModule,
     Select2Module,
     ToastrModule.forRoot()
   ],

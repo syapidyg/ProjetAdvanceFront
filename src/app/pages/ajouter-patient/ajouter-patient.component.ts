@@ -1,84 +1,75 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ADD_CAISSE, DELETE_CAISSE, READ_CAISSE, READ_ONE_CAISSE } from 'src/app/shared/_elements/api_constant';
-import { CaisseRequestModel } from 'src/app/shared/_models/requests/caisse-request.model';
-import { CaisseResponseModel } from 'src/app/shared/_models/responses/caisse-response.model';
-import { CaisseService } from 'src/app/shared/_services/caisse-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalTestComponent } from 'src/app/modal/modal-test/modal-test.component';
+import { DELETE_PATIENT, READ_ONE_PATIENT, READ_PATIENT } from 'src/app/shared/_elements/api_constant';
+import { PatientRequestModel } from 'src/app/shared/_models/requests/patient-request.model';
+import { PatientResponseModel } from 'src/app/shared/_models/responses/patient-response.model';
 import { NotificationService } from 'src/app/shared/_services/notifiaction.service';
-import { TokenStorageService } from 'src/app/shared/_services/token-storage.service';
+import { PatientService } from 'src/app/shared/_services/patient-service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-caisse',
-  templateUrl: './caisse.component.html',
-  styleUrls: ['./caisse.component.scss']
+  selector: 'app-ajouter-patient',
+  templateUrl: './ajouter-patient.component.html',
+  styleUrls: ['./ajouter-patient.component.scss']
 })
+export class AjouterPatientComponent implements OnInit {
 
-
-export class CaisseComponent implements OnInit {
-
-
-
-  public data: CaisseResponseModel[] = [];
+  public data: PatientResponseModel[] = [];
   currentUser!: any;
   form!: FormGroup;
-  formpage!: FormGroup;
-  caisse!: any;
+  produit!: any;
   isLoading!: boolean;
   submitted!: boolean;
   i !: number;
   p = 1; // Page courante
   pageSize = 5; // Nombre d'éléments par page
+  id!: any;
   public isDisabled = false;
   collectionSize = this.data.length;
 
-
   constructor(
-    private caisseService: CaisseService,
+    private patientService: PatientService,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private notif: NotificationService,
-    private tokenStorage: TokenStorageService
+    public dialog: MatDialog
 
   ) { }
-
-
   ngOnInit(): void {
-    this.getCaisse();
-    this.initFormLogin(null);
+    this.getPatient();
+    this.initForm(null);
   }
 
+  openDialog() {
+    this.dialog.open(ModalTestComponent);
+  }
 
+  // tslint:disable-next-line: typedef
   onPageChange(pageNumber: number) {
     this.p = pageNumber;
   }
 
+  // tslint:disable-next-line: typedef
   onPageSizeChange() {
     this.collectionSize = this.data.length;
     this.p = 1;
   }
 
   // tslint:disable-next-line: typedef
-  getCaisse() {
-    this.caisseService.get(READ_CAISSE).then((response: any) => {
-      this.data = response.data;
-      console.log(response);
-    });
-  }
-
-
-  // tslint:disable-next-line: typedef
-  readOneCaisse(caisse: CaisseResponseModel) {
-    this.caisseService.get(READ_ONE_CAISSE + '/' + caisse.id).then((response: any) => {
+  readOnePatient(patient: PatientResponseModel) {
+    this.patientService.get(READ_ONE_PATIENT + '/' + patient.id).then((response: any) => {
       console.log(response);
       this.isDisabled = true;
-      this.initFormLogin(caisse);
+      this.initForm(patient);
     });
   }
 
   // tslint:disable-next-line: typedef
-  deleteCaisse(caisse: CaisseResponseModel) {
+  deletePatient(patient: PatientResponseModel) {
     Swal.fire({
       title: 'Êtes-vous sûr?',
       text: 'Vous êtes sur le point de supprimer cet élément.',
@@ -91,7 +82,7 @@ export class CaisseComponent implements OnInit {
       cancelButtonColor: '#6c757dbe'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.caisseService.delete(DELETE_CAISSE + '/' + caisse.id).then((response: any) => {
+        this.patientService.delete(DELETE_PATIENT + '/' + patient.id).then((response: any) => {
           this.data = response.data;
           console.log(response);
           Swal.fire({
@@ -100,7 +91,7 @@ export class CaisseComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getCaisse();
+          this.getPatient();
         });
       } else {
         Swal.fire({
@@ -110,35 +101,36 @@ export class CaisseComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getCaisse();
+        this.getPatient();
       }
     });
   }
 
   // tslint:disable-next-line: typedef
-  editCaisse(caisse: any) {
-    this.isDisabled = false;
-    this.initFormLogin(caisse);
+  getPatient() {
+    this.patientService.get(READ_PATIENT).then((response: any) => {
+      this.data = response.data;
+      console.log(response);
+    });
   }
 
   // tslint:disable-next-line: typedef
-  private initFormLogin(data: any) {
+  editPatient(patient: any) {
+    this.isDisabled = false;
+    this.initForm(patient);
+  }
+
+  get f() { return this.form.controls; }
+
+  // tslint:disable-next-line: typedef
+  private initForm(data: any) {
     this.form = this.fb.group({
       id: [data ? data.id : null],
-      nom: [data ? data.name : ' ', Validators.required],
-      description: [data ? data.description : ' ', Validators.required]
+      name: [data ? data.name : '', Validators.required],
+      number: [data ? data.number : '', Validators.required],
+      email: [data ? data.email : '', [Validators.required, Validators.email]],
     });
   }
-  private initFormPage(data: any) {
-    this.formpage = this.fb.group({
-      5: [data ? data.id : null],
-      10: [data ? data.name : ' ', Validators.required],
-      25: [data ? data.description : ' ', Validators.required]
-    });
-  }
-
-  // tslint:disable-next-line: typedef
-  get f() { return this.form.controls; }
 
   // tslint:disable-next-line: typedef
   save() {
@@ -150,13 +142,18 @@ export class CaisseComponent implements OnInit {
       return;
     }
     let dtoRequest;
-    dtoRequest = new CaisseRequestModel(this.f.id.value, this.f.nom.value, this.f.description.value);
+    dtoRequest = new PatientRequestModel(
+      this.f.id.value,
+      this.f.name.value,
+      this.f.number.value,
+      this.f.email.value,
+    );
     console.log(dtoRequest);
-    this.caisseService.post(dtoRequest).toPromise()
+    this.patientService.post(dtoRequest).toPromise()
       .then((result: any) => {
         console.log('result', result);
         this.isLoading = !this.isLoading;
-        this.notif.success('Caisse enregistré avec succès ');
+        this.notif.success('Patient enregistré avec succès ');
         window.location.reload();
       }, err => {
         console.log(err);
@@ -164,7 +161,9 @@ export class CaisseComponent implements OnInit {
         this.isLoading = !this.isLoading;
       });
 
-  }
+    this.router.navigate(['/patients/ajouter']);
 
+
+  }
 
 }
