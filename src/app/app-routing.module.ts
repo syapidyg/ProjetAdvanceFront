@@ -23,7 +23,8 @@ const routes: Routes = [
       { path: 'produits/liste', component: ListerProduitComponent },
       { path: 'patients/ajouter', component: AjouterPatientComponent },
       { path: 'fournisseurs/ajouter', component: AjouterFournisseurComponent },
-      { path: 'fournisseurs/liste', component: ListerFournisseurComponent }
+      { path: 'fournisseurs/liste', component: ListerFournisseurComponent },
+      { path: 'fournisseurs/ajouter/:id', component: AjouterFournisseurComponent }
     ]
   },
 ];

@@ -35,6 +35,7 @@ export class ListerFournisseurComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.getFournisseur();
   }
   // tslint:disable-next-line: typedef
   onPageChange(pageNumber: number) {
