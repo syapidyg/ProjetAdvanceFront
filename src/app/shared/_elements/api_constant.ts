@@ -39,3 +39,10 @@ export const ADD_FOURNISSEUR = FOURNISSEUR + `/create`;
 export const READ_FOURNISSEUR = FOURNISSEUR + `/read`;
 export const READ_ONE_FOURNISSEUR = FOURNISSEUR + `/readOne`;
 export const DELETE_FOURNISSEUR = FOURNISSEUR + `/delete`;
+
+// API du controlleur de Fournisseur
+export const EMPLOYE = SERVEUR + `/employe`;
+export const ADD_EMPLOYE = EMPLOYE + `/create`;
+export const READ_EMPLOYE = EMPLOYE + `/read`;
+export const READ_ONE_EMPLOYE = EMPLOYE + `/readOne`;
+export const DELETE_EMPLOYE = EMPLOYE + `/delete`;

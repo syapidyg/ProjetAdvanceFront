@@ -1,0 +1,75 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">LISTE DES EMPLOYES</h4>
+                        <p>Le tableau suivant liste <strong class="text-primary">les differents employes et leurs
+                                differentes
+                                operations</strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Employes
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse flex-item justify-content-between">
+                    <li class="nk-block-tools-opt">
+                        <a [routerLink]="['/employes/ajouter']" class="btn btn-primary d-none d-md-inline-flex"><em
+                                class="icon ni ni-plus"></em><span>Ajouter employe</span></a>
+                    </li>
+                </div>
+            </div>
+
+            <div class="row g-gs">
+                <div class="col-sm-6 col-lg-4 col-xxl-3" *ngFor="let employe of data ; let i=index ">
+                    <div class="card card-bordered">
+                        <div class="card-inner">
+                            <div class="team">
+                                <div class="user-card user-card-s2">
+                                    <div class="user-avatar lg bg-primary">
+                                        <span></span>
+                                    </div>
+                                    <div class="user-info">
+                                        <h6> {{employe?.nom}} {{employe?.prenom}}</h6>
+                                        <span class="badge rounded-pill bg-primary">Role</span>
+                                    </div>
+                                </div>
+                                <ul class="team-info">
+                                    <li><span>Date de naissance</span><span>{{employe?.birthday | date}}</span></li>
+                                    <li><span>Mise en fonction</span><span>24 Jun 2015</span></li>
+                                    <li><span>Contact</span><span>{{employe?.number}}</span></li>
+                                    <li><span>Email</span><span>{{employe?.email}}</span></li>
+                                </ul>
+                                <div class="team-view d-flex ">
+                                    <a [routerLink]="['/employes/ajouter']"
+                                        class="btn btn-block btn-dim btn-secondary mx-1" (click)="recupId(employe)">
+                                        <em class="icon ni ni-edit"></em><span>Modifier</span></a>
+                                    <a class="btn btn-block btn-dim btn-danger mx-1"
+                                        (click)="deleteEmploye(employe)"><em
+                                            class="icon ni ni-trash"></em><span>Supprimer </span></a>
+                                </div>
+                            </div><!-- .team -->
+                        </div><!-- .card-inner -->
+                    </div><!-- .card -->
+                </div><!-- .col -->
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+

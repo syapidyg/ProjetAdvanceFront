@@ -24,6 +24,8 @@ import { AjouterPatientComponent } from './pages/ajouter-patient/ajouter-patient
 import { ModalTestComponent } from './modal/modal-test/modal-test.component';
 import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter-fournisseur.component';
 import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fournisseur.component';
+import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
+import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fo
     AjouterPatientComponent,
     ModalTestComponent,
     ListerFournisseurComponent,
+    ListerEmployeComponent,
+    AjouterEmployeComponent
   ],
   imports: [
     BrowserModule,

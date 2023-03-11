@@ -1,0 +1,191 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">AJOUTER DES EMPLOYES</h4>
+                        <p>Le formulaire suivant permet <strong class="text-primary">d'ajouter un employe
+                            </strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a [routerLink]="['/employes/liste']">Liste des
+                                            employes</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Ajout d'un
+                                        employe
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <form [formGroup]="form" class="form-validate is-alter">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner-group">
+                                                <div class="card-inner">
+                                                    <div class="nk-block-head">
+                                                        <div class="nk-block-head-content">
+                                                            <h5 class="title nk-block-title">INFORMATIONS PERSONNELLES
+                                                            </h5>
+                                                            <p>Ajouter les informations personnelles nom, numéro, etc...
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row gy-4">
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="nom">Nom </label>
+                                                                <input type="text" formControlName="nom"
+                                                                    class="form-control" id="nom"
+                                                                    placeholder="Nom de l'employé" required>
+                                                                <span
+                                                                    *ngIf="(submitted || f.nom.touched) && f.nom.errors "
+                                                                    style="color: rgb(255, 75, 75);">
+                                                                    Le nom est requis
+                                                                </span>
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="prenom">Prenom</label>
+                                                                <input type="text" formControlName="prenom"
+                                                                    class="form-control" id="prenom"
+                                                                    placeholder="prenom">
+                                                                <span
+                                                                    *ngIf="(submitted || form.controls.prenom.touched) && form.controls.prenom.errors "
+                                                                    style="color: rgb(255, 75, 75);">
+                                                                    Le prenom est requis
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <!--col-->
+                                                        <!--col-->
+
+                                                        <!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="birthday">Date de
+                                                                    naissance</label>
+                                                                <input type="date" formControlName="birthday"
+                                                                    class="form-control" id="birthday"
+                                                                    placeholder="Date de naissance" required>
+                                                                <span
+                                                                    *ngIf="(submitted || form.controls.birthday.touched) && form.controls.birthday.errors "
+                                                                    style="color: rgb(255, 75, 75);">
+                                                                    La date de naissance est requise
+                                                                </span>
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="email">Email</label>
+                                                                <input type="email" formControlName="email"
+                                                                    class="form-control" id="email" placeholder="Email"
+                                                                    required>
+                                                                <span
+                                                                    *ngIf="(submitted || form.controls.email.touched) && form.controls.email.errors "
+                                                                    style="color: rgb(255, 75, 75);">
+                                                                    L'adresse mail est requise
+                                                                </span>
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="number">Numero de
+                                                                    telephone</label>
+                                                                <input type="number" formControlName="number"
+                                                                    class="form-control" id="number"
+                                                                    placeholder="number" required>
+                                                                <span
+                                                                    *ngIf="(submitted || form.controls.number.touched) && form.controls.number.errors "
+                                                                    style="color: rgb(255, 75, 75);">
+                                                                    Le numero est requis
+                                                                </span>
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <!--col-->
+                                                    </div><!--row-->
+                                                </div><!-- .card-inner-group -->
+                                                <div class="card-inner">
+                                                    <div class="nk-block-head">
+                                                        <div class="nk-block-head-content">
+                                                            <h5 class="title nk-block-title">INFORMATIONS DE CONNEXION
+                                                            </h5>
+                                                            <p>Ajouter les informations de connexion a l'application
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row gy-4">
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="username">Nom
+                                                                    d'utilisateur </label>
+                                                                <input type="text" formControlName="username"
+                                                                    class="form-control" id="username"
+                                                                    placeholder="Username" [attr.disabled]="isDisabled? isDisabled: null">
+                                                                <span
+                                                                    *ngIf="(submitted || form.controls.username.touched) && form.controls.username.errors "
+                                                                    style="color: rgb(255, 75, 75);" >
+                                                                    Le nom d'utilisateur est requis
+                                                                </span>
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="password">Mot de
+                                                                    passe</label>
+                                                                    
+                                                                <input type="password" formControlName="password"
+                                                                    class="form-control" id="password"
+                                                                    placeholder="Mot de passe" [attr.disabled]="isDisabled? isDisabled: null">
+                                                                <span
+                                                                    *ngIf="(submitted || form.controls.password.touched) && form.controls.password.errors "
+                                                                    style="color: rgb(255, 75, 75);">
+                                                                    Le mot de passe est requis
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <!--col-->
+                                                        <!--col-->
+
+                                                        <!--col-->
+                                                        <!--col-->
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <button type="submit" (click)="save()"
+                                                                    class="btn btn-primary">Ajouter
+                                                                    employe</button>
+                                                            </div>
+                                                        </div><!--col-->
+                                                    </div><!--row-->
+                                                </div><!-- .card-inner-group -->
+                                            </div>
+                                        </div>
+                                        <!-- .card -->
+                                    </form>
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div>

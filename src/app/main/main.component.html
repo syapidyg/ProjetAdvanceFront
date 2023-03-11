@@ -78,12 +78,12 @@
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item no-sub">
                                 <a [routerLink]="['/caisses']"  class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-user-circle-fill"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-wallet-fill"></em></span>
                                     <span class="nk-menu-text">Caisses</span>
                                 </a>
                                 <!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item has-sub">
+                            <!-- <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-coin-alt-fill"></em></span>
                                     <span class="nk-menu-text">Finances</span>
@@ -105,13 +105,13 @@
                                         <a href="html/pharmacy/invoice-details.html" class="nk-menu-link"><span
                                                 class="nk-menu-text">Invoice Details</span></a>
                                     </li>
-                                </ul><!-- .nk-menu-sub -->
-                            </li><!-- .nk-menu-item -->
+                                </ul>
+                            </li> -->
                             <!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-coin-alt-fill"></em></span>
-                                    <span class="nk-menu-text">Stocks</span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-growth-fill"></em></span>
+                                    <span class="nk-menu-text">Mouvement de stock</span>
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
@@ -125,6 +125,30 @@
                                     <li class="nk-menu-item">
                                         <a href="html/pharmacy/invoice-list.html" class="nk-menu-link"><span
                                                 class="nk-menu-text">Invoice List</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="html/pharmacy/invoice-details.html" class="nk-menu-link"><span
+                                                class="nk-menu-text">Invoice Details</span></a>
+                                    </li>
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-alt-fill"></em></span>
+                                    <span class="nk-menu-text">Utilisateurs</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item">
+                                        <a [routerLink]="['/employes/ajouter']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Ajouter un utilisateur</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a [routerLink]="['/employes/liste']"  class="nk-menu-link"><span
+                                                class="nk-menu-text">Liste des utilisateurs</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="html/pharmacy/invoice-list.html" class="nk-menu-link"><span
+                                                class="nk_s-menu-text">Invoice List</span></a>
                                     </li>
                                     <li class="nk-menu-item">
                                         <a href="html/pharmacy/invoice-details.html" class="nk-menu-link"><span
@@ -190,11 +214,11 @@
                                         srcset="assets/images/pharmacie.png 2x" alt="logo-dark">
                                 </a>
                             </div><!-- .nk-header-brand -->
-                            <div class="nk-header-search ms-3 ms-xl-0 d-none d-md-flex">
+                            <!-- <div class="nk-header-search ms-3 ms-xl-0 d-none d-md-flex">
                                 <em class="icon ni ni-search"></em>
                                 <input type="text" class="form-control border-transparent form-focus-none"
                                     placeholder="Rechercher">
-                            </div><!-- .nk-header-news -->
+                            </div>.nk-header-news -->
                             <div class="nk-header-tools">
                                 <ul class="nk-quick-nav">
                                     <li class="dropdown chats-dropdown hide-mb-xs">
@@ -387,23 +411,20 @@
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
                                                     <li><a href="html/user-profile-regular.html"><em
-                                                                class="icon ni ni-user-alt"></em><span>View
-                                                                Profile</span></a></li>
+                                                                class="icon ni ni-user-alt"></em><span>Voir Profil</span></a></li>
                                                     <li><a href="html/user-profile-setting.html"><em
-                                                                class="icon ni ni-setting-alt"></em><span>Account
-                                                                Setting</span></a></li>
+                                                                class="icon ni ni-setting-alt"></em><span>Paramètres du Compte</span></a></li>
                                                     <li><a href="html/user-profile-activity.html"><em
-                                                                class="icon ni ni-activity-alt"></em><span>Login
-                                                                Activity</span></a></li>
+                                                                class="icon ni ni-activity-alt"></em><span>Activité de connexion</span></a></li>
                                                     <li><a class="dark-switch" href="#"><em
-                                                                class="icon ni ni-moon"></em><span>Dark Mode</span></a>
+                                                                class="icon ni ni-moon"></em><span>Mode Sombre</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
                                                     <li><a href="" (click)="signOut()"><em
-                                                                class="icon ni ni-signout"></em><span>Signout</span></a>
+                                                                class="icon ni ni-signout"></em><span>Deconnexion</span></a>
                                                     </li>
                                                 </ul>
                                             </div>
