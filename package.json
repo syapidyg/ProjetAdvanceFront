@@ -24,6 +24,7 @@
     "@auth0/angular-jwt": "^3.0.1",
     "@ng-select/ng-select": "^6.1.0",
     "bootstrap": "^5.2.3",
+    "moment": "^2.29.4",
     "ng-select2-component": "^7.3.1",
     "ngx-pagination": "^5.1.1",
     "ngx-toastr": "^11.3.3",

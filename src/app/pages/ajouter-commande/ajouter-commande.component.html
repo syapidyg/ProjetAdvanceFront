@@ -1,0 +1,219 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">AJOUTER UNE COMMANDE</h4>
+                        <p>Le formulaire suivant permet <strong class="text-primary">d'ajouter un commande
+                            </strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a [routerLink]="['/commandes/liste']">Liste des
+                                            commandes</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Ajout d'un
+                                        commande
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <form [formGroup]="form" class="form-validate is-alter">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner-group">
+                                                <div class="card-inner">
+                                                    <div class="nk-block-head">
+                                                        <div class="nk-block-head-content">
+                                                            <h5 class="title nk-block-title">INFORMATIONS DE LA COMMANDE
+                                                            </h5>
+                                                            <p>Ajouter les informations personnelles de la commande
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row gy-4">
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="default-03">Patient
+                                                                </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-left">
+                                                                        <em class="icon ni ni-user"></em>
+                                                                    </div>
+                                                                    <input type="text"
+                                                                        formControlName="idClientFournisseur"
+                                                                        class="form-control" id="idClientFournisseur"
+                                                                        placeholder="Patient" required>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="default-03">Date de la
+                                                                    commande </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-left">
+                                                                        <em class="icon ni ni-calendar"></em>
+                                                                    </div>
+                                                                    <input type="date" 
+                                                                        class="form-control" id="date"
+                                                                        placeholder="date" >
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="statut">Type de
+                                                                    document </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-left">
+                                                                        <em class="icon ni ni-sign-xrp-old"></em>
+                                                                    </div>
+                                                                    <input type="text" formControlName="statut"
+                                                                        class="form-control" id="statut"
+                                                                        placeholder="Statut" required>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <!--col-->
+                                                        <form class="example-form" [formGroup]="form">
+                                                            <mat-form-field class="example-full-width">
+                                                                <mat-label>Number</mat-label>
+                                                                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+                                                                    [matAutocomplete]="auto">
+                                                                <mat-autocomplete #auto="matAutocomplete">
+                                                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                                                        {{option}}
+                                                                    </mat-option>
+                                                                </mat-autocomplete>
+                                                            </mat-form-field>
+                                                        </form>
+                                                    </div><!--row-->
+                                                </div><!-- .card-inner-group -->
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="card card-bordered">
+                                        <div class="card-inner">
+                                            <form [formGroup]="formLigne" class="form-validate is-alter">
+                                                <div class="row gy-3 d-flex ">
+                                                    <div class="col-xxl-3 col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="produit"> Produit</label>
+                                                            <input type="text" formControlName="idProduit"
+                                                                class="form-control" id="produit" placeholder="produit"
+                                                                [attr.disabled]="isDisabled? isDisabled: null">
+
+                                                        </div>
+                                                    </div><!--col-->
+                                                    <!--col-->
+                                                    <div class="col-xxl-3 col-md-4 ">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Quantité</label>
+                                                            <div class="form-control-wrap number-spinner-wrap">
+                                                                <button
+                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
+                                                                    data-number="minus"><em
+                                                                        class="icon ni ni-minus"></em></button>
+                                                                <input type="number" class="form-control number-spinner"
+                                                                    formControlName="qte">
+                                                                <button
+                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-plus"
+                                                                    data-number="plus"><em
+                                                                        class="icon ni ni-plus"></em></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-xxl-3 col-md-4 align-self-end d-flex justify-content-end">
+                                                        <div class="form-group">
+                                                            <button type="submit" (click)="save()"
+                                                                class="btn btn-dim btn-primary">Ajouter</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="invoice-bills mt-5">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="w-150px">Items N°</th>
+                                                                        <th class="w-45">Produit</th>
+                                                                        <th>P.U.</th>
+                                                                        <th>Qte</th>
+                                                                        <th>P.T.</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Num 1</td>
+                                                                        <td>Produit --- Famille </td>
+                                                                        <td>40.00 CFA</td>
+                                                                        <td>5</td>
+                                                                        <td>200.00 CFA</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>24108054</td>
+                                                                        <td>6 months premium support</td>
+                                                                        <td>25.00 CFA</td>
+                                                                        <td>1</td>
+                                                                        <td>25.00 CFA</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tfoot>
+
+                                                                    <tr>
+                                                                        <td colspan="2"></td>
+                                                                        <td colspan="2" class="ucap">Net a payer</td>
+                                                                        <td>478.50 CFA</td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <!--col-->
+                                                    <!--col-->
+
+                                                    <!--col-->
+                                                    <!--col-->
+                                                    <div class="col-12 mt-5 d-flex flex-row-reverse">
+                                                        <div class="form-group">
+                                                            <button type="submit" (click)="save()"
+                                                                class="btn btn-primary">Ajouter
+                                                                commande</button>
+                                                        </div>
+                                                    </div><!--col-->
+                                                </div><!--row-->
+                                            </form>
+                                        </div><!-- .card-inner-group -->
+                                    </div>
+                                    <!-- .card -->
+
+                                </div><!-- .nk-block -->
+                            </div>
+                        </div>
+                    </div>
+                </div>

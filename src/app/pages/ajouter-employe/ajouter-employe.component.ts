@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 import { READ_ONE_EMPLOYE } from 'src/app/shared/_elements/api_constant';
 import { EmployeEditerRequestModel } from 'src/app/shared/_models/requests/employe-editer-request.model';
 import { EmployeRequestModel } from 'src/app/shared/_models/requests/employe-request.model';
@@ -99,7 +100,7 @@ export class AjouterEmployeComponent implements OnInit {
       id: [data ? data.id : null],
       nom: [data ? data.nom : ' ', Validators.required],
       prenom: [data ? data.prenom : ' ', Validators.required],
-      birthday: [data ? data.birthday : ' ', Validators.required],
+      birthday: [data ? moment(data.birthday, 'yyyy/MM/DD') : ' ', Validators.required],
       email: [data ? data.email : ' ', Validators.required],
       number: [data ? data.number : ' ', Validators.required],
       username: [data ? data.username : null],
@@ -121,7 +122,7 @@ export class AjouterEmployeComponent implements OnInit {
     }
     let dtoRequest;
 
-    if (this.f.username == null) {
+    if (this.f.username == null || this.f.password == null) {
       dtoRequest = new EmployeEditerRequestModel(
         this.f.id.value,
         this.f.nom.value,
@@ -161,3 +162,5 @@ export class AjouterEmployeComponent implements OnInit {
    }
 
  }
+
+

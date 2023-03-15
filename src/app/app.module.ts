@@ -26,6 +26,10 @@ import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter
 import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fournisseur.component';
 import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
 import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe.component';
+import { AjouterCommandeComponent } from './pages/ajouter-commande/ajouter-commande.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -43,10 +47,15 @@ import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe
     ModalTestComponent,
     ListerFournisseurComponent,
     ListerEmployeComponent,
-    AjouterEmployeComponent
+    AjouterEmployeComponent,
+    AjouterCommandeComponent
+    
   ],
   imports: [
     BrowserModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,

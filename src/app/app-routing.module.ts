@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main/main.component';
+import { AjouterCommandeComponent } from './pages/ajouter-commande/ajouter-commande.component';
 import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe.component';
 import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter-fournisseur.component';
 import { AjouterPatientComponent } from './pages/ajouter-patient/ajouter-patient.component';
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'fournisseurs/ajouter/:id', component: AjouterFournisseurComponent },
       { path: 'employes/ajouter', component: AjouterEmployeComponent },
       { path: 'employes/liste', component: ListerEmployeComponent },
-      { path: 'employes/ajouter/:id', component: AjouterEmployeComponent }
+      { path: 'employes/ajouter/:id', component: AjouterEmployeComponent },
+      { path: 'ventes/commande/ajouter', component: AjouterCommandeComponent }
     ]
   },
 ];
