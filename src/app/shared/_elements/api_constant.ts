@@ -48,7 +48,7 @@ export const READ_ONE_EMPLOYE = EMPLOYE + `/readOne`;
 export const DELETE_EMPLOYE = EMPLOYE + `/delete`;
 
 // API du controlleur de Fournisseur
-export const COMMANDE = SERVEUR + `/COMMANDE`;
+export const COMMANDE = SERVEUR + `/commande`;
 export const ADD_COMMANDE = COMMANDE + `/create`;
 export const READ_COMMANDE = COMMANDE + `/read`;
 export const READ_ONE_COMMANDE = COMMANDE + `/readOne`;

@@ -27,9 +27,9 @@ import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fo
 import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
 import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe.component';
 import { AjouterCommandeComponent } from './pages/ajouter-commande/ajouter-commande.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -49,13 +49,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ListerEmployeComponent,
     AjouterEmployeComponent,
     AjouterCommandeComponent
-    
   ],
   imports: [
     BrowserModule,
-    MatFormFieldModule,
-    MatAutocompleteModule,
-    MatSlideToggleModule,
+    AutocompleteLibModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -65,7 +62,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NgSelectModule,
     MatDialogModule,
     Select2Module,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule,
+    NgbTypeaheadModule
+    
   ],
   providers: [
     UserGuardService,

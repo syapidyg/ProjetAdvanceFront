@@ -96,11 +96,12 @@ export class AjouterEmployeComponent implements OnInit {
   }
   // tslint:disable-next-line: typedef
   private initFormEdit(data: any) {
+    const date = new Date(data ? data.birthday : null);
     this.form = this.fb.group({
       id: [data ? data.id : null],
       nom: [data ? data.nom : ' ', Validators.required],
       prenom: [data ? data.prenom : ' ', Validators.required],
-      birthday: [data ? moment(data.birthday, 'yyyy/MM/DD') : ' ', Validators.required],
+      birthday: [data ? moment(date, 'YYYY-MM-DD') : ' ', Validators.required],
       email: [data ? data.email : ' ', Validators.required],
       number: [data ? data.number : ' ', Validators.required],
       username: [data ? data.username : null],

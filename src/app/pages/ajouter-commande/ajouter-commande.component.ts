@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild, Injectable, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { READ_PATIENT, READ_PRODUIT } from 'src/app/shared/_elements/api_constant';
+import { READ_ONE_PRODUIT, READ_PATIENT, READ_PRODUIT } from 'src/app/shared/_elements/api_constant';
 import { CommandeRequestModel } from 'src/app/shared/_models/requests/commande-request.model';
 import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande-response.model';
 import { PatientResponseModel } from 'src/app/shared/_models/responses/patient-response.model';
@@ -12,8 +12,12 @@ import { TokenStorageService } from 'src/app/shared/_services/token-storage.serv
 import { ProduitService } from 'src/app/shared/_services/produit-service';
 import { Select2Option } from 'ng-select2-component';
 import { ProduitResponseModel } from 'src/app/shared/_models/responses/produit-response.model';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable, of, OperatorFunction, Subject, merge } from 'rxjs';
+import { LigneCommandeRequestModel } from 'src/app/shared/_models/requests/ligne-commande-request.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { JsonPipe, NgIf } from '@angular/common';
+import { NgbTypeahead, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ajouter-commande',
@@ -22,23 +26,11 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class AjouterCommandeComponent implements OnInit {
 
-  constructor(
-    private produitService: ProduitService,
-    private patientService: PatientService,
-    private commandeService: CommandeService,
-    private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private notif: NotificationService,
-    private tokenStorage: TokenStorageService
-
-  ) { }
-
   public data: CommandeResponseModel[] = [];
   public dataPatient: PatientResponseModel[] = [];
   public dataLigneCommande: any[] = [];
   public dataProduit: ProduitResponseModel[] = [];
-
+  somme = 0;
   currentUser!: any;
   form!: FormGroup;
   formLigne!: FormGroup;
@@ -50,24 +42,26 @@ export class AjouterCommandeComponent implements OnInit {
   pageSize = 5; // Nombre d'éléments par page
   id!: any;
   public isDisabled = false;
-  optionFamille!: Select2Option[];
-  optionCategorie!: Select2Option[];
+  ligneCommande: any[] = [];
+  ligneCommandeSave: LigneCommandeRequestModel[] = [];
+  model: any;
 
-  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions!: Observable<string[]> ;
-
+  constructor(
+    private produitService: ProduitService,
+    private patientService: PatientService,
+    private commandeService: CommandeService,
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private notif: NotificationService,
+    private tokenStorage: TokenStorageService
+  ) { }
 
   ngOnInit(): void {
     this.initForm(null);
     this.initFormLigne(null);
     this.getPatient();
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-
+    this.getProduit();
   }
 
   // tslint:disable-next-line: typedef
@@ -75,36 +69,6 @@ export class AjouterCommandeComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   get fLigne() { return this.formLigne.controls; }
-
-
-  // editCommande(id: number) {
-  //   this.commandeService.get(`${READ_ONE_PRODUIT}/${id}`)
-  //     .then((response: any) => {
-  //       console.log(response, response);
-  //       this.initForm(response.data, response.data.famille);
-  //     });
-  // }
-
-  // public selectFamille(): any{
-  //   this.getfamille().then((data) => {
-  //     this.optionFamille = data.map((famille) => {
-  //       return { value: famille.id.toString(), label: famille.name };
-  //     });
-  //     console.log('optionFamille', this.optionFamille);
-  //   });
-  // }
-
-  // public selectCategorie(): any {
-  //   this.optionCategorie = this.categorieList.map((categorie) => {
-  //     return { value: categorie.name, label: categorie.name };
-  //   });
-  // }
-
-  // public selectForme(): any {
-  //   this.optionForme = this.formeList.map((forme) => {
-  //     return { value: forme.name, label: forme.name };
-  //   });
-  // }
 
   // tslint:disable-next-line: typedef
   public getPatient() {
@@ -114,12 +78,6 @@ export class AjouterCommandeComponent implements OnInit {
     });
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-
   // tslint:disable-next-line: typedef
   public getProduit() {
     return this.produitService.get(READ_PRODUIT).then((response: any) => {
@@ -128,29 +86,56 @@ export class AjouterCommandeComponent implements OnInit {
     });
   }
 
-
-
-
-
   // tslint:disable-next-line: typedef
   private initForm(data: any) {
     this.form = this.fb.group({
       id: [data ? data.id : null],
       pt: [data ? data.pt : ' '],
-      type: [data ? data.dci : ' '],
+      type: [data ? data.type : 'client'],
       statut: [data ? data.statut : ' ', Validators.required],
       idClientFournisseur: [data ? data.idClientFournisseur : ' ', Validators.required],
-      LigneCommandes: [data ? data.LigneCommandes : ' ', Validators.required],
+      LigneCommandes: [data ? data.LigneCommandes : this.ligneCommandeSave],
     });
   }
 
   private initFormLigne(dataLigneCommande: any) {
     this.formLigne = this.fb.group({
       idProduit: [dataLigneCommande ? dataLigneCommande.idProduit : null],
-      qte: [dataLigneCommande ? dataLigneCommande.dataLigneCommande : null]
+      qte: [dataLigneCommande ? dataLigneCommande.qte : null]
     });
   }
 
+  // tslint:disable-next-line: typedef
+  ajouterObjet() {
+    this.produitService.get(READ_ONE_PRODUIT + '/' + this.fLigne.idProduit.value).then((response: any) => {
+      console.log('response', response);
+      this.isDisabled = true;
+      const nouvelLigne = {
+        id: 0,
+        pt: response.data.pv * this.fLigne.qte.value,
+        pv: response.data.pv,
+        dci: response.data.dci,
+        famille: response.data.famille.name,
+        qte: this.fLigne.qte.value,
+        idCommande: 0,
+        idProduit: this.fLigne.idProduit.value
+      };
+      const ligneToSave = {
+        id: 0,
+        pt: response.data.pv * this.fLigne.qte.value,
+        qte: this.fLigne.qte.value,
+        idCommande: 0,
+        idProduit: this.fLigne.idProduit.value
+      };
+      this.ligneCommande.push(nouvelLigne);
+
+      this.ligneCommandeSave.push(ligneToSave);
+      this.ligneCommandeSave.forEach(item => {
+        this.somme += item.pt;
+      });
+      console.log(this.ligneCommande);
+    });
+  }
 
   // tslint:disable-next-line: typedef
   save() {
@@ -164,8 +149,8 @@ export class AjouterCommandeComponent implements OnInit {
     let dtoRequest;
     dtoRequest = new CommandeRequestModel(
       this.f.id.value,
-      this.f.pt.value,
-      this.f.type.value,
+      this.somme,
+      'client',
       this.f.statut.value,
       this.f.idClientFournisseur.value,
       this.f.LigneCommandes.value,
@@ -181,10 +166,10 @@ export class AjouterCommandeComponent implements OnInit {
         console.log(err);
         this.notif.danger('Echec lors de l\'enregistrement ');
         this.isLoading = !this.isLoading;
-        this.router.navigate(['/commandes/ajouter']);
+        this.router.navigate(['/ventes/commande/ajouter']);
       });
 
-    this.router.navigate(['/commandes/liste']);
+    this.router.navigate(['ventes/commande/ajouter']);
 
 
   }

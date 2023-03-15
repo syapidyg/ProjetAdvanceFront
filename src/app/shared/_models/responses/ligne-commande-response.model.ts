@@ -1,10 +1,10 @@
 import { ProduitResponseModel } from "./produit-response.model";
 
-export class LigneCommandeRequestModel {
+export class LigneCommandeResponsetModel {
     constructor(
         public id: number,
+        public pt: number,
         public qte: number,
-        public idCommande: number,
         public produit: ProduitResponseModel
     ) {
 

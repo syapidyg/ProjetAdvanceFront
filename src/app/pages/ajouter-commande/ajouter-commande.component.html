@@ -59,29 +59,30 @@
                                                                     <div class="form-icon form-icon-left">
                                                                         <em class="icon ni ni-user"></em>
                                                                     </div>
-                                                                    <input type="text"
-                                                                        formControlName="idClientFournisseur"
-                                                                        class="form-control" id="idClientFournisseur"
-                                                                        placeholder="Patient" required>
+                                                                    <!-- <div >
+                                                                        <ng-autocomplete  [data]="dataPatient"
+                                                                            [searchKeyword]="keyword"
+                                                                            [itemTemplate]="itemTemplate"
+                                                                            [notFoundTemplate]="notFoundTemplate">
+                                                                        </ng-autocomplete>
+
+                                                                        <ng-template #itemTemplate let-item>
+                                                                            <a [innerHTML]="item.name"></a>
+                                                                        </ng-template>
+
+                                                                        <ng-template #notFoundTemplate let-notFound>
+                                                                            <div [innerHTML]="notFound"></div>
+                                                                        </ng-template>
+                                                                    </div> -->
+                                                                    <select class="form-control form-select" formControlName="idClientFournisseur">
+                                                                        <option *ngFor="let data of dataPatient" value="{{data?.id}}">{{data?.name}} - {{data?.number}}</option>
+                                                                    </select>
+                                                                    
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div><!--col-->
-                                                        <div class="col-xxl-3 col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="default-03">Date de la
-                                                                    commande </label>
-                                                                <div class="form-control-wrap">
-                                                                    <div class="form-icon form-icon-left">
-                                                                        <em class="icon ni ni-calendar"></em>
-                                                                    </div>
-                                                                    <input type="date" 
-                                                                        class="form-control" id="date"
-                                                                        placeholder="date" >
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div><!--col-->
+                                                       
                                                         <div class="col-xxl-3 col-md-4">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="statut">Type de
@@ -94,22 +95,10 @@
                                                                         class="form-control" id="statut"
                                                                         placeholder="Statut" required>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div><!--col-->
                                                         <!--col-->
-                                                        <form class="example-form" [formGroup]="form">
-                                                            <mat-form-field class="example-full-width">
-                                                                <mat-label>Number</mat-label>
-                                                                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
-                                                                    [matAutocomplete]="auto">
-                                                                <mat-autocomplete #auto="matAutocomplete">
-                                                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                                                        {{option}}
-                                                                    </mat-option>
-                                                                </mat-autocomplete>
-                                                            </mat-form-field>
-                                                        </form>
                                                     </div><!--row-->
                                                 </div><!-- .card-inner-group -->
 
@@ -123,10 +112,11 @@
                                                     <div class="col-xxl-3 col-md-4">
                                                         <div class="form-group">
                                                             <label class="form-label" for="produit"> Produit</label>
-                                                            <input type="text" formControlName="idProduit"
-                                                                class="form-control" id="produit" placeholder="produit"
-                                                                [attr.disabled]="isDisabled? isDisabled: null">
-
+                                                            <select class="form-control form-select"
+                                                                formControlName="idProduit">
+                                                                <option *ngFor="let data of dataProduit"
+                                                                    value="{{data?.id}}">{{data?.dci}}</option>
+                                                            </select>
                                                         </div>
                                                     </div><!--col-->
                                                     <!--col-->
@@ -151,7 +141,7 @@
                                                     <div
                                                         class="col-xxl-3 col-md-4 align-self-end d-flex justify-content-end">
                                                         <div class="form-group">
-                                                            <button type="submit" (click)="save()"
+                                                            <button type="submit" (click)="ajouterObjet()"
                                                                 class="btn btn-dim btn-primary">Ajouter</button>
                                                         </div>
                                                     </div>
@@ -168,29 +158,25 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
+                                                                    <tr *ngFor="let item of ligneCommande">
                                                                         <td>Num 1</td>
-                                                                        <td>Produit --- Famille </td>
-                                                                        <td>40.00 CFA</td>
-                                                                        <td>5</td>
-                                                                        <td>200.00 CFA</td>
+                                                                        <td>{{item.dci}}-{{item.famille}}</td>
+                                                                        <td>{{item.pv}} CFA</td>
+                                                                        <td>{{item.qte}} </td>
+                                                                        <td>{{item.pt}} CFA</td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>24108054</td>
-                                                                        <td>6 months premium support</td>
-                                                                        <td>25.00 CFA</td>
-                                                                        <td>1</td>
-                                                                        <td>25.00 CFA</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                <tfoot>
 
-                                                                    <tr>
-                                                                        <td colspan="2"></td>
-                                                                        <td colspan="2" class="ucap">Net a payer</td>
-                                                                        <td>478.50 CFA</td>
-                                                                    </tr>
-                                                                </tfoot>
+                                                                </tbody>
+                                                                
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <td colspan="2"></td>
+                                                                            <td colspan="2" class="ucap">Net a payer
+                                                                            </td>
+                                                                            <td>{{somme}}</td>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                
                                                             </table>
                                                         </div>
                                                     </div>
