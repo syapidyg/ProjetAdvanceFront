@@ -1,1 +1,246 @@
-<p>famille works!</p>
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">LISTE DES FAMILLES</h4>
+                        <p>Le tableau suivant liste <strong class="text-primary">les familles et ses differentes
+                                operations</strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Familles
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse flex-item justify-content-between">
+                    <li class="nk-block-tools-opt">
+                        <a (click)="editFamille(null)" data-bs-toggle="modal" data-bs-target="#modalForm"
+                            class="btn btn-primary d-none d-md-inline-flex"><em
+                                class="icon ni ni-plus"></em><span>Ajouter une famille</span></a>
+                    </li>
+                </div>
+            </div>
+
+            <div class="card card-bordered card-preview">
+                <div class="card-inner">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row justify-between g-2">
+                            <div class="col-7 col-sm-4 text-start">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <label>
+                                        <input type="search" class="form-control form-control-sm"
+                                            placeholder="Rechercher" aria-controls="DataTables_Table_0">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-8 text-end">
+                                <div class="datatable-filter">
+                                    <div class="d-flex justify-content-end g-2">
+                                        <div class="dataTables_length" id="DataTables_Table_0_length">
+                                            <label>
+                                                <span class="d-none d-sm-inline-block">Voir</span>
+                                                <div class="form-control-select">
+                                                    <select name="DataTables_Table_0_length"
+                                                        aria-controls="DataTables_Table_0"
+                                                        class="custom-select custom-select-sm form-control form-control-sm"
+                                                        [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+                                                        <option value="5">5</option>
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                    </select>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="datatable-wrap my-3">
+                            <table class="table dataTable no-footer dtr-inline" id="DataTables_Table_0">
+                                <thead>
+                                    <tr>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">
+                                            #</th>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Nom</th>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Description</th>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Rayon</th>
+                                        <th aria-controls="DataTables_Table_0" rowspan="1" colspan="1">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let famille of data | paginate: { itemsPerPage: pageSize, currentPage: p } ; let i=index ">
+                                        <td class="odd">
+                                            <a><span>{{i+1}}</span></a>
+                                        </td>
+                                        <td class="even">
+                                            <span class="title">{{famille?.name}}</span>
+                                        </td>
+                                        <td class="odd">
+                                            <span class="title">{{famille?.description}}</span>
+                                        </td>
+                                        <td class="even">
+                                            <span class="title">{{famille?.rayon}}</span>
+                                        </td>
+                                        <td class="tb-tnx-action nk-tb-col tb-col">
+                                            <div class="">
+                                                <ul class="nk-tb-actions">
+                                                    <li class="me-n1">
+                                                        <div class="dropdown">
+                                                            <a class="dropdown-toggle btn btn-icon btn-trigger"
+                                                                data-bs-toggle="dropdown"><em
+                                                                    class="icon ni ni-more-h"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    <li data-bs-toggle="modal"
+                                                                        data-bs-target="#modalForm"><a
+                                                                            (click)="readOneFamille(famille)"><em
+                                                                                class="icon ni ni-eye"></em><span>Voir
+                                                                                Details</span></a></li>
+                                                                    <li data-bs-toggle="modal"
+                                                                        data-bs-target="#modalForm"><a
+                                                                            (click)="editFamille(famille)"><em
+                                                                                class="icon ni ni-edit"></em><span>Editer
+                                                                            </span></a></li>
+                                                                    <li><a (click)="deleteFamille(famille)"><em
+                                                                                class="icon ni ni-trash"></em><span>Supprimer
+                                                                            </span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                        <div class="pagination-container pagination">
+                            <li> <pagination-controls [directionLinks]="true" [autoHide]="true"
+                                    (pageChange)="p = $event" class="bg-primary"></pagination-controls></li>
+                        </div>
+                        <!-- pagination -->
+                        <!-- <div class="row align-items-center">
+                            <div class="col-7 col-sm-12 col-md-9">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
+                                                href="#" aria-controls="DataTables_Table_0" data-dt-idx="previous" tabindex="0"
+                                                class="page-link">Prev</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="2" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="3" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a href="#"
+                                                aria-controls="DataTables_Table_0" data-dt-idx="ellipsis" tabindex="0"
+                                                class="page-link">…</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="11" tabindex="0" class="page-link">12</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
+                                                aria-controls="DataTables_Table_0" data-dt-idx="next" tabindex="0"
+                                                class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-12 col-md-3 text-start text-md-end">
+                                <div class="dataTables_info" >1 -10 of 100</div>
+                            </div>
+                        </div> -->
+                        <!-- pagination -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- Famille Modal -->
+<div class="modal fade modal-lg" id="modalForm">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Famille</h5>
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" class="form-validate is-alter">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Nom de la famille</label>
+                        <div class="form-control-wrap">
+                            <input type="text" class="form-control" formControlName="name" id="name" required
+                                [attr.disabled]="isDisabled? isDisabled: null">
+                            <!-- <input type="text" class="form-control" formControlName="name" id="name" *ngIf="famille?.id" value={{famille?.name}} required> -->
+                            <span *ngIf="(submitted || form.controls.name.touched) && form.controls.name.errors "
+                                style="color: rgb(255, 75, 75);">
+                                Le nom de la famille est requis
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Description de la famille</label>
+                        <div class="form-control-wrap">
+                            <input type="text" class="form-control" formControlName="description" id="description"
+                                [attr.disabled]="isDisabled? isDisabled: null">
+                            <span
+                                *ngIf="(submitted || form.controls.description.touched) && form.controls.description.errors "
+                                style="color: rgb(255, 75, 75);">
+                                La description est requise
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="rayon">Rayon de la famille</label>
+                        <div class="form-control-wrap">
+                            <input type="text" class="form-control" formControlName="rayon" id="rayon"
+                                [attr.disabled]="isDisabled? isDisabled: null">
+                            <span
+                                *ngIf="(submitted || form.controls.rayon.touched) && form.controls.rayon.errors "
+                                style="color: rgb(255, 75, 75);">
+                                La rayon est requis
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-primary" (click)="save()"
+                            [attr.disabled]="isDisabled? isDisabled: null">
+                            Sauvegarder
+                            <div *ngIf="isLoading" class="d-flex justify-content-center">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light">
+                <span class="sub-text">FAMILLE</span>
+            </div>
+        </div>
+    </div>
+</div><!-- Famille Modal -->

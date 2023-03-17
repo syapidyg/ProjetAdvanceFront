@@ -8,6 +8,7 @@ import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter
 import { AjouterPatientComponent } from './pages/ajouter-patient/ajouter-patient.component';
 import { AjouterProduitComponent } from './pages/ajouter-produit/ajouter-produit.component';
 import { CaisseComponent } from './pages/caisse/caisse.component';
+import { FamilleComponent } from './pages/famille/famille.component';
 import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
 import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fournisseur.component';
 import { ListerProduitComponent } from './pages/lister-produit/lister-produit.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'caisses', component: CaisseComponent },
+      { path: 'familles', component: FamilleComponent },
       { path: 'produits/ajouter', component: AjouterProduitComponent },
       { path: 'produits/ajouter/:id', component: AjouterProduitComponent },
       { path: 'produits/liste', component: ListerProduitComponent },

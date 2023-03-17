@@ -74,15 +74,18 @@
                                                                             <div [innerHTML]="notFound"></div>
                                                                         </ng-template>
                                                                     </div> -->
-                                                                    <select class="form-control form-select" formControlName="idClientFournisseur">
-                                                                        <option *ngFor="let data of dataPatient" value="{{data?.id}}">{{data?.name}} - {{data?.number}}</option>
+                                                                    <select class="form-control form-select"
+                                                                        formControlName="idClientFournisseur">
+                                                                        <option *ngFor="let data of dataPatient"
+                                                                            value="{{data?.id}}" class="fw-medium p-2">
+                                                                            {{data?.name}} - {{data?.number}}</option>
                                                                     </select>
-                                                                    
+
                                                                 </div>
 
                                                             </div>
                                                         </div><!--col-->
-                                                       
+
                                                         <div class="col-xxl-3 col-md-4">
                                                             <div class="form-group">
                                                                 <label class="form-label" for="statut">Type de
@@ -91,9 +94,13 @@
                                                                     <div class="form-icon form-icon-left">
                                                                         <em class="icon ni ni-sign-xrp-old"></em>
                                                                     </div>
-                                                                    <input type="text" formControlName="statut"
-                                                                        class="form-control" id="statut"
-                                                                        placeholder="Statut" required>
+                                                                    <select class="form-control form-select"
+                                                                        formControlName="statut">
+                                                                        <option *ngFor="let data of dataStatut"
+                                                                            value="{{data?.name}}"
+                                                                            class="fw-medium p-2">
+                                                                            {{data?.name}}</option>
+                                                                    </select>
                                                                 </div>
 
                                                             </div>
@@ -115,7 +122,8 @@
                                                             <select class="form-control form-select"
                                                                 formControlName="idProduit">
                                                                 <option *ngFor="let data of dataProduit"
-                                                                    value="{{data?.id}}">{{data?.dci}}</option>
+                                                                    value="{{data?.id}}" class="fw-medium p-2">
+                                                                    {{data?.dci}}</option>
                                                             </select>
                                                         </div>
                                                     </div><!--col-->
@@ -155,28 +163,37 @@
                                                                         <th>P.U.</th>
                                                                         <th>Qte</th>
                                                                         <th>P.T.</th>
+                                                                        <th>Action</th>
+
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr *ngFor="let item of ligneCommande">
-                                                                        <td>Num 1</td>
-                                                                        <td>{{item.dci}}-{{item.famille}}</td>
+                                                                    <tr
+                                                                        *ngFor="let item of ligneCommande; let i=index ">
+                                                                        <td> {{i+1}} </td>
+                                                                        <td>#{{item.code}}-{{item.dci}}</td>
                                                                         <td>{{item.pv}} CFA</td>
                                                                         <td>{{item.qte}} </td>
                                                                         <td>{{item.pt}} CFA</td>
+                                                                        <td >
+                                                                            <a class="btn btn-icon btn-trigger" (click)="deleteLigne(i)"><em
+                                                                                    class="icon ni ni-trash"></em></a>
+                                                                        </td>
+
+
                                                                     </tr>
 
                                                                 </tbody>
-                                                                
-                                                                    <tfoot>
-                                                                        <tr>
-                                                                            <td colspan="2"></td>
-                                                                            <td colspan="2" class="ucap">Net a payer
-                                                                            </td>
-                                                                            <td>{{somme}}</td>
-                                                                        </tr>
-                                                                    </tfoot>
-                                                                
+
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td colspan="2"></td>
+                                                                        <td colspan="2" class="ucap">Net a payer
+                                                                        </td>
+                                                                        <td>{{somme}}</td>
+                                                                    </tr>
+                                                                </tfoot>
+
                                                             </table>
                                                         </div>
                                                     </div>

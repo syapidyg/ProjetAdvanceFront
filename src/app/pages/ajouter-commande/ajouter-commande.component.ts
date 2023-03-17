@@ -30,6 +30,10 @@ export class AjouterCommandeComponent implements OnInit {
   public dataPatient: PatientResponseModel[] = [];
   public dataLigneCommande: any[] = [];
   public dataProduit: ProduitResponseModel[] = [];
+  public dataStatut: any[] = [
+    { name: 'Bon de commande' },
+    { name: 'Facture' },
+  ];
   somme = 0;
   currentUser!: any;
   form!: FormGroup;
@@ -62,6 +66,7 @@ export class AjouterCommandeComponent implements OnInit {
     this.initFormLigne(null);
     this.getPatient();
     this.getProduit();
+
   }
 
   // tslint:disable-next-line: typedef
@@ -75,6 +80,7 @@ export class AjouterCommandeComponent implements OnInit {
     return this.patientService.get(READ_PATIENT).then((response: any) => {
       this.dataPatient = response.data;
       console.log(response);
+      this.dataStatut.reverse();
     });
   }
 
@@ -101,7 +107,9 @@ export class AjouterCommandeComponent implements OnInit {
   private initFormLigne(dataLigneCommande: any) {
     this.formLigne = this.fb.group({
       idProduit: [dataLigneCommande ? dataLigneCommande.idProduit : null],
-      qte: [dataLigneCommande ? dataLigneCommande.qte : null]
+      qte: [dataLigneCommande ? dataLigneCommande.qte : null],
+      idLigne: [dataLigneCommande ? dataLigneCommande.idLigne : ' ']
+
     });
   }
 
@@ -118,7 +126,8 @@ export class AjouterCommandeComponent implements OnInit {
         famille: response.data.famille.name,
         qte: this.fLigne.qte.value,
         idCommande: 0,
-        idProduit: this.fLigne.idProduit.value
+        idProduit: this.fLigne.idProduit.value,
+        idLigne: this.fLigne.idLigne.value
       };
       const ligneToSave = {
         id: 0,
@@ -127,13 +136,25 @@ export class AjouterCommandeComponent implements OnInit {
         idCommande: 0,
         idProduit: this.fLigne.idProduit.value
       };
+      
       this.ligneCommande.push(nouvelLigne);
 
       this.ligneCommandeSave.push(ligneToSave);
+      this.somme = 0;
       this.ligneCommandeSave.forEach(item => {
         this.somme += item.pt;
       });
       console.log(this.ligneCommande);
+    });
+  }
+
+  deleteLigne(i: number) {
+    console.log(i);
+    this.ligneCommande.splice(i, 1);
+    this.ligneCommandeSave.splice(i, 1);
+    this.somme = 0;
+    this.ligneCommandeSave.forEach(item => {
+      this.somme += item.pt;
     });
   }
 

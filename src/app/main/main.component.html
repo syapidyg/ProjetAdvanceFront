@@ -76,13 +76,7 @@
                                 </a>
                                 <!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
-                            <li class="nk-menu-item no-sub">
-                                <a [routerLink]="['/caisses']"  class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-wallet-fill"></em></span>
-                                    <span class="nk-menu-text">Caisses</span>
-                                </a>
-                                <!-- .nk-menu-sub -->
-                            </li><!-- .nk-menu-item -->
+                           <!-- .nk-menu-item -->
                             <!-- <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-coin-alt-fill"></em></span>
@@ -163,12 +157,32 @@
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
-                                        <a href="html/pharmacy/sales-report.html" class="nk-menu-link"><span
+                                        <a  class="nk-menu-link"><span
                                                 class="nk-menu-text">Sales Report</span></a>
                                     </li>
                                     <li class="nk-menu-item">
                                         <a href="html/pharmacy/purchase-report.html" class="nk-menu-link"><span
                                                 class="nk-menu-text">Purchase Report</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="html/pharmacy/stock-report.html" class="nk-menu-link"><span
+                                                class="nk-menu-text">Stock Report</span></a>
+                                    </li>
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-opt-dot"></em></span>
+                                    <span class="nk-menu-text">Parametrages</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item">
+                                        <a [routerLink]="['/caisses']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Caisse</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a [routerLink]="['/familles']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Famille</span></a>
                                     </li>
                                     <li class="nk-menu-item">
                                         <a href="html/pharmacy/stock-report.html" class="nk-menu-link"><span
