@@ -30,6 +30,8 @@ import { AjouterCommandeComponent } from './pages/ajouter-commande/ajouter-comma
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { DepotComponent } from './pages/depot/depot.component';
+import { ListerCommandeClientComponent } from './pages/lister-commande-client/lister-commande-client.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     ListerFournisseurComponent,
     ListerEmployeComponent,
     AjouterEmployeComponent,
-    AjouterCommandeComponent
+    AjouterCommandeComponent,
+    DepotComponent,
+    ListerCommandeClientComponent
   ],
   imports: [
     BrowserModule,

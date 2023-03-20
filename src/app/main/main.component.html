@@ -14,7 +14,7 @@
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-bar-fill-c"></em></span>
                                     <span class="nk-menu-text">Ventes</span>
                                 </a>
                                 <ul class="nk-menu-sub">
@@ -23,13 +23,30 @@
                                                 class="nk-menu-text">Ajouter Commande</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="html/pharmacy/customer.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Customer List</span></a>
+                                        <a [routerLink]="['/ventes/commande/liste']"  class="nk-menu-link"><span
+                                                class="nk-menu-text">Liste des commandes client</span></a>
+                                    </li>
+                                   
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
+                                    <span class="nk-menu-text">Achats</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item">
+                                        <a [routerLink]="['/achats/commande/ajouter']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Ajouter Commande</span></a>
                                     </li>
                                     <li class="nk-menu-item">
+                                        <a [routerLink]="['/achatscommande/liste']"  class="nk-menu-link"><span
+                                                class="nk-menu-text">Liste des commandes Fournisseur</span></a>
+                                    </li>
+                                    <!-- <li class="nk-menu-item">
                                         <a href="html/pharmacy/customer-ledger.html" class="nk-menu-link"><span
                                                 class="nk-menu-text">Customer Ledger</span></a>
-                                    </li>
+                                    </li> -->
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
@@ -185,8 +202,8 @@
                                                 class="nk-menu-text">Famille</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="html/pharmacy/stock-report.html" class="nk-menu-link"><span
-                                                class="nk-menu-text">Stock Report</span></a>
+                                        <a [routerLink]="['/depots']" class="nk-menu-link"><span
+                                                class="nk-menu-text">Depot</span></a>
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->

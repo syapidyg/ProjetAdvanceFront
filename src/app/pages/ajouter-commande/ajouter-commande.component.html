@@ -16,7 +16,7 @@
                                 <ul class="breadcrumb breadcrumb-arrow">
                                     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a [routerLink]="['/commandes/liste']">Liste des
+                                    <li class="breadcrumb-item"><a [routerLink]="['/ventes/commande/liste']">Liste des
                                             commandes</a>
                                     </li>
                                     <li class="breadcrumb-item active">Ajout d'un
@@ -88,18 +88,38 @@
 
                                                         <div class="col-xxl-3 col-md-4">
                                                             <div class="form-group">
-                                                                <label class="form-label" for="statut">Type de
+                                                                <label class="form-label" for="document">Type de
                                                                     document </label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-left">
                                                                         <em class="icon ni ni-sign-xrp-old"></em>
                                                                     </div>
                                                                     <select class="form-control form-select"
-                                                                        formControlName="statut">
+                                                                        formControlName="document">
                                                                         <option *ngFor="let data of dataStatut"
                                                                             value="{{data?.name}}"
                                                                             class="fw-medium p-2">
                                                                             {{data?.name}}</option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="idDepot">Depôt
+                                                                </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-left">
+                                                                        <em class="icon ni ni-inbox-fill"></em>
+                                                                    </div>
+                                                                    <select class="form-control form-select"
+                                                                        formControlName="idDepot">
+                                                                        <option *ngFor="let data of dataDepot"
+                                                                            value="{{data?.id}}" class="fw-medium p-2">
+                                                                            {{data?.name}}-{{data?.description}}
+                                                                        </option>
                                                                     </select>
                                                                 </div>
 
@@ -132,16 +152,10 @@
                                                         <div class="form-group">
                                                             <label class="form-label">Quantité</label>
                                                             <div class="form-control-wrap number-spinner-wrap">
-                                                                <button
-                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
-                                                                    data-number="minus"><em
-                                                                        class="icon ni ni-minus"></em></button>
+                                                                
                                                                 <input type="number" class="form-control number-spinner"
                                                                     formControlName="qte">
-                                                                <button
-                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-plus"
-                                                                    data-number="plus"><em
-                                                                        class="icon ni ni-plus"></em></button>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -175,8 +189,9 @@
                                                                         <td>{{item.pv}} CFA</td>
                                                                         <td>{{item.qte}} </td>
                                                                         <td>{{item.pt}} CFA</td>
-                                                                        <td >
-                                                                            <a class="btn btn-icon btn-trigger" (click)="deleteLigne(i)"><em
+                                                                        <td>
+                                                                            <a class="btn btn-icon btn-trigger"
+                                                                                (click)="deleteLigne(i)"><em
                                                                                     class="icon ni ni-trash"></em></a>
                                                                         </td>
 

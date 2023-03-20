@@ -40,16 +40,28 @@ export const READ_FOURNISSEUR = FOURNISSEUR + `/read`;
 export const READ_ONE_FOURNISSEUR = FOURNISSEUR + `/readOne`;
 export const DELETE_FOURNISSEUR = FOURNISSEUR + `/delete`;
 
-// API du controlleur de Fournisseur
+// API du controlleur de l'employé
 export const EMPLOYE = SERVEUR + `/employe`;
 export const ADD_EMPLOYE = EMPLOYE + `/create`;
 export const READ_EMPLOYE = EMPLOYE + `/read`;
 export const READ_ONE_EMPLOYE = EMPLOYE + `/readOne`;
 export const DELETE_EMPLOYE = EMPLOYE + `/delete`;
 
-// API du controlleur de Fournisseur
+// API du controlleur de la commande
 export const COMMANDE = SERVEUR + `/commande`;
 export const ADD_COMMANDE = COMMANDE + `/create`;
 export const READ_COMMANDE = COMMANDE + `/read`;
+export const READ_COMMANDE_CLIENT = COMMANDE + `/readClient`;
+export const READ_COMMANDE_FOURNISSEUR = COMMANDE + `/readFournisseur`;
 export const READ_ONE_COMMANDE = COMMANDE + `/readOne`;
 export const DELETE_COMMANDE = COMMANDE + `/delete`;
+export const LIGNE_COMMANDE = SERVEUR + `/ligneDeCommande`;
+export const READ_LIGNE_COMMANDE_CLIENT = LIGNE_COMMANDE + `/readClient`;
+
+
+// API du controlleur de Fournisseur
+export const DEPOT = SERVEUR + `/depot`;
+export const ADD_DEPOT = DEPOT + `/create`;
+export const READ_DEPOT = DEPOT + `/read`;
+export const READ_ONE_DEPOT = DEPOT + `/readOne`;
+export const DELETE_DEPOT = DEPOT + `/delete`;
