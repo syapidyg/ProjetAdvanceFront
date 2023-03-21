@@ -37,6 +37,7 @@ const routes: Routes = [
       { path: 'employes/liste', component: ListerEmployeComponent },
       { path: 'employes/ajouter/:id', component: AjouterEmployeComponent },
       { path: 'ventes/commande/ajouter', component: AjouterCommandeComponent },
+      { path: 'ventes/commande/ajouter/:id', component: AjouterCommandeComponent },
       { path: 'ventes/commande/liste', component: ListerCommandeClientComponent },
 
     ]

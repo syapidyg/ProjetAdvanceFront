@@ -34,8 +34,8 @@ export class AjouterCommandeComponent implements OnInit {
   public dataProduit: ProduitResponseModel[] = [];
   public dataDepot: DepotResponseModel[] = [];
   public dataStatut: any[] = [
-    { name: 'Bon de commande' },
     { name: 'Facture' },
+    { name: 'Bon de commande' }
   ];
   somme = 0;
   currentUser!: any;
@@ -74,6 +74,15 @@ export class AjouterCommandeComponent implements OnInit {
 
   }
 
+  // editCommande(id: number) {
+  //   this.commandeService.get(`${READ_ONE_COMMANDE}/${id}`)
+  //     .then((response: any) => {
+  //       console.log(response, response);
+  //       this.initForm(response.data, response.data.famille);
+  //     });
+  // }
+
+
   // tslint:disable-next-line: typedef
   get f() { return this.form.controls; }
 
@@ -111,7 +120,7 @@ export class AjouterCommandeComponent implements OnInit {
       id: [data ? data.id : null],
       pt: [data ? data.pt : ' '],
       type: [data ? data.type : 'client'],
-      document: [data ? data.document : ' ', Validators.required],
+      document: [data ? data.document : '', Validators.required],
       statut: [data ? data.statut : ' ', Validators.required],
       idClientFournisseur: [data ? data.idClientFournisseur : ' ', Validators.required],
       LigneCommandes: [data ? data.LigneCommandes : this.ligneCommandeSave],
@@ -152,7 +161,7 @@ export class AjouterCommandeComponent implements OnInit {
         idCommande: 0,
         idProduit: this.fLigne.idProduit.value
       };
-      
+
       this.ligneCommande.push(nouvelLigne);
 
       this.ligneCommandeSave.push(ligneToSave);

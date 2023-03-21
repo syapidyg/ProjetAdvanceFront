@@ -80,7 +80,7 @@
                                             colspan="1">date</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col" rowspan="1"
                                             colspan="1">Montant</th>
-                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
+                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-sm" rowspan="1"
                                             colspan="1">Document</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
                                             colspan="1">Statut</th>
@@ -98,10 +98,10 @@
                                         <td class="odd nk-tb-col tb-col-lg">
                                             <span class="title">{{commande?.date_creation | date}}</span>
                                         </td>
-                                        <td class="odd nk-tb-col tb-col-sm">
+                                        <td class="odd nk-tb-col tb-col">
                                             <span class="title">{{commande?.pt}}</span>
                                         </td>
-                                        <td class="odd nk-tb-col tb-col-lg">
+                                        <td class="odd nk-tb-col tb-col-sm">
                                             <span class="title">{{commande?.document}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
@@ -109,6 +109,8 @@
                                                 class="badge badge-dot bg-secondary">En Attente</span>
                                             <span *ngIf="commande.statut == 'NON_REGLE'"
                                                 class="badge badge-dot bg-info">Non Regle</span>
+                                            <span *ngIf="commande.statut == 'REGLE'"
+                                                class="badge badge-dot bg-primary"> Regle</span>
 
                                         </td>
                                         <td class="tb-tnx-action nk-tb-col tb-col">
@@ -121,15 +123,25 @@
                                                                     class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
+                                                                    <li data-bs-toggle="modal"
+                                                                            data-bs-target="#modalTabs"
+                                                                        *ngIf="commande.document == 'Facture' && commande.statut == 'NON_REGLE'"
+                                                                        (click)="aRegler(commande)"><a><em
+                                                                                class="icon ni ni-eye"></em><span>A
+                                                                                regler</span></a></li>
+                                                                    <li *ngIf="commande.document == 'Bon de commande'"
+                                                                        (click)="transformCommande(commande)"><a><em
+                                                                                class="icon ni ni-eye"></em><span>Facturer</span></a>
+                                                                    </li>
                                                                     <li (click)="readOneCommande(commande)"><a
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#modalTabs"><em
                                                                                 class="icon ni ni-eye"></em><span>Voir
                                                                                 Details</span></a></li>
-                                                                    <li (click)="recupId(commande)"><a><em
+                                                                    <!-- <li *ngIf="commande.document != 'Facture'" (click)="recupId(commande)"><a><em
                                                                                 class="icon ni ni-edit"></em><span>Editer
-                                                                            </span></a></li>
-                                                                    <li *ngIf="commande.document != 'facture'"
+                                                                            </span></a></li> -->
+                                                                    <li *ngIf="commande.document != 'Facture'"
                                                                         (click)="deleteCommande(commande)"><a><em
                                                                                 class="icon ni ni-trash"></em><span>Supprimer
                                                                             </span></a></li>
@@ -196,7 +208,7 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modalTabs">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" *ngIf="dataRead">
+        <div class="modal-content" *ngIf="dataRead && modalOpen1">
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="nk-content ">
                 <div class="container-fluid">
@@ -205,11 +217,12 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between g-3">
                                     <div class="nk-block-head-content">
-                                        <h3 class="nk-block-title page-title">Facture <strong
-                                                class="text-primary small">#746F5K2</strong></h3>
+                                        <h3 class="nk-block-title page-title">{{dataRead.document }} <strong
+                                                class="text-primary small">#{{dataRead.id }}</strong></h3>
                                         <div class="nk-block-des text-soft">
                                             <ul class="list-inline">
-                                                <li>Crée Le: <span class="text-base">{{dataRead.date_creation | date}}</span>
+                                                <li>Crée Le: <span class="text-base">{{dataRead.date_creation |
+                                                        date}}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -231,9 +244,9 @@
                                     <div class="invoice-wrap">
                                         <div class="invoice-head">
                                             <div class="invoice-contact">
-                                                <span class="overline-title">Facture de</span>
+                                                <span class="overline-title">COMMANDE de</span>
                                                 <div class="invoice-contact-info">
-                                                    <h4 class="title">{{dataRead.client.name}}</h4>
+                                                    <h4 class="title ucap">{{dataRead.client.name}}</h4>
                                                     <ul class="list-plain">
                                                         <li><em
                                                                 class="icon ni ni-map-pin-fill"></em><span>{{dataRead.client.email}}</span>
@@ -247,10 +260,11 @@
                                             <div class="invoice-desc">
                                                 <h3 class="title">{{dataRead.document}}</h3>
                                                 <ul class="list-plain">
-                                                    <li class="invoice-id"><span>Facture
+                                                    <li class="invoice-id"><span>
                                                             Code</span>:<span>{{dataRead.id}}</span></li>
-                                                    <li class="invoice-date">
-                                                        <span>Date</span>:<span>{{dataRead.date_creation | date}}</span></li>
+                                                    <li class="">
+                                                        <span>Date</span>:<span>{{dataRead.date_creation | date}}</span>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div><!-- .invoice-head -->
@@ -261,17 +275,17 @@
                                                         <tr>
                                                             <th class="w-150px">Items N°</th>
                                                             <th class="w-45">Produit</th>
-                                                            
-                                                            <th>Qte</th>
-                                                            <th>P.T.</th>
-                                                            
+
+                                                            <th class>Qte</th>
+                                                            <th class>P.T.</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr *ngFor="let item of dataReadLigne ; let i=index ">
                                                             <td> {{i+1}} </td>
                                                             <td>{{item.produit.dci}}</td>
-                                                            
+
                                                             <td>{{item.qte}} </td>
                                                             <td>{{item.pt}} CFA</td>
                                                         </tr>
@@ -279,15 +293,13 @@
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <td colspan="2"></td>
+                                                            <td></td>
                                                             <td colspan="2">Grand Total</td>
                                                             <td>{{dataRead.pt}} CFA</td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
-                                                <div class="nk-notes ff-italic fs-12px text-soft"> Invoice was created
-                                                    on a computer
-                                                    and is valid without the signature and seal. </div>
+                                                <div class="nk-notes ff-italic fs-12px text-soft">MARIE BERNARD</div>
                                             </div>
                                         </div><!-- .invoice-bills -->
                                     </div><!-- .invoice-wrap -->
@@ -298,4 +310,74 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal-content" *ngIf="modalOpen2">
+            <div class="modal-header">
+                <h5 class="modal-title">Reglement</h5>
+                <a href="#" class="close" data-bs-dismiss="modall" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" class="form-validate is-alter">
+                    <div class="form-group">
+                        <label class="form-label" for="pt">Montant du reglement</label>
+                        <div class="form-control-wrap">
+                            <input type="number" class="form-control" formControlName="pt" id="pt"
+                                [attr.disabled]="isDisabled? isDisabled: null">
+                            <span *ngIf="(submitted || form.controls.pt.touched) && form.controls.pt.errors "
+                                style="color: rgb(255, 75, 75);">
+                                La description est requise
+                            </span>
+                        </div>
+                    </div>
+        
+                    <div class="form-group">
+                        <label class="form-label" for="caisse">Caisse</label>
+                        <select class="form-control form-select" formControlName="idCaisse">
+                            <option *ngFor="let caisse of dataCaisse" value="{{caisse.id}}">{{caisse.name}}</option>
+                        </select>
+                        <span *ngIf="(submitted || form.controls.idCaisse.touched) && form.controls.idCaisse.errors "
+                            style="color: rgb(255, 75, 75);">
+                            La Caisse est requise
+                        </span>
+                    </div>
+        
+        
+        
+                    <!-- <div class="form-group">
+                                    <label class="form-label" for="description">Description de la reglement</label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" class="form-control" formControlName="description" id="description"
+                                            [attr.disabled]="isDisabled? isDisabled: null">
+                                        <span
+                                            *ngIf="(submitted || form.controls.description.touched) && form.controls.description.errors "
+                                            style="color: rgb(255, 75, 75);">
+                                            La description est requise
+                                        </span>
+                                    </div>
+                                </div> -->
+        
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-lg btn-primary" (click)="reglerCommande()">
+                            Sauvegarder
+                            <div class="d-flex justify-content-center" *ngIf="isLoading">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer bg-light">
+                <span class="sub-text">REGLEMENT</span>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
+   

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ADD_COMMANDE } from '../_elements/api_constant';
+import { ADD_COMMANDE, TRANSFORM_COMMANDE } from '../_elements/api_constant';
 import { CommandeRequestModel } from '../_models/requests/commande-request.model';
+import { BonToFactureRequestDto } from '../_models/requests/bon-facture-request.model';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -33,6 +34,15 @@ export class CommandeService {
                 credentials.document,
                 credentials.idClientFournisseur,
                 credentials.LigneCommandes,
+            ), httpOptions);
+    }
+
+    // tslint:disable-next-line: typedef
+    public postbtf(credentials: BonToFactureRequestDto) {
+        return this.http.post(`${TRANSFORM_COMMANDE}`,
+            new BonToFactureRequestDto(
+                credentials.idCommande,
+                credentials.idDepot,
             ), httpOptions);
     }
 

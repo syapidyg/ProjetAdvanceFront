@@ -97,8 +97,8 @@
                                                                     <select class="form-control form-select"
                                                                         formControlName="document">
                                                                         <option *ngFor="let data of dataStatut"
-                                                                            value="{{data?.name}}"
-                                                                            class="fw-medium p-2">
+                                                                            value={{data?.name}}
+                                                                            class="fw-medium p-2" selected>
                                                                             {{data?.name}}</option>
                                                                     </select>
                                                                 </div>
@@ -161,8 +161,8 @@
                                                     </div>
 
                                                     <div
-                                                        class="col-xxl-3 col-md-4 align-self-end d-flex justify-content-end">
-                                                        <div class="form-group">
+                                              class="col-xxl-3 col-md-4 align-self-end d-flex justify-content-end">
+                                                                  <div class="form-group">
                                                             <button type="submit" (click)="ajouterObjet()"
                                                                 class="btn btn-dim btn-primary">Ajouter</button>
                                                         </div>
