@@ -27,6 +27,7 @@ export class CommandeService {
         return this.http.post(`${ADD_COMMANDE}`,
             new CommandeRequestModel(
                 credentials.id,
+                credentials.code,
                 credentials.idDepot,
                 credentials.pt,
                 credentials.type,

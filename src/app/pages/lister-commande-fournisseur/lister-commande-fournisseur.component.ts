@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_CLIENT, READ_LIGNE_COMMANDE_CLIENT, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
+import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_FOURNISSEUR, READ_LIGNE_COMMANDE_FOURNISSEUR, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
 import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande-response.model';
 import { BonToFactureRequestDto } from 'src/app/shared/_models/requests/bon-facture-request.model';
 import { LigneCommandeResponsetModel } from 'src/app/shared/_models/responses/ligne-commande-response.model';
@@ -16,11 +16,11 @@ import { CaisseService } from 'src/app/shared/_services/caisse-service';
 import { CaisseResponseModel } from 'src/app/shared/_models/responses/caisse-response.model';
 
 @Component({
-  selector: 'app-lister-commande-client',
-  templateUrl: './lister-commande-client.component.html',
-  styleUrls: ['./lister-commande-client.component.scss']
+  selector: 'app-lister-commande-fournisseur',
+  templateUrl: './lister-commande-fournisseur.component.html',
+  styleUrls: ['./lister-commande-fournisseur.component.scss']
 })
-export class ListerCommandeClientComponent implements OnInit {
+export class ListerCommandeFournisseurComponent implements OnInit {
 
   public data: CommandeResponseModel[] = [];
   public dataCaisse: any[] = [];
@@ -99,7 +99,7 @@ export class ListerCommandeClientComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   getCommandeClient() {
-    this.commandeService.get(READ_COMMANDE_CLIENT).then((response: any) => {
+    this.commandeService.get(READ_COMMANDE_FOURNISSEUR).then((response: any) => {
       this.data = response.data;
       console.log(response);
     });
@@ -119,7 +119,7 @@ export class ListerCommandeClientComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   readOneLigneCommande(id: number) {
-    this.ligneCommandeService.get(READ_LIGNE_COMMANDE_CLIENT + '/' + id).then((responseLigne: any) => {
+    this.ligneCommandeService.get(READ_LIGNE_COMMANDE_FOURNISSEUR + '/' + id).then((responseLigne: any) => {
       this.dataReadLigne = responseLigne.data;
       console.log('LigneCommande', responseLigne);
       this.isDisabled = true;
@@ -170,7 +170,7 @@ export class ListerCommandeClientComponent implements OnInit {
         console.log('result', result);
         this.isLoading = !this.isLoading;
         this.notif.success('Reglement enregistré avec succès ');
-        this.router.navigate(['ventes/commande/reglement']);
+        this.router.navigate(['achats/commande/reglement']);
         window.location.reload();
       }, err => {
         console.log(err);
@@ -268,7 +268,7 @@ export class ListerCommandeClientComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   recupId(commande: CommandeResponseModel) {
-    this.router.navigate(['ventes/commande/ajouter/', commande.id]);
+    this.router.navigate(['achats/commande/ajouter/', commande.id]);
   }
 
 }

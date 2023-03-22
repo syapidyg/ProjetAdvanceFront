@@ -5,6 +5,8 @@ export class ReglementRequestModel {
         public idUtilisateur: number,
         public idCaisse: number,
         public montant: number,
+        public rendu: number,
+        public reste: number,
     ) {
 
     }

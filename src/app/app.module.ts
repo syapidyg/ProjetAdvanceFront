@@ -32,6 +32,11 @@ import { NgbPaginationModule, NgbAlertModule, NgbModule } from '@ng-bootstrap/ng
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { DepotComponent } from './pages/depot/depot.component';
 import { ListerCommandeClientComponent } from './pages/lister-commande-client/lister-commande-client.component';
+import { ListerReglementClientComponent } from './pages/lister-reglement-client/lister-reglement-client.component';
+import { AjouterCommandeFournisseurComponent } from './pages/ajouter-commande-fournisseur/ajouter-commande-fournisseur.component';
+import { ListerCommandeFournisseurComponent } from './pages/lister-commande-fournisseur/lister-commande-fournisseur.component';
+import { ListerReglementFournisseurComponent } from './pages/lister-reglement-fournisseur/lister-reglement-fournisseur.component';
+import { ListerStockArticleComponent } from './pages/lister-stock-article/lister-stock-article.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,12 @@ import { ListerCommandeClientComponent } from './pages/lister-commande-client/li
     AjouterEmployeComponent,
     AjouterCommandeComponent,
     DepotComponent,
-    ListerCommandeClientComponent
+    ListerCommandeClientComponent,
+    ListerReglementClientComponent,
+    AjouterCommandeFournisseurComponent,
+    ListerCommandeFournisseurComponent,
+    ListerReglementFournisseurComponent,
+    ListerStockArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +79,7 @@ import { ListerCommandeClientComponent } from './pages/lister-commande-client/li
     ToastrModule.forRoot(),
     NgbModule,
     NgbTypeaheadModule
-    
+
   ],
   providers: [
     UserGuardService,

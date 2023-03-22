@@ -53,14 +53,14 @@
                                                     <div class="row gy-4">
                                                         <div class="col-xxl-3 col-md-4">
                                                             <div class="form-group">
-                                                                <label class="form-label" for="default-03">Patient
+                                                                <label class="form-label" for="default-03">Fournisseur
                                                                 </label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-left">
                                                                         <em class="icon ni ni-user"></em>
                                                                     </div>
                                                                     <!-- <div >
-                                                                        <ng-autocomplete  [data]="dataPatient"
+                                                                        <ng-autocomplete  [data]="dataFournisseur"
                                                                             [searchKeyword]="keyword"
                                                                             [itemTemplate]="itemTemplate"
                                                                             [notFoundTemplate]="notFoundTemplate">
@@ -76,7 +76,7 @@
                                                                     </div> -->
                                                                     <select class="form-control form-select"
                                                                         formControlName="idClientFournisseur">
-                                                                        <option *ngFor="let data of dataPatient"
+                                                                        <option *ngFor="let data of dataFournisseur"
                                                                             value="{{data?.id}}" class="fw-medium p-2">
                                                                             {{data?.name}} - {{data?.number}}</option>
                                                                     </select>
@@ -138,30 +138,24 @@
                                                 <div class="row gy-3 d-flex ">
                                                     <div class="col-xxl-3 col-md-4">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="idProduit">Produit
-                                                            </label>
-                                                            <ng-select formControlName="idProduit"
-                                                                [(ngModel)]="selectedProduit"
-                                                                class="form-control ">
-                                                                <ng-option *ngFor="let data of dataProduit"
-                                                                    [value]="data.id">
-                                                                    {{ data.dci }}
-                                                                </ng-option>
-                                                            </ng-select><!--col-->
+                                                            <label class="form-label" for="produit"> Produit</label>
+                                                            <select class="form-control form-select"
+                                                                formControlName="idProduit">
+                                                                <option *ngFor="let data of dataProduit"
+                                                                    value="{{data?.id}}" class="fw-medium p-2">
+                                                                    {{data?.dci}}</option>
+                                                            </select>
                                                         </div>
-                                                    </div>
+                                                    </div><!--col-->
                                                     <!--col-->
                                                     <div class="col-xxl-3 col-md-4 ">
                                                         <div class="form-group">
                                                             <label class="form-label">Quantité</label>
                                                             <div class="form-control-wrap number-spinner-wrap">
-                                                                <button (click)="decrement()"
-                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-minus"><em
+                                                                <button (click)="decrement()" class="btn btn-icon btn-outline-light number-spinner-btn number-minus"><em
                                                                         class="icon ni ni-minus"></em></button>
-                                                                <input type="number" class="form-control number-spinner"
-                                                                    formControlName="qte" [(ngModel)]="qte" value="0">
-                                                                <button (click)="increment()"
-                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-plus"><em
+                                                                <input type="number" class="form-control number-spinner" formControlName="qte" [(ngModel)]="qte" value="0">
+                                                                <button (click)="increment()" class="btn btn-icon btn-outline-light number-spinner-btn number-plus"><em
                                                                         class="icon ni ni-plus"></em></button>
                                                             </div>
                                                         </div>

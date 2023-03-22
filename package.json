@@ -30,6 +30,7 @@
     "moment": "^2.29.4",
     "ng-select2-component": "^7.3.1",
     "ngx-pagination": "^5.1.1",
+    "ngx-select-ex": "^4.0.0",
     "ngx-toastr": "^11.3.3",
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.7.3",

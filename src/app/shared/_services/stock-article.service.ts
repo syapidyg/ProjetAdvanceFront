@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientModule, HttpHeaders } from "@angular/common/http";
-import { ReglementRequestModel } from "../_models/requests/reglement-request.model";
 import { Observable } from "rxjs";
-import { ADD_REGLEMENT } from "../_elements/api_constant";
+import { ADD_STOCK_ARTICLE } from "../_elements/api_constant";
+import { StockArticleRequestModel } from "../_models/requests/stock-article-request.model";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,7 +12,7 @@ const httpOptions = {
     providedIn: 'root',
 })
 
-export class ReglementService {
+export class StockArticleService {
 
     constructor(private http: HttpClient) {
 
@@ -22,17 +22,17 @@ export class ReglementService {
         return this.http.get(url).toPromise();
     }
 
-    public post(credentials: ReglementRequestModel) {
-        return this.http.post(`${ADD_REGLEMENT}`,
+    public post(credentials: StockArticleRequestModel) {
+        return this.http.post(`${ADD_STOCK_ARTICLE}`,
             // tslint:disable-next-line: max-line-length
-            new ReglementRequestModel(
+            new StockArticleRequestModel(
                 credentials.id,
-                credentials.idCommande,
-                credentials.idUtilisateur,
-                credentials.idCaisse,
-                credentials.montant,
-                credentials.rendu,
-                credentials.reste
+                credentials.idDepot,
+                credentials.idProduit,
+                credentials.qte,
+                credentials.qteAlerte,
+                credentials.qteMinimale,
+                credentials.qteMaximale,
             ), httpOptions);
     }
 

@@ -5,6 +5,7 @@ import { PatientResponseModel } from "./patient-response.model";
 export class CommandeResponseModel {
     constructor(
         public id: number,
+        public code: string,
         public pt: number,
         // tslint:disable-next-line: variable-name
         public date_creation: Date,

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main/main.component';
+import { AjouterCommandeFournisseurComponent } from './pages/ajouter-commande-fournisseur/ajouter-commande-fournisseur.component';
 import { AjouterCommandeComponent } from './pages/ajouter-commande/ajouter-commande.component';
 import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe.component';
 import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter-fournisseur.component';
@@ -11,9 +12,12 @@ import { CaisseComponent } from './pages/caisse/caisse.component';
 import { DepotComponent } from './pages/depot/depot.component';
 import { FamilleComponent } from './pages/famille/famille.component';
 import { ListerCommandeClientComponent } from './pages/lister-commande-client/lister-commande-client.component';
+import { ListerCommandeFournisseurComponent } from './pages/lister-commande-fournisseur/lister-commande-fournisseur.component';
 import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
 import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fournisseur.component';
 import { ListerProduitComponent } from './pages/lister-produit/lister-produit.component';
+import { ListerReglementClientComponent } from './pages/lister-reglement-client/lister-reglement-client.component';
+import { ListerReglementFournisseurComponent } from './pages/lister-reglement-fournisseur/lister-reglement-fournisseur.component';
 import { LoginComponent } from './session/login/login.component';
 import { UserGuardService } from './shared/_helpers/user-guard.service';
 
@@ -39,7 +43,11 @@ const routes: Routes = [
       { path: 'ventes/commande/ajouter', component: AjouterCommandeComponent },
       { path: 'ventes/commande/ajouter/:id', component: AjouterCommandeComponent },
       { path: 'ventes/commande/liste', component: ListerCommandeClientComponent },
-
+      { path: 'ventes/commande/reglement', component: ListerReglementClientComponent },
+      { path: 'achats/commande/ajouter', component: AjouterCommandeFournisseurComponent },
+      { path: 'achats/commande/ajouter/:id', component: AjouterCommandeFournisseurComponent },
+      { path: 'achats/commande/liste', component: ListerCommandeFournisseurComponent },
+      { path: 'achats/commande/reglement', component: ListerReglementFournisseurComponent },
     ]
   },
 ];

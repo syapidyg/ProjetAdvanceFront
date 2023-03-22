@@ -9,13 +9,16 @@ import { NotificationService } from 'src/app/shared/_services/notifiaction.servi
 import { TokenStorageService } from 'src/app/shared/_services/token-storage.service';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-famille',
   templateUrl: './famille.component.html',
   styleUrls: ['./famille.component.scss']
 })
+
+
 export class FamilleComponent implements OnInit {
+
+
 
   public data: FamilleResponseModel[] = [];
   currentUser!: any;
@@ -37,7 +40,9 @@ export class FamilleComponent implements OnInit {
     private router: Router,
     private notif: NotificationService,
     private tokenStorage: TokenStorageService
+
   ) { }
+
 
   ngOnInit(): void {
     this.getFamille();
@@ -121,15 +126,15 @@ export class FamilleComponent implements OnInit {
     this.form = this.fb.group({
       id: [data ? data.id : null],
       name: [data ? data.name : ' ', Validators.required],
-      rayon: [data ? data.rayon : ' ', Validators.required],
-      description: [data ? data.description : ' ', Validators.required]
+      description: [data ? data.description : ' ', Validators.required],
+      rayon: [data ? data.rayon : ' ', Validators.required]
     });
   }
   private initFormPage(data: any) {
     this.formpage = this.fb.group({
       5: [data ? data.id : null],
       10: [data ? data.name : ' ', Validators.required],
-      25: [data ? data.rayon : ' ', Validators.required]
+      25: [data ? data.description : ' ', Validators.required]
     });
   }
 

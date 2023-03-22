@@ -1,0 +1,252 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">LISTE DES REGLEMENTS</h4>
+                        <p>Le tableau suivant liste <strong class="text-primary">les differents reglements et leurs
+                                differentes
+                                operations</strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Reglements
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card card-bordered card-preview">
+                <div class="card-inner">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row justify-between g-2">
+                            <div class="col-7 col-sm-4 text-start">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                    <label>
+                                        <input type="search" class="form-control form-control-sm"
+                                            placeholder="Rechercher" aria-controls="DataTables_Table_0">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-8 text-end">
+                                <div class="datatable-filter">
+                                    <div class="d-flex justify-content-end g-2">
+                                        <div class="dataTables_length" id="DataTables_Table_0_length">
+                                            <label>
+                                                <span class="d-none d-sm-inline-block">Voir</span>
+                                                <div class="form-control-select">
+                                                    <select name="DataTables_Table_0_length"
+                                                        aria-controls="DataTables_Table_0"
+                                                        class="custom-select custom-select-sm form-control form-control-sm"
+                                                        [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+                                                        <option value="5">5</option>
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="datatable-wrap my-3">
+                            <div class="card-inner p-0">
+                                <div class="nk-tb-list nk-tb-ulist is-compact">
+                                    <div class="nk-tb-item nk-tb-head bg-primary-dim">
+                                        <div class="nk-tb-col tb-col-mb"><span class="sub-text">Facture code/ID</span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Date</span></div>
+                                        <div class="nk-tb-col tb-col-md"><span class="sub-text">Caisse </span></div>
+                                        <div class="nk-tb-col"><span class="sub-text">Amount</span></div>
+                                    </div><!-- .nk-tb-item -->
+                                    <div class="nk-tb-item"
+                                        *ngFor="let reglement of dataf | paginate: { itemsPerPage: pageSize, currentPage: p }">
+                                        <div class="nk-tb-col tb-col-mb">
+                                            <span class="fw-medium text-primary"><a data-bs-toggle="modal"
+                                                    data-bs-target="#modalTabs"
+                                                    (click)="readOneCommande(reglement.commande)"># {{
+                                                    reglement.commande.code
+                                                    }}</a></span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-md">
+                                            <span>{{ reglement.date | date }} </span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col-md">
+                                            <span>{{ reglement.caisse.name }} </span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="tb-amount"> {{ reglement.commande.pt }} </span>
+                                        </div>
+                                    </div><!-- .nk-tb-item -->
+
+                                </div><!-- .nk-tb-list -->
+                            </div>
+                        </div>
+                        <div class="pagination-container pagination">
+                            <li> <pagination-controls [directionLinks]="true" [autoHide]="true"
+                                    (pageChange)="p = $event" class="bg-primary"></pagination-controls></li>
+                        </div>
+                        <!-- pagination -->
+                        <!-- <div class="row align-items-center">
+                            <div class="col-7 col-sm-12 col-md-9">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
+                                                href="#" aria-controls="DataTables_Table_0" data-dt-idx="previous" tabindex="0"
+                                                class="page-link">Prev</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="2" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="3" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a href="#"
+                                                aria-controls="DataTables_Table_0" data-dt-idx="ellipsis" tabindex="0"
+                                                class="page-link">…</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
+                                                data-dt-idx="11" tabindex="0" class="page-link">12</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
+                                                aria-controls="DataTables_Table_0" data-dt-idx="next" tabindex="0"
+                                                class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-12 col-md-3 text-start text-md-end">
+                                <div class="dataTables_info" >1 -10 of 100</div>
+                            </div>
+                        </div> -->
+                        <!-- pagination -->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalTabs">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" *ngIf="dataRead">
+            <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-block-head">
+                                <div class="nk-block-between g-3">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title page-title"> <strong class="text-primary small">
+                                                {{dataRead.id }}</strong></h3>
+                                        <div class="nk-block-des text-soft">
+                                            <ul class="list-inline">
+                                                <li>Crée Le: <span class="text-base">{{dataRead.date_creation |
+                                                        date}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="nk-block-head-content">
+
+                                        <a href=""
+                                            class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em
+                                                class="icon ni ni-arrow-left"></em></a>
+                                    </div>
+                                </div>
+                            </div><!-- .nk-block-head -->
+                            <div class="nk-block">
+                                <div class="invoice">
+                                    <div class="invoice-action">
+                                        <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary"
+                                            target="_blank"><em class="icon ni ni-printer-fill"></em></a>
+                                    </div><!-- .invoice-actions -->
+                                    <div class="invoice-wrap">
+                                        <div class="invoice-head">
+                                            <div class="invoice-contact">
+                                                <span class="overline-title">REGLEMENT de</span>
+                                                <div class="invoice-contact-info">
+                                                    <h4 class="title ucap">{{dataRead.fournisseur.name}}</h4>
+                                                    <ul class="list-plain">
+                                                        <li><em
+                                                                class="icon ni ni-map-pin-fill"></em><span>{{dataRead.fournisseur.email}}</span>
+                                                        </li>
+                                                        <li><em
+                                                                class="icon ni ni-call-fill"></em><span>{{dataRead.fournisseur.number}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="invoice-desc">
+                                                <h3 class="title">{{dataRead.document}}</h3>
+                                                <ul class="list-plain">
+                                                    <li class="invoice-id"><span>
+                                                            Code</span>:<span>{{dataRead.id}}</span></li>
+                                                    <li class="">
+                                                        <span>Date</span>:<span>{{dataRead.date_creation | date}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div><!-- .invoice-head -->
+                                        <div class="invoice-bills">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="w-150px">Items N°</th>
+                                                            <th class="w-45">Produit</th>
+
+                                                            <th class>Qte</th>
+                                                            <th class>P.T.</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of dataReadLigne ; let i=index ">
+                                                            <td> {{i+1}} </td>
+                                                            <td>{{item.produit.dci}}</td>
+
+                                                            <td>{{item.qte}} </td>
+                                                            <td>{{item.pt}} CFA</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td colspan="2">Grand Total</td>
+                                                            <td>{{dataRead.pt}} CFA</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                                <div class="nk-notes ff-italic fs-12px text-soft">MARIE BERNARD</div>
+                                            </div>
+                                        </div><!-- .invoice-bills -->
+                                    </div><!-- .invoice-wrap -->
+                                </div><!-- .invoice -->
+                            </div><!-- .nk-block -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,13 +1,12 @@
 import { Component, ViewChild, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { READ_DEPOT, READ_ONE_PRODUIT, READ_PATIENT, READ_PRODUIT } from 'src/app/shared/_elements/api_constant';
+import { READ_DEPOT, READ_ONE_PRODUIT, READ_FOURNISSEUR, READ_PRODUIT } from 'src/app/shared/_elements/api_constant';
 import { CommandeRequestModel } from 'src/app/shared/_models/requests/commande-request.model';
 import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande-response.model';
-import { PatientResponseModel } from 'src/app/shared/_models/responses/patient-response.model';
+import { FournisseurResponseModel } from 'src/app/shared/_models/responses/fournisseur-response.model';
 import { CommandeService } from 'src/app/shared/_services/commande.service';
 import { NotificationService } from 'src/app/shared/_services/notifiaction.service';
-import { PatientService } from 'src/app/shared/_services/patient-service';
 import { TokenStorageService } from 'src/app/shared/_services/token-storage.service';
 import { ProduitService } from 'src/app/shared/_services/produit-service';
 import { Select2Option } from 'ng-select2-component';
@@ -20,16 +19,17 @@ import { NgbTypeahead, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { DepotResponseModel } from 'src/app/shared/_models/responses/depot-response.model';
 import { DepotService } from 'src/app/shared/_services/depot.service';
+import { FournisseurService } from 'src/app/shared/_services/fournisseur.service';
 
 @Component({
-  selector: 'app-ajouter-commande',
-  templateUrl: './ajouter-commande.component.html',
-  styleUrls: ['./ajouter-commande.component.scss']
+  selector: 'app-ajouter-commande-fournisseur',
+  templateUrl: './ajouter-commande-fournisseur.component.html',
+  styleUrls: ['./ajouter-commande-fournisseur.component.scss']
 })
-export class AjouterCommandeComponent implements OnInit {
+export class AjouterCommandeFournisseurComponent implements OnInit {
 
   public data: CommandeResponseModel[] = [];
-  public dataPatient: PatientResponseModel[] = [];
+  public dataFournisseur: FournisseurResponseModel[] = [];
   public dataLigneCommande: any[] = [];
   public dataProduit: ProduitResponseModel[] = [];
   public dataDepot: DepotResponseModel[] = [];
@@ -54,10 +54,11 @@ export class AjouterCommandeComponent implements OnInit {
   model: any;
   qte = 0;
   selectedProduit!: number;
+
   constructor(
     private produitService: ProduitService,
     private depotService: DepotService,
-    private patientService: PatientService,
+    private fournisseurService: FournisseurService,
     private commandeService: CommandeService,
     private fb: FormBuilder,
     private router: Router,
@@ -69,18 +70,10 @@ export class AjouterCommandeComponent implements OnInit {
   ngOnInit(): void {
     this.initForm(null);
     this.initFormLigne(null);
-    this.getPatient();
+    this.getFournisseur();
     this.getProduit();
     this.getDepot();
 
-  }
-
-  increment() {
-    this.qte++;
-  }
-
-  decrement() {
-    this.qte--;
   }
 
   // editCommande(id: number) {
@@ -91,6 +84,15 @@ export class AjouterCommandeComponent implements OnInit {
   //     });
   // }
 
+  increment() {
+    this.qte++;
+  }
+
+  decrement() {
+    this.qte--;
+  }
+
+
 
   // tslint:disable-next-line: typedef
   get f() { return this.form.controls; }
@@ -99,9 +101,9 @@ export class AjouterCommandeComponent implements OnInit {
   get fLigne() { return this.formLigne.controls; }
 
   // tslint:disable-next-line: typedef
-  public getPatient() {
-    return this.patientService.get(READ_PATIENT).then((response: any) => {
-      this.dataPatient = response.data;
+  public getFournisseur() {
+    return this.fournisseurService.get(READ_FOURNISSEUR).then((response: any) => {
+      this.dataFournisseur = response.data;
       console.log(response);
       this.dataStatut.reverse();
     });
@@ -128,7 +130,7 @@ export class AjouterCommandeComponent implements OnInit {
     this.form = this.fb.group({
       id: [data ? data.id : null],
       pt: [data ? data.pt : ' '],
-      type: [data ? data.type : 'client'],
+      type: [data ? data.type : 'fournisseur'],
       document: [data ? data.document : '', Validators.required],
       statut: [data ? data.statut : ' ', Validators.required],
       idClientFournisseur: [data ? data.idClientFournisseur : ' ', Validators.required],
@@ -153,8 +155,8 @@ export class AjouterCommandeComponent implements OnInit {
       this.isDisabled = true;
       const nouvelLigne = {
         id: 0,
-        pt: response.data.pv * this.fLigne.qte.value,
-        pv: response.data.pv,
+        pt: response.data.pa * this.fLigne.qte.value,
+        pa: response.data.pa,
         dci: response.data.dci,
         code: response.data.code,
         famille: response.data.famille.name,
@@ -165,7 +167,7 @@ export class AjouterCommandeComponent implements OnInit {
       };
       const ligneToSave = {
         id: 0,
-        pt: response.data.pv * this.fLigne.qte.value,
+        pt: response.data.pa * this.fLigne.qte.value,
         qte: this.fLigne.qte.value,
         idCommande: 0,
         idProduit: this.fLigne.idProduit.value
@@ -207,7 +209,7 @@ export class AjouterCommandeComponent implements OnInit {
       '',
       this.f.idDepot.value,
       this.somme,
-      'client',
+      'fournisseur',
       this.f.statut.value,
       this.f.document.value,
       this.f.idClientFournisseur.value,
@@ -224,10 +226,10 @@ export class AjouterCommandeComponent implements OnInit {
         console.log(err);
         this.notif.danger('Echec lors de l\'enregistrement ');
         this.isLoading = !this.isLoading;
-        this.router.navigate(['/ventes/commande/ajouter']);
+        this.router.navigate(['/achats/commande/ajouter']);
       });
 
-    this.router.navigate(['ventes/commande/liste']);
+    this.router.navigate(['achats/commande/liste']);
 
 
   }

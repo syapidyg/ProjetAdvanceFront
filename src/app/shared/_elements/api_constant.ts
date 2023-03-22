@@ -58,6 +58,7 @@ export const DELETE_COMMANDE = COMMANDE + `/delete`;
 export const TRANSFORM_COMMANDE = COMMANDE + `/transform`;
 export const LIGNE_COMMANDE = SERVEUR + `/ligneDeCommande`;
 export const READ_LIGNE_COMMANDE_CLIENT = LIGNE_COMMANDE + `/readClient`;
+export const READ_LIGNE_COMMANDE_FOURNISSEUR = LIGNE_COMMANDE + `/readFournisseur`;
 
 
 // API du controlleur de Fournisseur
@@ -68,8 +69,18 @@ export const READ_ONE_DEPOT = DEPOT + `/readOne`;
 export const DELETE_DEPOT = DEPOT + `/delete`;
 
 // API du controlleur de Fournisseur
+export const STOCK_ARTICLE = SERVEUR + `/stockArticle`;
+export const ADD_STOCK_ARTICLE = STOCK_ARTICLE + `/create`;
+export const READ_STOCK_ARTICLE = STOCK_ARTICLE + `/read`;
+export const READ_ONE_STOCK_ARTICLE = STOCK_ARTICLE + `/readOne`;
+export const DELETE_STOCK_ARTICLE = STOCK_ARTICLE + `/delete`;
+
+// API du controlleur de Fournisseur
 export const REGLEMENT = SERVEUR + `/reglement`;
 export const ADD_REGLEMENT = REGLEMENT + `/create`;
 export const READ_REGLEMENT = REGLEMENT + `/read`;
+export const READ_REGLEMENT_CLIENT = REGLEMENT + `/read/readClient`;
 export const READ_ONE_REGLEMENT = REGLEMENT + `/readOne`;
 export const DELETE_REGLEMENT = REGLEMENT + `/delete`;
+export const READ_REGLEMENT_FOURNISSEUR = REGLEMENT + `/read/readFournisseur`;
+
