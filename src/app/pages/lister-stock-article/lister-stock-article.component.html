@@ -26,7 +26,7 @@
                 </div>
                 <div class="d-flex flex-row-reverse flex-item justify-content-between">
                     <li class="nk-block-tools-opt">
-                        <a [routerLink]="['/stockArticles/ajouter']" class="btn btn-primary d-none d-md-inline-flex"><em
+                        <a [routerLink]="['/stocks/ajouter']" class="btn btn-primary d-none d-md-inline-flex"><em
                                 class="icon ni ni-plus"></em><span>Ajouter des articles en stock</span></a>
                     </li>
                 </div>
@@ -74,15 +74,15 @@
                                     <tr>
 
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col" rowspan="1"
-                                            colspan="1">Nom</th>
+                                            colspan="1">Code</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
-                                            colspan="1">Numero</th>
+                                            colspan="1">Produit</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-sm" rowspan="1"
-                                            colspan="1">Adresse</th>
+                                            colspan="1">Depot</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
-                                            colspan="1">Email</th>
-                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-xxl" rowspan="1"
-                                            colspan="1">Ville</th>
+                                            colspan="1">Quantité</th>
+                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
+                                            colspan="1">statut</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col " rowspan="1"
                                             colspan="1">Action</th>
                                     </tr>
@@ -103,8 +103,11 @@
                                         <td class="odd nk-tb-col tb-col-lg">
                                             <span class="title">{{stockArticle?.qte}}</span>
                                         </td>
-                                        <td class="odd nk-tb-col tb-col-xxl">
-                                            <span class="title">{{stockArticle?.statut}}</span>
+                                        <td class="odd nk-tb-col tb-col-lg">
+                                            <span *ngIf="stockArticle.statut == 'Normal'" class="badge badge-dot bg-primary">{{stockArticle?.statut}}</span>
+                                            <span *ngIf="stockArticle.statut == 'En excès'" class="badge badge-dot bg-warning">{{stockArticle?.statut}}</span>
+                                            <span *ngIf="stockArticle.statut == 'Insuffisant'" class="badge badge-dot bg-secondary">{{stockArticle?.statut}}</span>
+                                            <span *ngIf="stockArticle.statut == 'Faible'" class="badge badge-dot bg-danger">{{stockArticle?.statut}}</span>
                                         </td>
                                         <td class="tb-tnx-action nk-tb-col tb-col">
                                             <div class="">

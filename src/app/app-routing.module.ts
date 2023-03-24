@@ -8,6 +8,7 @@ import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe
 import { AjouterFournisseurComponent } from './pages/ajouter-fournisseur/ajouter-fournisseur.component';
 import { AjouterPatientComponent } from './pages/ajouter-patient/ajouter-patient.component';
 import { AjouterProduitComponent } from './pages/ajouter-produit/ajouter-produit.component';
+import { AjouterStockArticleComponent } from './pages/ajouter-stock-article/ajouter-stock-article.component';
 import { CaisseComponent } from './pages/caisse/caisse.component';
 import { DepotComponent } from './pages/depot/depot.component';
 import { FamilleComponent } from './pages/famille/famille.component';
@@ -18,6 +19,7 @@ import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fo
 import { ListerProduitComponent } from './pages/lister-produit/lister-produit.component';
 import { ListerReglementClientComponent } from './pages/lister-reglement-client/lister-reglement-client.component';
 import { ListerReglementFournisseurComponent } from './pages/lister-reglement-fournisseur/lister-reglement-fournisseur.component';
+import { ListerStockArticleComponent } from './pages/lister-stock-article/lister-stock-article.component';
 import { LoginComponent } from './session/login/login.component';
 import { UserGuardService } from './shared/_helpers/user-guard.service';
 
@@ -48,6 +50,9 @@ const routes: Routes = [
       { path: 'achats/commande/ajouter/:id', component: AjouterCommandeFournisseurComponent },
       { path: 'achats/commande/liste', component: ListerCommandeFournisseurComponent },
       { path: 'achats/commande/reglement', component: ListerReglementFournisseurComponent },
+      { path: 'stocks/ajouter', component: AjouterStockArticleComponent },
+      { path: 'stocks/liste', component: ListerStockArticleComponent },
+      { path: 'stocks/ajouter/:id', component: AjouterEmployeComponent },
     ]
   },
 ];

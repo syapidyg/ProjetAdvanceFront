@@ -1,0 +1,229 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">AJOUTER DES ARTICLES EN STOCK</h4>
+                        <p>Le formulaire suivant permet <strong class="text-primary">d'ajouter des articles en stock
+                            </strong>.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a [routerLink]="['stocks/liste']">Aticle en stock</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Ajout d'un
+                                        article en stock
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <div class="card card-bordered">
+                                        <div class="card-inner-group">
+                                            <div class="card-inner">
+                                                <div class="nk-block-head">
+                                                    <div class="nk-block-head-content">
+                                                        <h5 class="title nk-block-title">INFORMATIONS DU STOCK
+                                                        </h5>
+                                                        <p>Ajouter les informations du stock
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <form [formGroup]="form" class="form-validate is-alter">
+                                                    <div class="row gy-4">
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="default-03">Produit
+                                                                </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-left">
+                                                                        <em class="icon ni ni-user"></em>
+                                                                    </div>
+                                                                    <select class="form-control form-select"
+                                                                        formControlName="idProduit">
+                                                                        <option *ngFor="let data of dataProduit"
+                                                                            value="{{data?.id}}" class="fw-medium p-2">
+                                                                            {{data?.dci}}</option>
+                                                                    </select>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div><!--col-->
+                                                        <!--col-->
+                                                        <div class="col-xxl-3 col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="form-label" for="idDepot">Depôt
+                                                                </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-left">
+                                                                        <em class="icon ni ni-inbox-fill"></em>
+                                                                    </div>
+                                                                    <select class="form-control form-select"
+                                                                        formControlName="idDepot">
+                                                                        <option *ngFor="let data of dataDepot"
+                                                                            value="{{data?.id}}" class="fw-medium p-2">
+                                                                            {{data?.name}}-{{data?.description}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xxl-3 col-md-4 ">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Quantité en stock</label>
+                                                                <div class="form-control-wrap number-spinner-wrap">
+                                                                    <button (click)="decrementQte()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-minus"><em
+                                                                            class="icon ni ni-minus"></em></button>
+                                                                    <input type="number"
+                                                                        class="form-control number-spinner"
+                                                                        formControlName="qte" [(ngModel)]="qte"
+                                                                        value="0">
+                                                                    <button (click)="incrementQte()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-plus"><em
+                                                                            class="icon ni ni-plus"></em></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <div class="col-xxl-3 col-md-4 ">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Quantité Maximale</label>
+                                                                <div class="form-control-wrap number-spinner-wrap">
+                                                                    <button (click)="decrementQteMax()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-minus"><em
+                                                                            class="icon ni ni-minus"></em></button>
+                                                                    <input type="number"
+                                                                        class="form-control number-spinner"
+                                                                        formControlName="qteMax" [(ngModel)]="qteMax"
+                                                                        value="0">
+                                                                    <button (click)="incrementQteMax()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-plus"><em
+                                                                            class="icon ni ni-plus"></em></button>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+
+
+                                                        <!-- <div class="col-xxl-3 col-md-4 ">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Quantité Minimale</label>
+                                                                <div class="form-control-wrap number-spinner-wrap">
+                                                                    <button (click)="decrementQteMin()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-minus"><em
+                                                                            class="icon ni ni-minus"></em></button>
+                                                                    <input type="number"
+                                                                        class="form-control number-spinner"
+                                                                        formControlName="qteMin" [(ngModel)]="qteMin"
+                                                                        value="0">
+                                                                    <button (click)="incrementQteMin()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-plus"><em
+                                                                            class="icon ni ni-plus"></em></button>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        <!--col-->
+                                                        <!-- <div class="col-xxl-3 col-md-4 ">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Quantité d'Alerte</label>
+                                                                <div class="form-control-wrap number-spinner-wrap">
+                                                                    <button (click)="decrementQteAlerte()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-minus"><em
+                                                                            class="icon ni ni-minus"></em></button>
+                                                                    <input type="number"
+                                                                        class="form-control number-spinner"
+                                                                        formControlName="qteAlerte"
+                                                                        [(ngModel)]="qteAlerte" value="0">
+                                                                    <button (click)="incrementQteAlerte()"
+                                                                        class="btn btn-icon btn-outline-light number-spinner-btn number-plus"><em
+                                                                            class="icon ni ni-plus"></em></button>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+
+
+                                                        <div class=" align-self-end d-flex justify-content-end">
+                                                            <div class="form-group">
+                                                                <button type="submit" (click)="ajouterObjet()"
+                                                                    class="btn btn-dim btn-info">Ajouter</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                                    <div class="invoice-bills mt-5">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="w-8">Items N°</th>
+                                                                        <th class="w-23">Produit</th>
+                                                                        <th class="w-8">Qte en Stock</th>
+                                                                        <th class="w-15">Depot</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let item of ligneCommande; let i=index ">
+                                                                        <td> {{i+1}} </td>
+                                                                        <td>#{{item.code}}{{item.produit}}</td>
+                                                                        <td> {{item.qte}}</td>
+                                                                        <td>{{item.depot}} </td>  
+                                                                        <td>
+                                                                            <a class="btn btn-icon btn-trigger"
+                                                                                (click)="deleteLigne(i)"><em
+                                                                                    class="icon ni ni-trash"></em></a>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                <!--col-->
+                                                <!--col-->
+
+                                                <!--col-->
+                                                <!--col-->
+                                                <div class="col-12 mt-5 d-flex flex-row-reverse">
+                                                    <div class="form-group">
+                                                        <button type="submit" (click)="save()"
+                                                            class="btn btn-primary">Ajouter
+                                                            stock</button>
+                                                    </div>
+                                                </div><!--col-->
+                                                <!--col-->
+                                            </div><!--row-->
+                                        </div><!-- .card-inner-group -->
+
+                                    </div>
+                                </div>
+
+                                <!-- .card -->
+
+                            </div><!-- .nk-block -->
+                        </div>
+                    </div>
+                </div>
+            </div>
