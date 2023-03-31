@@ -24,6 +24,7 @@ export class AjouterFournisseurComponent implements OnInit {
   p = 1; // Page courante
   pageSize = 5; // Nombre d'éléments par page
   id!: any;
+  type!: any;
   public isDisabled = false;
 
   constructor(
@@ -38,14 +39,27 @@ export class AjouterFournisseurComponent implements OnInit {
   ngOnInit(): void {
     this.initForm(null);
     this.id = this.route.snapshot.params.id;
+    this.type = this.route.snapshot.params.type;
     console.log(this.id);
-    if (this.id) {
+    console.log(this.type);
+    if (this.id && this.type) {
+      this.viewFournisseur(this.id);
+    } else {
       this.editFournisseur(this.id);
     }
   }
 
   // tslint:disable-next-line: typedef
   editFournisseur(id: number) {
+    this.fournisseurService.get(`${READ_ONE_FOURNISSEUR}/${id}`)
+      .then((response: any) => {
+        console.log(response, response);
+        this.initForm(response.data);
+      });
+  }
+
+  viewFournisseur(id: number) {
+    this.isDisabled = true;
     this.fournisseurService.get(`${READ_ONE_FOURNISSEUR}/${id}`)
       .then((response: any) => {
         console.log(response, response);

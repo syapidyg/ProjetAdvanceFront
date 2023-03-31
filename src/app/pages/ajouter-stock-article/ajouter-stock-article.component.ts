@@ -100,7 +100,7 @@ export class AjouterStockArticleComponent implements OnInit {
   // tslint:disable-next-line: typedef
   public getProduit() {
     return this.produitService.get(READ_PRODUIT).then((response: any) => {
-      this.dataProduit = response.data;
+      this.dataProduit = response.data.content;
       console.log(response);
     });
   }

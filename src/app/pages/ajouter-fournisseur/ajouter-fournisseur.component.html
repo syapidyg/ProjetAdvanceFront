@@ -48,7 +48,7 @@
                                                                 fournisseur</label>
                                                             <input placeholder="Nom du fournisseur" type="text"
                                                                 formControlName="name" class="form-control" id="name"
-                                                                required>
+                                                                required [attr.disabled]="isDisabled? isDisabled: null">
                                                             <span
                                                                 *ngIf="(submitted || f.name.touched) && f.name.errors "
                                                                 style="color: rgb(255, 75, 75);">
@@ -62,7 +62,7 @@
                                                             <label class="form-label" for="number">Numero</label>
                                                             <input placeholder="number" type="text" formControlName="number"
                                                                 class="form-control" id="number" 
-                                                                required>
+                                                                required [attr.disabled]="isDisabled? isDisabled: null">
                                                             <span
                                                                 *ngIf="(submitted || f.number.touched) && f.number.errors "
                                                                 style="color: rgb(255, 75, 75);">
@@ -79,7 +79,7 @@
                                                             <label class="form-label" for="email">Email</label>
                                                             <input type="email" formControlName="email"
                                                                 class="form-control" id="email" placeholder="Adresse Email"
-                                                                required>
+                                                                required [attr.disabled]="isDisabled? isDisabled: null">
                                                             <span
                                                                 *ngIf="(submitted || f.email.touched) && f.email.errors "
                                                                 style="color: rgb(255, 75, 75);">
@@ -92,7 +92,7 @@
                                                             <label class="form-label" for="address">Adresse</label>
                                                             <input type="address" formControlName="adress"
                                                                 class="form-control" id="pv" placeholder="address"
-                                                                required>
+                                                                required [attr.disabled]="isDisabled? isDisabled: null">
                                                             <span
                                                                 *ngIf="(submitted || f.adress.touched) && f.adress.errors "
                                                                 style="color: rgb(255, 75, 75);">
@@ -105,7 +105,7 @@
                                                             <label class="form-label" for="city">Ville</label>
                                                             <input type="city" formControlName="city"
                                                                 class="form-control" id="pv" placeholder="Ville"
-                                                                required>
+                                                                required [attr.disabled]="isDisabled? isDisabled: null">
                                                             <span
                                                                 *ngIf="(submitted || f.city.touched) && f.city.errors "
                                                                 style="color: rgb(255, 75, 75);">
@@ -116,7 +116,7 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <button type="submit" (click)="save()"
-                                                                class="btn btn-primary">Ajouter
+                                                                class="btn btn-primary" [attr.disabled]="isDisabled? isDisabled: null">Ajouter
                                                                 fournisseur</button>
                                                         </div>
                                                     </div><!--col-->

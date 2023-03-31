@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_CLIENT, READ_LIGNE_COMMANDE_CLIENT, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
+import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_CLIENT, READ_COMMANDE_TYPE, READ_LIGNE_COMMANDE_CLIENT, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
 import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande-response.model';
 import { BonToFactureRequestDto } from 'src/app/shared/_models/requests/bon-facture-request.model';
 import { LigneCommandeResponsetModel } from 'src/app/shared/_models/responses/ligne-commande-response.model';
@@ -34,13 +34,17 @@ export class ListerCommandeClientComponent implements OnInit {
   isLoading!: boolean;
   submitted!: boolean;
   // Pagination options
-  p = 1; // Page courante
+  page = 0; // Page courante
   pageSize = 5; // Nombre d'éléments par page
-  collectionSize = this.data.length;
+
   public dataRead!: CommandeResponseModel;
   public dataReadLigne: LigneCommandeResponsetModel[] = [];
   public modalOpen1 = false;
   public modalOpen2 = false;
+  collectionSize: any;
+  token = '';
+  document = '';
+  type = 'client';
   constructor(
     private commandeService: CommandeService,
     private reglementService: ReglementService,
@@ -54,7 +58,7 @@ export class ListerCommandeClientComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getCommandeClient();
+    this.getCommandeClient(this.token, this.document);
     this.getUser();
     this.initFormLogin(null, null);
     this.getCaisse();
@@ -87,20 +91,34 @@ export class ListerCommandeClientComponent implements OnInit {
 
 
   // tslint:disable-next-line: typedef
-  onPageChange(pageNumber: number) {
-    this.p = pageNumber;
+  onChangeSize(event: any) {
+    console.log(event);
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getCommandeClient(this.token, this.document);
   }
 
   // tslint:disable-next-line: typedef
-  onPageSizeChange() {
-    this.collectionSize = this.data.length;
-    this.p = 1;
+  search(event: any) {
+    console.log(event);
+    this.getCommandeClient(event.target.value, event.target.value);
   }
 
+
   // tslint:disable-next-line: typedef
-  getCommandeClient() {
-    this.commandeService.get(READ_COMMANDE_CLIENT).then((response: any) => {
-      this.data = response.data;
+  onPageChange(event: any) {
+    this.page = event - 1;
+    this.getCommandeClient(this.token, this.document);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  getCommandeClient(token: any, document: any) {
+    // tslint:disable-next-line: max-line-length
+    this.commandeService.get(`${READ_COMMANDE_CLIENT}?token=${token}&type=${this.type}&document=${document}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+      this.data = response.data.content;
+      
+      this.collectionSize = response.data.totalElements;
       console.log(response);
     });
   }
@@ -136,6 +154,7 @@ export class ListerCommandeClientComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line: typedef
   aRegler(commande: any) {
     this.modalOpen1 = false;
     this.modalOpen2 = true;
@@ -145,6 +164,7 @@ export class ListerCommandeClientComponent implements OnInit {
     console.log(commande);
   }
 
+  // tslint:disable-next-line: typedef
   reglerCommande() {
     this.submitted = true;
     this.isLoading = true;
@@ -170,7 +190,7 @@ export class ListerCommandeClientComponent implements OnInit {
         console.log('result', result);
         this.isLoading = !this.isLoading;
         this.notif.success('Reglement enregistré avec succès ');
-        this.router.navigate(['ventes/commande/reglement']);
+        this.router.navigate(['achats/commande/reglement']);
         window.location.reload();
       }, err => {
         console.log(err);
@@ -181,6 +201,7 @@ export class ListerCommandeClientComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line: typedef
   transformCommande(commande: any) {
     let dtoRequest: BonToFactureRequestDto;
     dtoRequest = new BonToFactureRequestDto(
@@ -202,6 +223,7 @@ export class ListerCommandeClientComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.commandeService.postbtf(dtoRequest).toPromise()
+          // tslint:disable-next-line: no-shadowed-variable
           .then((result: any) => {
             this.data = result.data;
             console.log(result);
@@ -211,7 +233,7 @@ export class ListerCommandeClientComponent implements OnInit {
               icon: 'success',
               confirmButtonColor: '#28a745'
             });
-            this.getCommandeClient();
+            this.getCommandeClient(this.token, this.document);
           });
       } else {
         Swal.fire({
@@ -221,7 +243,7 @@ export class ListerCommandeClientComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getCommandeClient();
+        this.getCommandeClient(this.token, this.document);
       }
     });
 
@@ -250,7 +272,7 @@ export class ListerCommandeClientComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getCommandeClient();
+          this.getCommandeClient(this.token, this.document);
         });
       } else {
         Swal.fire({
@@ -260,7 +282,7 @@ export class ListerCommandeClientComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getCommandeClient();
+        this.getCommandeClient(this.token, this.document);
       }
     });
   }
@@ -268,7 +290,7 @@ export class ListerCommandeClientComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   recupId(commande: CommandeResponseModel) {
-    this.router.navigate(['ventes/commande/ajouter/', commande.id]);
+    this.router.navigate(['achats/commande/ajouter/', commande.id]);
   }
 
 }

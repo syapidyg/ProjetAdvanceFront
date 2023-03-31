@@ -25,11 +25,12 @@ export class ListerReglementClientComponent implements OnInit {
   form!: FormGroup;
   caisse!: any;
   // Pagination options
-  p = 1; // Page courante
+  page = 0; // Page courante
   pageSize = 5; // Nombre d'éléments par page
-  collectionSize = this.data.length;
   public dataRead!: CommandeResponseModel;
   dataReadLigne: LigneCommandeResponsetModel[] = [];
+  token = '';
+  collectionSize: any;
 
 
 
@@ -44,23 +45,35 @@ export class ListerReglementClientComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getReglementClient();
-  }
-  // tslint:disable-next-line: typedef
-  onPageChange(pageNumber: number) {
-    this.p = pageNumber;
+    this.getReglementClient(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  onPageSizeChange() {
-    this.collectionSize = this.data.length;
-    this.p = 1;
+  onChangeSize(event: any) {
+    console.log(event);
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getReglementClient(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  getReglementClient() {
-    this.reglementService.get(READ_REGLEMENT_CLIENT).then((response: any) => {
-      this.data = response.data;
+  search(event: any) {
+    console.log(event);
+    this.getReglementClient(event.target.value);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  onPageChange(event: any) {
+    this.page = event - 1;
+    this.getReglementClient(this.token);
+  }
+
+  // tslint:disable-next-line: typedef
+  getReglementClient(token: any) {
+    this.reglementService.get(`${READ_REGLEMENT_CLIENT}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+      this.data = response.data.content;
+      this.collectionSize = response.data.totalElements;
       console.log(response);
     });
   }
@@ -117,7 +130,7 @@ export class ListerReglementClientComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getReglementClient();
+          this.getReglementClient(this.token);
         });
       } else {
         Swal.fire({
@@ -127,7 +140,7 @@ export class ListerReglementClientComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getReglementClient();
+        this.getReglementClient(this.token);
       }
     });
   }

@@ -12,6 +12,7 @@ import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande
 import { LigneCommandeResponsetModel } from 'src/app/shared/_models/responses/ligne-commande-response.model';
 
 
+
 @Component({
   selector: 'app-lister-reglement-fournisseur',
   templateUrl: './lister-reglement-fournisseur.component.html',
@@ -20,17 +21,17 @@ import { LigneCommandeResponsetModel } from 'src/app/shared/_models/responses/li
 export class ListerReglementFournisseurComponent implements OnInit {
 
   public data: ReglementResponseModel[] = [];
-  public dataf: any[] = [];
   public isDisabled = false;
   currentUser!: any;
   form!: FormGroup;
   caisse!: any;
   // Pagination options
-  p = 1; // Page courante
+  page = 0; // Page courante
   pageSize = 5; // Nombre d'éléments par page
-  collectionSize = this.data.length;
   public dataRead!: CommandeResponseModel;
   dataReadLigne: LigneCommandeResponsetModel[] = [];
+  token = '';
+  collectionSize: any;
 
 
 
@@ -45,24 +46,36 @@ export class ListerReglementFournisseurComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getReglementFournisseur();
-  }
-  // tslint:disable-next-line: typedef
-  onPageChange(pageNumber: number) {
-    this.p = pageNumber;
+    this.getReglementFournisseur(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  onPageSizeChange() {
-    this.collectionSize = this.data.length;
-    this.p = 1;
+  onChangeSize(event: any) {
+    console.log(event);
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getReglementFournisseur(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  getReglementFournisseur() {
-    this.reglementService.get(READ_REGLEMENT_FOURNISSEUR).then((response: any) => {
-      this.dataf = response.data;
-      console.log('fournisseur', response);
+  search(event: any) {
+    console.log(event);
+    this.getReglementFournisseur(event.target.value);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  onPageChange(event: any) {
+    this.page = event - 1;
+    this.getReglementFournisseur(this.token);
+  }
+
+  // tslint:disable-next-line: typedef
+  getReglementFournisseur(token: any) {
+    this.reglementService.get(`${READ_REGLEMENT_FOURNISSEUR}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+      this.data = response.data.content;
+      this.collectionSize = response.data.totalElements;
+      console.log(response);
     });
   }
 
@@ -118,7 +131,7 @@ export class ListerReglementFournisseurComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getReglementFournisseur();
+          this.getReglementFournisseur(this.token);
         });
       } else {
         Swal.fire({
@@ -128,7 +141,7 @@ export class ListerReglementFournisseurComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getReglementFournisseur();
+        this.getReglementFournisseur(this.token);
       }
     });
   }

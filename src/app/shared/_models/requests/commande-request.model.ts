@@ -1,4 +1,4 @@
-import { LigneCommandeRequestModel } from "./ligne-commande-request.model";
+import { LigneCommandeRequestModel } from './ligne-commande-request.model';
 
 export class CommandeRequestModel {
     constructor(

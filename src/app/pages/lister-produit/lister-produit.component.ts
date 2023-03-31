@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DELETE_PRODUIT, READ_ONE_PRODUIT, READ_PRODUIT } from 'src/app/shared/_elements/api_constant';
+import { DELETE_PRODUIT, READ_ONE_PRODUIT, READ_ONE_STOCK_ARTICLE, READ_PRODUIT } from 'src/app/shared/_elements/api_constant';
 import { ProduitResponseModel } from 'src/app/shared/_models/responses/produit-response.model';
 import { NotificationService } from 'src/app/shared/_services/notifiaction.service';
 import { ProduitService } from 'src/app/shared/_services/produit-service';
@@ -23,10 +23,11 @@ export class ListerProduitComponent implements OnInit {
   form!: FormGroup;
   caisse!: any;
   // Pagination options
-  p = 1; // Page courante
+  page = 0; // Page courante
   pageSize = 5; // Nombre d'éléments par page
-  collectionSize = this.data.length;
   public dataRead!: ProduitResponseModel;
+  collectionSize!: any;
+  token = '';
 
   constructor(
     private produitService: ProduitService,
@@ -38,36 +39,49 @@ export class ListerProduitComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getProduit();
+    this.getProduit(this.token);
 
   }
 
   // tslint:disable-next-line: typedef
-  onPageChange(pageNumber: number) {
-    this.p = pageNumber;
+  onChangeSize(event: any) {
+    console.log(event);
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getProduit(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  onPageSizeChange() {
-    this.collectionSize = this.data.length;
-    this.p = 1;
+  search(event: any) {
+    console.log(event);
+    this.getProduit(event.target.value);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  onPageChange(event: any) {
+    this.page = event - 1;
+    this.getProduit(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  getProduit() {
-    this.produitService.get(READ_PRODUIT).then((response: any) => {
-      this.data = response.data;
-      console.log(response);
+  getProduit(token: any) {
+    this.produitService.get(`${READ_PRODUIT}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+      this.data = response.data.content;
+      this.collectionSize = response.data.totalElements;
+      console.log('liste des produits', response);
+      console.log('produits', this.data);
     });
   }
 
   // tslint:disable-next-line: typedef
   readOneProduit(produit: any) {
     this.produitService.get(READ_ONE_PRODUIT + '/' + produit.id).then((response: any) => {
-      this.dataRead = response.data;
-      console.log(response);
+      this.produitService.get(READ_ONE_STOCK_ARTICLE + '/' + produit.id).then((responseStock: any) => {
+        this.dataRead = response.data;
+        console.log(response);
+      });
     });
-
   }
 
   // tslint:disable-next-line: typedef
@@ -93,7 +107,7 @@ export class ListerProduitComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getProduit();
+          this.getProduit(this.token);
         });
       } else {
         Swal.fire({
@@ -103,7 +117,7 @@ export class ListerProduitComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getProduit();
+        this.getProduit(this.token);
       }
     });
   }

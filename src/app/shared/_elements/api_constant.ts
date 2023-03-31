@@ -53,12 +53,15 @@ export const ADD_COMMANDE = COMMANDE + `/create`;
 export const READ_COMMANDE = COMMANDE + `/read`;
 export const READ_COMMANDE_CLIENT = COMMANDE + `/readClient`;
 export const READ_COMMANDE_FOURNISSEUR = COMMANDE + `/readFournisseur`;
+export const READ_COMMANDE_STOCK = COMMANDE + `/readStock`;
+export const READ_COMMANDE_TYPE = COMMANDE + `/readType`;
 export const READ_ONE_COMMANDE = COMMANDE + `/readOne`;
 export const DELETE_COMMANDE = COMMANDE + `/delete`;
 export const TRANSFORM_COMMANDE = COMMANDE + `/transform`;
 export const LIGNE_COMMANDE = SERVEUR + `/ligneDeCommande`;
 export const READ_LIGNE_COMMANDE_CLIENT = LIGNE_COMMANDE + `/readClient`;
 export const READ_LIGNE_COMMANDE_FOURNISSEUR = LIGNE_COMMANDE + `/readFournisseur`;
+export const READ_LIGNE_COMMANDE_STOCK = LIGNE_COMMANDE + `/readStock`;
 
 
 // API du controlleur de Fournisseur

@@ -114,7 +114,12 @@ export class ListerFournisseurComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   recupId(fournisseur: FournisseurResponseModel) {
-    this.router.navigate(['/fournisseurs/ajouter/', fournisseur.id]);
+    this.router.navigate(['/fournisseurs/ajouter/', fournisseur.id, ]);
+  }
+
+  // tslint:disable-next-line: typedef
+  recupIdView(fournisseur: FournisseurResponseModel) {
+    this.router.navigate(['/fournisseurs/ajouter/', fournisseur.id, 'view' ]);
   }
 
 }

@@ -141,8 +141,7 @@
                                                             <label class="form-label" for="idProduit">Produit
                                                             </label>
                                                             <ng-select formControlName="idProduit"
-                                                                [(ngModel)]="selectedProduit"
-                                                                class="form-control ">
+                                                                [(ngModel)]="selectedProduit" class="form-control ">
                                                                 <ng-option *ngFor="let data of dataProduit"
                                                                     [value]="data.id">
                                                                     {{ data.dci }}

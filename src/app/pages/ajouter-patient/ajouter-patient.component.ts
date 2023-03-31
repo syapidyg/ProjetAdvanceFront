@@ -24,12 +24,12 @@ export class AjouterPatientComponent implements OnInit {
   isLoading!: boolean;
   submitted!: boolean;
   i !: number;
-  p = 1; // Page courante
+  page = 0; // Page courante
   pageSize = 5; // Nombre d'éléments par page
   id!: any;
   public isDisabled = false;
-  collectionSize = this.data.length;
-
+  collectionSize!: any;
+  token = '';
   constructor(
     private patientService: PatientService,
     private fb: FormBuilder,
@@ -40,7 +40,7 @@ export class AjouterPatientComponent implements OnInit {
 
   ) { }
   ngOnInit(): void {
-    this.getPatient();
+    this.getPatient(this.token);
     this.initForm(null);
   }
 
@@ -49,14 +49,34 @@ export class AjouterPatientComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  onPageChange(pageNumber: number) {
-    this.p = pageNumber;
+  onChangeSize(event: any) {
+    console.log(event);
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getPatient(this.token);
+  }
+
+  search(event: any) {
+    console.log(event);
+    this.getPatient(event.target.value);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  onPageChange(event: any) {
+    this.page = event - 1;
+    this.getPatient(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  onPageSizeChange() {
-    this.collectionSize = this.data.length;
-    this.p = 1;
+  getPatient(token: any) {
+    this.patientService.get(`${READ_PATIENT}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+      console.log(this.page);
+      console.log(this.pageSize);
+      this.data = response.data.content;
+      this.collectionSize = response.data.totalElements;
+      console.log(response);
+    });
   }
 
   // tslint:disable-next-line: typedef
@@ -91,7 +111,7 @@ export class AjouterPatientComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getPatient();
+          this.getPatient(this.token);
         });
       } else {
         Swal.fire({
@@ -101,18 +121,12 @@ export class AjouterPatientComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getPatient();
+        this.getPatient(this.token);
       }
     });
   }
 
-  // tslint:disable-next-line: typedef
-  getPatient() {
-    this.patientService.get(READ_PATIENT).then((response: any) => {
-      this.data = response.data;
-      console.log(response);
-    });
-  }
+
 
   // tslint:disable-next-line: typedef
   editPatient(patient: any) {

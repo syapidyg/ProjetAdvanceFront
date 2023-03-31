@@ -45,7 +45,7 @@ export class AjouterCommandeFournisseurComponent implements OnInit {
   isLoading!: boolean;
   submitted!: boolean;
   i !: number;
-  p = 1; // Page courante
+  page = 1; // Page courante
   pageSize = 5; // Nombre d'éléments par page
   id!: any;
   public isDisabled = false;
@@ -54,7 +54,8 @@ export class AjouterCommandeFournisseurComponent implements OnInit {
   model: any;
   qte = 0;
   selectedProduit!: number;
-
+  collectionSize: any;
+  token = '';
   constructor(
     private produitService: ProduitService,
     private depotService: DepotService,
@@ -71,7 +72,7 @@ export class AjouterCommandeFournisseurComponent implements OnInit {
     this.initForm(null);
     this.initFormLigne(null);
     this.getFournisseur();
-    this.getProduit();
+    this.getProduit(this.token);
     this.getDepot();
 
   }
@@ -110,9 +111,10 @@ export class AjouterCommandeFournisseurComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  public getProduit() {
-    return this.produitService.get(READ_PRODUIT).then((response: any) => {
-      this.dataProduit = response.data;
+  public getProduit(token: any) {
+    this.produitService.get(`${READ_PRODUIT}?token=${token}`).then((response: any) => {
+      this.dataProduit = response.data.content;
+      this.collectionSize = response.data.totalElements;
       console.log(response);
     });
   }

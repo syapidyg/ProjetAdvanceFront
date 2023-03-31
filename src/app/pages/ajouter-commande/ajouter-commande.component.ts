@@ -53,6 +53,7 @@ export class AjouterCommandeComponent implements OnInit {
   ligneCommandeSave: LigneCommandeRequestModel[] = [];
   model: any;
   qte = 0;
+  token = '';
   selectedProduit!: number;
   constructor(
     private produitService: ProduitService,
@@ -69,16 +70,18 @@ export class AjouterCommandeComponent implements OnInit {
   ngOnInit(): void {
     this.initForm(null);
     this.initFormLigne(null);
-    this.getPatient();
-    this.getProduit();
+    this.getPatient(this.token);
+    this.getProduit(this.token);
     this.getDepot();
 
   }
 
+  // tslint:disable-next-line: typedef
   increment() {
     this.qte++;
   }
 
+  // tslint:disable-next-line: typedef
   decrement() {
     this.qte--;
   }
@@ -99,18 +102,19 @@ export class AjouterCommandeComponent implements OnInit {
   get fLigne() { return this.formLigne.controls; }
 
   // tslint:disable-next-line: typedef
-  public getPatient() {
-    return this.patientService.get(READ_PATIENT).then((response: any) => {
-      this.dataPatient = response.data;
+  // tslint:disable-next-line: typedef
+  getPatient(token: any) {
+    this.patientService.get(`${READ_PATIENT}?token=${token}`).then((response: any) => {
+      console.log(this.pageSize);
+      this.dataPatient = response.data.content;
       console.log(response);
-      this.dataStatut.reverse();
     });
   }
 
   // tslint:disable-next-line: typedef
-  public getProduit() {
-    return this.produitService.get(READ_PRODUIT).then((response: any) => {
-      this.dataProduit = response.data;
+  public getProduit(token: any) {
+    return this.produitService.get(`${READ_PRODUIT}?token=${token}`).then((response: any) => {
+      this.dataProduit = response.data.content;
       console.log(response);
     });
   }

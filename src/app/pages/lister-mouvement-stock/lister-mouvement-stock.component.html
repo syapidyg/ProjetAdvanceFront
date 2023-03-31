@@ -4,16 +4,14 @@
             <div class="nk-block-head">
                 <div class="nk-block-head-content d-flex justify-content-between">
                     <div>
-                        <h4 class="nk-block-title">LISTE DES COMMANDES</h4>
-                        <p>Le tableau suivant liste <strong class="text-primary">les differents commandes et leurs
-                                differentes
-                                operations</strong>.</p>
+                        <h4 class="nk-block-title">MOUVEMENT DE STOCK</h4>
+                        <p>Le tableau suivant liste <strong class="text-primary">les differents mouvements de stock</strong>.</p>
                         <div>
                             <nav>
                                 <ul class="breadcrumb breadcrumb-arrow">
                                     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Commandes
+                                    <li class="breadcrumb-item active">Mouvement de stock
                                     </li>
                                 </ul>
                             </nav>
@@ -22,9 +20,9 @@
                 </div>
                 <div class="d-flex flex-row-reverse flex-item justify-content-between">
                     <li class="nk-block-tools-opt">
-                        <a [routerLink]="['/ventes/commande/ajouter']"
+                        <a [routerLink]="['/stocks/liste']"
                             class="btn btn-primary d-none d-md-inline-flex"><em
-                                class="icon ni ni-plus"></em><span>Ajouter commande</span></a>
+                                class="icon ni ni-plus"></em><span>Liste des articles en stock</span></a>
                     </li>
                 </div>
             </div>
@@ -36,8 +34,7 @@
                             <div class="col-7 col-sm-4 text-start">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>
-                                        <input (keyup)="search($event)" type="search"
-                                            class="form-control form-control-sm" placeholder="Rechercher"
+                                        <input (keyup)="search($event)" type="search" class="form-control form-control-sm" placeholder="Rechercher"
                                             aria-controls="DataTables_Table_0">
                                     </label>
                                 </div>
@@ -49,10 +46,8 @@
                                             <label>
                                                 <span class="d-none d-sm-inline-block">Voir</span>
                                                 <div class="form-control-select">
-                                                    <select name="DataTables_Table_0_length"
-                                                        aria-controls="DataTables_Table_0"
-                                                        class="custom-select custom-select-sm form-control form-control-sm"
-                                                        (change)="onChangeSize($event)">
+                                                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                                        class="custom-select custom-select-sm form-control form-control-sm" (change)="onChangeSize($event)">
                                                         <option value="5">5</option>
                                                         <option value="10">10</option>
                                                         <option value="25">25</option>
@@ -71,11 +66,9 @@
                                     <tr>
 
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col" rowspan="1"
-                                            colspan="1">Client</th>
+                                            colspan="1">Code</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
                                             colspan="1">date</th>
-                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col" rowspan="1"
-                                            colspan="1">Montant</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-sm" rowspan="1"
                                             colspan="1">Document</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-sm" rowspan="1"
@@ -89,25 +82,25 @@
                                         *ngFor="let commande of data.reverse() | paginate: { id: 'commande', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
 
                                         <td class="even nk-tb-col">
-                                            <span class="title">{{commande?.client.name}}</span>
+                                            <span class="title">{{i+1}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
                                             <span class="title">{{commande?.date_creation | date}}</span>
-                                        </td>
-                                        <td class="odd nk-tb-col tb-col">
-                                            <span class="title">{{commande?.pt}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-sm">
                                             <span class="title">{{commande?.document}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-sm">
-                                            <span *ngIf="commande.statut == 'EN_ATTENTE'"
-                                                class="badge badge-dot bg-secondary">En Attente</span>
-                                            <span *ngIf="commande.statut == 'NON_REGLE'"
-                                                class="badge badge-dot bg-info">Non Regle</span>
-                                            <span *ngIf="commande.statut == 'REGLE'" class="badge badge-dot bg-primary">
-                                                Regle</span>
-
+                                            <span *ngIf="commande.statut == 'ENTREE' || commande.statut =='REGLE' && commande.type == 'fournisseur'"
+                                                class="badge badge-dot bg-primary">Entrée en stock</span>
+                                            <span *ngIf="commande.document =='Transfert'"
+                                                class="badge badge-dot bg-warning">Transféré</span>
+                                            <span *ngIf="commande.statut =='NON_REGLE' && commande.type == 'fournisseur'"
+                                                class="badge badge-dot bg-secondary">En Attente </span>
+                                            <span *ngIf="commande.statut =='NON_REGLE' && commande.type == 'client'"
+                                                class="badge badge-dot bg-danger">Sortie de stock </span>
+                                            <span *ngIf="commande.statut =='REGLE' && commande.type == 'client'"
+                                                class="badge badge-dot bg-danger">Sortie de stock </span>
                                         </td>
                                         <td class="tb-tnx-action nk-tb-col tb-col">
                                             <div class="">
@@ -205,20 +198,20 @@
                                     </div><!-- .invoice-actions -->
                                     <div class="invoice-wrap">
                                         <div class="invoice-head">
-                                            <div class="invoice-contact">
+                                            <!-- <div class="invoice-contact">
                                                 <span class="overline-title">COMMANDE de</span>
                                                 <div class="invoice-contact-info">
-                                                    <h4 class="title ucap">{{dataRead.fournisseur.name}}</h4>
+                                                    <h4 class="title ucap">{{dataRead.client.name}}</h4>
                                                     <ul class="list-plain">
                                                         <li><em
-                                                                class="icon ni ni-map-pin-fill"></em><span>{{dataRead.fournisseur.email}}</span>
+                                                                class="icon ni ni-map-pin-fill"></em><span>{{dataRead.client.email}}</span>
                                                         </li>
                                                         <li><em
-                                                                class="icon ni ni-call-fill"></em><span>{{dataRead.fournisseur.number}}</span>
+                                                                class="icon ni ni-call-fill"></em><span>{{dataRead.client.number}}</span>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="invoice-desc">
                                                 <h3 class="title">{{dataRead.document}}</h3>
                                                 <ul class="list-plain">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_FOURNISSEUR, READ_LIGNE_COMMANDE_FOURNISSEUR, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
+import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_STOCK, READ_LIGNE_COMMANDE_STOCK, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
 import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande-response.model';
 import { BonToFactureRequestDto } from 'src/app/shared/_models/requests/bon-facture-request.model';
 import { LigneCommandeResponsetModel } from 'src/app/shared/_models/responses/ligne-commande-response.model';
@@ -16,11 +16,11 @@ import { CaisseService } from 'src/app/shared/_services/caisse-service';
 import { CaisseResponseModel } from 'src/app/shared/_models/responses/caisse-response.model';
 
 @Component({
-  selector: 'app-lister-commande-fournisseur',
-  templateUrl: './lister-commande-fournisseur.component.html',
-  styleUrls: ['./lister-commande-fournisseur.component.scss']
+  selector: 'app-lister-mouvement-stock',
+  templateUrl: './lister-mouvement-stock.component.html',
+  styleUrls: ['./lister-mouvement-stock.component.scss']
 })
-export class ListerCommandeFournisseurComponent implements OnInit {
+export class ListerMouvementStockComponent implements OnInit {
 
   public data: CommandeResponseModel[] = [];
   public dataCaisse: any[] = [];
@@ -43,6 +43,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
   public modalOpen2 = false;
   collectionSize: any;
   token = '';
+
   constructor(
     private commandeService: CommandeService,
     private reglementService: ReglementService,
@@ -54,9 +55,10 @@ export class ListerCommandeFournisseurComponent implements OnInit {
     private tokenStorage: TokenStorageService,
   ) { }
 
+
   ngOnInit(): void {
 
-    this.getCommandeFournisseur(this.token);
+    this.getCommandeStock(this.token);
     this.getUser();
     this.initFormLogin(null, null);
     this.getCaisse();
@@ -93,27 +95,27 @@ export class ListerCommandeFournisseurComponent implements OnInit {
     console.log(event);
     this.pageSize = event.target.value;
     this.page = 0;
-    this.getCommandeFournisseur(this.token);
+    this.getCommandeStock(this.token);
   }
 
   // tslint:disable-next-line: typedef
   search(event: any) {
     console.log(event);
-    this.getCommandeFournisseur(event.target.value);
+    this.getCommandeStock(event.target.value);
   }
 
 
   // tslint:disable-next-line: typedef
   onPageChange(event: any) {
     this.page = event - 1;
-    this.getCommandeFournisseur(this.token);
+    this.getCommandeStock(this.token);
   }
 
 
   // tslint:disable-next-line: typedef
-  getCommandeFournisseur(token: any) {
+  getCommandeStock(token: any) {
     // tslint:disable-next-line: max-line-length
-    this.commandeService.get(`${READ_COMMANDE_FOURNISSEUR}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+    this.commandeService.get(`${READ_COMMANDE_STOCK}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
       this.data = response.data.content;
       this.collectionSize = response.data.totalElements;
       console.log(response);
@@ -134,7 +136,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   readOneLigneCommande(id: number) {
-    this.ligneCommandeService.get(READ_LIGNE_COMMANDE_FOURNISSEUR + '/' + id).then((responseLigne: any) => {
+    this.ligneCommandeService.get(READ_LIGNE_COMMANDE_STOCK + '/' + id).then((responseLigne: any) => {
       this.dataReadLigne = responseLigne.data;
       console.log('LigneCommande', responseLigne);
       this.isDisabled = true;
@@ -151,7 +153,6 @@ export class ListerCommandeFournisseurComponent implements OnInit {
   }
 
 
-  // tslint:disable-next-line: typedef
   aRegler(commande: any) {
     this.modalOpen1 = false;
     this.modalOpen2 = true;
@@ -161,7 +162,6 @@ export class ListerCommandeFournisseurComponent implements OnInit {
     console.log(commande);
   }
 
-  // tslint:disable-next-line: typedef
   reglerCommande() {
     this.submitted = true;
     this.isLoading = true;
@@ -187,7 +187,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
         console.log('result', result);
         this.isLoading = !this.isLoading;
         this.notif.success('Reglement enregistré avec succès ');
-        this.router.navigate(['achats/commande/reglement']);
+        this.router.navigate(['ventes/commande/reglement']);
         window.location.reload();
       }, err => {
         console.log(err);
@@ -198,7 +198,6 @@ export class ListerCommandeFournisseurComponent implements OnInit {
   }
 
 
-  // tslint:disable-next-line: typedef
   transformCommande(commande: any) {
     let dtoRequest: BonToFactureRequestDto;
     dtoRequest = new BonToFactureRequestDto(
@@ -220,7 +219,6 @@ export class ListerCommandeFournisseurComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.commandeService.postbtf(dtoRequest).toPromise()
-          // tslint:disable-next-line: no-shadowed-variable
           .then((result: any) => {
             this.data = result.data;
             console.log(result);
@@ -230,7 +228,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
               icon: 'success',
               confirmButtonColor: '#28a745'
             });
-            this.getCommandeFournisseur(this.token);
+            this.getCommandeStock(this.token);
           });
       } else {
         Swal.fire({
@@ -240,7 +238,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getCommandeFournisseur(this.token);
+        this.getCommandeStock(this.token);
       }
     });
 
@@ -269,7 +267,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getCommandeFournisseur(this.token);
+          this.getCommandeStock(this.token);
         });
       } else {
         Swal.fire({
@@ -279,7 +277,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getCommandeFournisseur(this.token);
+        this.getCommandeStock(this.token);
       }
     });
   }
@@ -287,7 +285,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   recupId(commande: CommandeResponseModel) {
-    this.router.navigate(['achats/commande/ajouter/', commande.id]);
+    this.router.navigate(['ventes/commande/ajouter/', commande.id]);
   }
 
 }

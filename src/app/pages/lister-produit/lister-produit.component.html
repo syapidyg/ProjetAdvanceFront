@@ -39,8 +39,9 @@
                             <div class="col-7 col-sm-4 text-start">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>
-                                        <input type="search" class="form-control form-control-sm"
-                                            placeholder="Rechercher" aria-controls="DataTables_Table_0">
+                                        <input (keyup)="search($event)" type="search"
+                                            class="form-control form-control-sm" placeholder="Rechercher"
+                                            aria-controls="DataTables_Table_0">
                                     </label>
                                 </div>
                             </div>
@@ -54,12 +55,11 @@
                                                     <select name="DataTables_Table_0_length"
                                                         aria-controls="DataTables_Table_0"
                                                         class="custom-select custom-select-sm form-control form-control-sm"
-                                                        [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+                                                        (change)="onChangeSize($event)">
                                                         <option value="5">5</option>
                                                         <option value="10">10</option>
                                                         <option value="25">25</option>
                                                         <option value="50">50</option>
-                                                        <option value="100">100</option>
                                                     </select>
                                                 </div>
                                             </label>
@@ -87,17 +87,13 @@
                                             colspan="1">Prix d'achat</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col" rowspan="1"
                                             colspan="1">Prix de vente</th>
-                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-md" rowspan="1"
-                                            colspan="1">Stock</th>
-                                        <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-md" rowspan="1"
-                                            colspan="1">Statut</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col " rowspan="1"
                                             colspan="1">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let produit of data | paginate: { itemsPerPage: pageSize, currentPage: p }  ; let i=index ">
+                                        *ngFor="let produit of data | paginate: { id: 'produit', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
 
                                         <td class="even nk-tb-col">
                                             <span class="title">{{produit?.dci}}</span>
@@ -119,13 +115,6 @@
                                         </td>
                                         <td class="odd nk-tb-col">
                                             <span class="title">{{produit?.pv}}</span>
-                                        </td>
-                                        <td class="odd nk-tb-col tb-col-md">
-                                            <span class="title">0</span>
-                                        </td>
-                                        <td class="odd nk-tb-col tb-col-md">
-                                            <span class="title">hh</span>
-                                        </td>
                                         <td class="tb-tnx-action nk-tb-col tb-col">
                                             <div class="">
                                                 <ul class="nk-tb-actions ">
@@ -136,16 +125,16 @@
                                                                     class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="html/pharmacy/manufacturer.html"><em
-                                                                                class="icon ni ni-home-fill"></em><span>Commander</span></a>
-                                                                    </li>
-                                                                    <li (click)="readOneProduit(produit)" ><a data-bs-toggle="modal"
-                                                                        data-bs-target="#modalTabs" ><em class="icon ni ni-eye"></em><span>Voir
+                                            
+                                                                    <li (click)="readOneProduit(produit)"><a
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalTabs"><em
+                                                                                class="icon ni ni-eye"></em><span>Voir
                                                                                 Details</span></a></li>
-                                                                    <li (click)="recupId(produit)"><a ><em
+                                                                    <li (click)="recupId(produit)"><a><em
                                                                                 class="icon ni ni-edit"></em><span>Editer
                                                                             </span></a></li>
-                                                                    <li (click)="deleteProduit(produit)"><a ><em
+                                                                    <li (click)="deleteProduit(produit)"><a><em
                                                                                 class="icon ni ni-trash"></em><span>Supprimer
                                                                             </span></a></li>
                                                                 </ul>
@@ -161,8 +150,8 @@
                             </table>
                         </div>
                         <div class="pagination-container pagination">
-                            <li> <pagination-controls [directionLinks]="true" [autoHide]="true"
-                                    (pageChange)="p = $event" class="bg-primary"></pagination-controls></li>
+                            <li> <pagination-controls [directionLinks]="true" id="produit" [autoHide]="true"
+                                    (pageChange)="onPageChange($event)" class="bg-primary"></pagination-controls></li>
                         </div>
                         <!-- pagination -->
                         <!-- <div class="row align-items-center">
@@ -209,123 +198,82 @@
 </div>
 
 
-<div   class="modal fade" tabindex="-1" role="dialog" id="modalTabs">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalTabs">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" *ngIf="dataRead">
             <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
             <div class="modal-body modal-body-md">
                 <h4 class="title">Informations du produit</h4>
-            <div class="nk-block">
-                <div class="card card-bordered">
-                    <div class="card-aside-wrap">
-                        <div class="card-content">
-                            <div class="card-inner" >
-                                <div class="nk-block">
-                                    <!-- .nk-block-head -->
-                                    <div class="row gy-3">
-                                        <div class="col-md-4 col-lg-3 col-6">
-                                            <div class="profile-stats">
-                                                <span class="profile-ud-label">DCI</span>
-                                                <span>{{dataRead.dci}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-lg-3  col-6">
-                                            <div class="profile-stats">
-                                                <span class="profile-ud-label">Famille</span>
-                                                <span>{{dataRead.famille.name}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-lg-3  col-6">
-                                            <div class="profile-stats">
-                                                <span class="profile-ud-label">Dosage</span>
-                                                <span>{{dataRead.dosage}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-lg-3  col-6">
-                                            <div class="profile-stats">
-                                                <span class="profile-ud-label">Categorie</span>
-                                                <span>{{dataRead.categorie}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-lg-3  col-6">
-                                            <div class="profile-stats">
-                                                <span class="profile-ud-label">Forme</span>
-                                                <span>{{dataRead.forme}}</span>
-                                            </div>
-                                        </div>
-            
-                                    </div><!-- .nk-block -->
-                                    <div class="nk-divider divider md"></div>
+                <div class="nk-block">
+                    <div class="card card-bordered">
+                        <div class="card-aside-wrap">
+                            <div class="card-content">
+                                <div class="card-inner">
                                     <div class="nk-block">
-                                        <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                            <h5 class="title">Stock</h5>
-                                        </div><!-- .nk-block-head -->
+                                        <!-- .nk-block-head -->
                                         <div class="row gy-3">
-                                            <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-4 col-lg-3 col-6">
                                                 <div class="profile-stats">
-                                                    <span class="profile-ud-label">Quantité Max</span>
-                                                    <span class="amount">230box</span>
+                                                    <span class="profile-ud-label">DCI</span>
+                                                    <span class="fw-bold">{{dataRead.dci}}</span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-4 col-lg-3  col-6">
                                                 <div class="profile-stats">
-                                                    <span class="profile-ud-label">Quantité en stock</span>
-                                                    <span class="amount">180box</span>
+                                                    <span class="profile-ud-label">Famille</span>
+                                                    <span class="fw-bold">{{dataRead.famille.name}}</span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-4 col-lg-3  col-6">
                                                 <div class="profile-stats">
-                                                    <span class="profile-ud-label">Statuts du stock</span>
-                                                    <span class="badge badge-dot bg-primary">Available</span>
+                                                    <span class="profile-ud-label">Dosage</span>
+                                                    <span class="fw-bold">{{dataRead.dosage}}</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row gy-5">
-                                            <div class="col-lg-4 col-8">
+                                            <div class="col-md-4 col-lg-3  col-6">
                                                 <div class="profile-stats">
-                                                    <span class="profile-ud-label">Remaining</span>
-                                                    <div class="progress progress-lg">
-                                                        <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                                            data-progress="75" style="width: 75%;">75%</div>
+                                                    <span class="profile-ud-label">Categorie</span>
+                                                    <span class="fw-bold">{{dataRead.categorie}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-3  col-6">
+                                                <div class="profile-stats">
+                                                    <span class="profile-ud-label">Forme</span>
+                                                    <span class="fw-bold">{{dataRead.forme}}</span>
+                                                </div>
+                                            </div>
+
+                                        <!-- .nk-block -->
+                                            
+                                        </div><!-- .nk-block -->
+                                        <div class="nk-divider divider md"></div>
+                                        <div class="nk-block">
+                                            <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                <h5 class="title">Prix</h5>
+                                            </div><!-- .nk-block-head -->
+                                            <div class="row gy-3">
+                                                <div class="col-md-5 col-sm-6">
+                                                    <div class="profile-stats">
+                                                        <span class="profile-ud-label">Prix d'achat</span>
+                                                        <span class="amount">{{dataRead.pa }} CFA</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- .nk-block -->
-                                    <div class="nk-divider divider md"></div>
-                                    <div class="nk-block">
-                                        <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                            <h5 class="title">Estimate</h5>
-                                        </div><!-- .nk-block-head -->
-                                        <div class="row gy-3">
-                                            <div class="col-md-5 col-sm-6">
-                                                <div class="profile-stats">
-                                                    <span class="profile-ud-label">Prix d'achat</span>
-                                                    <span class="amount">{{dataRead.pa }} CFA</span>
+                                                <div class="col-md-5 col-sm-6">
+                                                    <div class="profile-stats">
+                                                        <span class="profile-ud-label">Prix de vente</span>
+                                                        <span class="amount">{{dataRead.pv }} CFA</span>
+                                                    </div>
                                                 </div>
+
                                             </div>
-                                            <div class="col-md-5 col-sm-6">
-                                                <div class="profile-stats">
-                                                    <span class="profile-ud-label">Prix de vente</span>
-                                                    <span class="amount">{{dataRead.pv }} CFA</span>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div><!-- .nk-block -->
-                                </div><!-- .card-inner -->
-                            </div><!-- .card-content -->
-                        </div><!-- .card-aside-wrap -->
-                    </div><!-- .card -->
+                                        </div><!-- .nk-block -->
+                                    </div><!-- .card-inner -->
+                                </div><!-- .card-content -->
+                            </div><!-- .card-aside-wrap -->
+                        </div><!-- .card -->
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-

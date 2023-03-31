@@ -39,6 +39,7 @@ import { ListerReglementFournisseurComponent } from './pages/lister-reglement-fo
 import { ListerStockArticleComponent } from './pages/lister-stock-article/lister-stock-article.component';
 import { AjouterStockArticleComponent } from './pages/ajouter-stock-article/ajouter-stock-article.component';
 import { TransfertStockArticleComponent } from './pages/transfert-stock-article/transfert-stock-article.component';
+import { ListerMouvementStockComponent } from './pages/lister-mouvement-stock/lister-mouvement-stock.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { TransfertStockArticleComponent } from './pages/transfert-stock-article/
     ListerReglementFournisseurComponent,
     ListerStockArticleComponent,
     AjouterStockArticleComponent,
-    TransfertStockArticleComponent
+    TransfertStockArticleComponent,
+    ListerMouvementStockComponent,
   ],
   imports: [
     BrowserModule,

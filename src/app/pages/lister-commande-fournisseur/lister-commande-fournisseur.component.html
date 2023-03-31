@@ -36,8 +36,8 @@
                             <div class="col-7 col-sm-4 text-start">
                                 <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                     <label>
-                                        <input type="search" class="form-control form-control-sm"
-                                            placeholder="Rechercher" aria-controls="DataTables_Table_0">
+                                        <input (keyup)="search($event)" type="search" class="form-control form-control-sm" placeholder="Rechercher"
+                                            aria-controls="DataTables_Table_0">
                                     </label>
                                 </div>
                             </div>
@@ -48,15 +48,12 @@
                                             <label>
                                                 <span class="d-none d-sm-inline-block">Voir</span>
                                                 <div class="form-control-select">
-                                                    <select name="DataTables_Table_0_length"
-                                                        aria-controls="DataTables_Table_0"
-                                                        class="custom-select custom-select-sm form-control form-control-sm"
-                                                        [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()">
+                                                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                                        class="custom-select custom-select-sm form-control form-control-sm" (change)="onChangeSize($event)">
                                                         <option value="5">5</option>
                                                         <option value="10">10</option>
                                                         <option value="25">25</option>
                                                         <option value="50">50</option>
-                                                        <option value="100">100</option>
                                                     </select>
                                                 </div>
                                             </label>
@@ -71,7 +68,7 @@
                                     <tr>
 
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col" rowspan="1"
-                                            colspan="1">Code</th>
+                                            colspan="1">Fournisseur</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col-lg" rowspan="1"
                                             colspan="1">date</th>
                                         <th aria-controls="DataTables_Table_0" class="nk-tb-col tb-col" rowspan="1"
@@ -86,10 +83,10 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        *ngFor="let commande of data.reverse() | paginate: { itemsPerPage: pageSize, currentPage: p }  ; let i=index ">
+                                        *ngFor="let commande of data.reverse() | paginate: { id: 'commande', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
 
                                         <td class="even nk-tb-col">
-                                            <span class="title">{{i+1}}</span>
+                                            <span class="title">{{commande?.fournisseur.name}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
                                             <span class="title">{{commande?.date_creation | date}}</span>
@@ -154,8 +151,8 @@
                             </table>
                         </div>
                         <div class="pagination-container pagination">
-                            <li> <pagination-controls [directionLinks]="true" [autoHide]="true"
-                                    (pageChange)="p = $event" class="bg-primary"></pagination-controls></li>
+                            <li> <pagination-controls [directionLinks]="true" id="commande" [autoHide]="true"
+                                    (pageChange)="onPageChange($event)" class="bg-primary"></pagination-controls></li>
                         </div>
                     </div>
 
@@ -180,7 +177,7 @@
                                 <div class="nk-block-between g-3">
                                     <div class="nk-block-head-content">
                                         <h3 class="nk-block-title page-title">{{dataRead.document }} <strong
-                                                class="text-primary small">#{{dataRead.id }}</strong></h3>
+                                                class="text-primary small">#{{dataRead.code }}</strong></h3>
                                         <div class="nk-block-des text-soft">
                                             <ul class="list-inline">
                                                 <li>Crée Le: <span class="text-base">{{dataRead.date_creation |
@@ -223,7 +220,7 @@
                                                 <h3 class="title">{{dataRead.document}}</h3>
                                                 <ul class="list-plain">
                                                     <li class="invoice-id"><span>
-                                                            Code</span>:<span>{{dataRead.id}}</span></li>
+                                                            Code</span>:<span>{{dataRead.code}}</span></li>
                                                     <li class="">
                                                         <span>Date</span>:<span>{{dataRead.date_creation | date}}</span>
                                                     </li>

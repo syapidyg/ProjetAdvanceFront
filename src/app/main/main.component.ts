@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CaisseService } from '../shared/_services/caisse-service';
 import { NotificationService } from '../shared/_services/notifiaction.service';
@@ -21,23 +21,21 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
 
-      this.getUser();
-    
+    this.getUser();
+
   }
 
+  // tslint:disable-next-line: typedef
   getUser() {
     this.currentUser = this.tokenStorage.getUser();
     console.log(this.currentUser);
   }
 
+  // tslint:disable-next-line: typedef
   signOut() {
-    this.currentToken = this.tokenStorage.getToken;
+    this.currentToken = this.tokenStorage.getToken();
     if (this.currentToken != null) {
       this.tokenStorage.signOut();
     }
-  };
-
-
-
-  
+  }
 }

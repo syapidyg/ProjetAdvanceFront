@@ -21,11 +21,11 @@ export class ListerStockArticleComponent implements OnInit {
   form!: FormGroup;
   caisse!: any;
   // Pagination options
-  p = 1; // Page courante
+  page = 0; // Page courante
   pageSize = 5; // Nombre d'éléments par page
-  collectionSize = this.data.length;
   public dataRead!: StockArticleResponseModel;
-
+  collectionSize: any;
+  token = '';
 
   constructor(
     private stockArticleService: StockArticleService,
@@ -36,23 +36,37 @@ export class ListerStockArticleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getStockArticle();
-  }
-  // tslint:disable-next-line: typedef
-  onPageChange(pageNumber: number) {
-    this.p = pageNumber;
+    this.getStockArticle(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  onPageSizeChange() {
-    this.collectionSize = this.data.length;
-    this.p = 1;
+  onChangeSize(event: any) {
+    console.log(event);
+    this.pageSize = event.target.value;
+    this.page = 0;
+    this.getStockArticle(this.token);
   }
 
   // tslint:disable-next-line: typedef
-  getStockArticle() {
-    this.stockArticleService.get(READ_STOCK_ARTICLE).then((response: any) => {
-      this.data = response.data;
+  search(event: any) {
+    console.log(event);
+    this.getStockArticle(event.target.value);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  onPageChange(event: any) {
+    this.page = event - 1;
+    this.getStockArticle(this.token);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  getStockArticle(token: any) {
+    // tslint:disable-next-line: max-line-length
+    this.stockArticleService.get(`${READ_STOCK_ARTICLE}?token=${token}&page=${this.page}&size=${this.pageSize}`).then((response: any) => {
+      this.data = response.data.content;
+      this.collectionSize = response.data.totalElements;
       console.log(response);
     });
   }
@@ -89,7 +103,7 @@ export class ListerStockArticleComponent implements OnInit {
             icon: 'success',
             confirmButtonColor: '#28a745'
           });
-          this.getStockArticle();
+          this.getStockArticle(this.token);
         });
       } else {
         Swal.fire({
@@ -99,7 +113,7 @@ export class ListerStockArticleComponent implements OnInit {
           confirmButtonColor: '#28a745',
           confirmButtonText: 'OK'
         });
-        this.getStockArticle();
+        this.getStockArticle(this.token);
       }
     });
   }

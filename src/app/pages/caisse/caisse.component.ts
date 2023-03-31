@@ -15,11 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./caisse.component.scss']
 })
 
-
 export class CaisseComponent implements OnInit {
-
-
-
   public data: CaisseResponseModel[] = [];
   currentUser!: any;
   form!: FormGroup;
@@ -50,6 +46,7 @@ export class CaisseComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line: typedef
   onPageChange(pageNumber: number) {
     this.p = pageNumber;
   }

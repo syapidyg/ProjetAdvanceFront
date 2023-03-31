@@ -116,12 +116,8 @@
                                                                     class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="html/pharmacy/manufacturer.html"><em
-                                                                                class="icon ni ni-home-fill"></em><span>Commander</span></a>
-                                                                    </li>
-                                                                    <li (click)="readOneFournisseur(fournisseur)"><a
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#modalTabs"><em
+                                                                    <li [routerLink]="['/fournisseurs/ajouter']"
+                                                                        (click)="recupIdView(fournisseur)"><a><em
                                                                                 class="icon ni ni-eye"></em><span>Voir
                                                                                 Details</span></a></li>
                                                                     <li (click)="recupId(fournisseur)"><a><em
@@ -146,40 +142,7 @@
                             <li> <pagination-controls [directionLinks]="true" [autoHide]="true"
                                     (pageChange)="p = $event" class="bg-primary"></pagination-controls></li>
                         </div>
-                        <!-- pagination -->
-                        <!-- <div class="row align-items-center">
-                            <div class="col-7 col-sm-12 col-md-9">
-                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a
-                                                href="#" aria-controls="DataTables_Table_0" data-dt-idx="previous" tabindex="0"
-                                                class="page-link">Prev</a></li>
-                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="2" tabindex="0" class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="3" tabindex="0" class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
-                                        <li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a href="#"
-                                                aria-controls="DataTables_Table_0" data-dt-idx="ellipsis" tabindex="0"
-                                                class="page-link">…</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0"
-                                                data-dt-idx="11" tabindex="0" class="page-link">12</a></li>
-                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#"
-                                                aria-controls="DataTables_Table_0" data-dt-idx="next" tabindex="0"
-                                                class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-5 col-sm-12 col-md-3 text-start text-md-end">
-                                <div class="dataTables_info" >1 -10 of 100</div>
-                            </div>
-                        </div> -->
-                        <!-- pagination -->
+
                     </div>
 
                 </div>

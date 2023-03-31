@@ -16,10 +16,12 @@ import { ListerCommandeClientComponent } from './pages/lister-commande-client/li
 import { ListerCommandeFournisseurComponent } from './pages/lister-commande-fournisseur/lister-commande-fournisseur.component';
 import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
 import { ListerFournisseurComponent } from './pages/lister-fournisseur/lister-fournisseur.component';
+import { ListerMouvementStockComponent } from './pages/lister-mouvement-stock/lister-mouvement-stock.component';
 import { ListerProduitComponent } from './pages/lister-produit/lister-produit.component';
 import { ListerReglementClientComponent } from './pages/lister-reglement-client/lister-reglement-client.component';
 import { ListerReglementFournisseurComponent } from './pages/lister-reglement-fournisseur/lister-reglement-fournisseur.component';
 import { ListerStockArticleComponent } from './pages/lister-stock-article/lister-stock-article.component';
+import { TransfertStockArticleComponent } from './pages/transfert-stock-article/transfert-stock-article.component';
 import { LoginComponent } from './session/login/login.component';
 import { UserGuardService } from './shared/_helpers/user-guard.service';
 
@@ -39,6 +41,7 @@ const routes: Routes = [
       { path: 'fournisseurs/ajouter', component: AjouterFournisseurComponent },
       { path: 'fournisseurs/liste', component: ListerFournisseurComponent },
       { path: 'fournisseurs/ajouter/:id', component: AjouterFournisseurComponent },
+      { path: 'fournisseurs/ajouter/:id/:type', component: AjouterFournisseurComponent },
       { path: 'employes/ajouter', component: AjouterEmployeComponent },
       { path: 'employes/liste', component: ListerEmployeComponent },
       { path: 'employes/ajouter/:id', component: AjouterEmployeComponent },
@@ -51,7 +54,9 @@ const routes: Routes = [
       { path: 'achats/commande/liste', component: ListerCommandeFournisseurComponent },
       { path: 'achats/commande/reglement', component: ListerReglementFournisseurComponent },
       { path: 'stocks/ajouter', component: AjouterStockArticleComponent },
+      { path: 'stocks/transfert', component: TransfertStockArticleComponent },
       { path: 'stocks/liste', component: ListerStockArticleComponent },
+      { path: 'stocks/mouvement', component: ListerMouvementStockComponent },
       { path: 'stocks/ajouter/:id', component: AjouterEmployeComponent },
     ]
   },
