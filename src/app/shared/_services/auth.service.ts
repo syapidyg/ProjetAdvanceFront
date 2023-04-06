@@ -28,5 +28,10 @@ export class AuthService {
     return this.http.get(AUTH + 'user', httpOptions);
   }
 
+  // tslint:disable-next-line: typedef
+  public signOut(url: string, statut: string) {
+    return this.http.post(url, statut).toPromise();
+  }
+
 
 }

@@ -11,6 +11,7 @@ export const DELETE_CAISSE = CAISSE + `/delete`;
 
 // API d'authentification
 export const AUTH = SERVEUR + `/utilisateur/login`;
+export const SIGNOUT = SERVEUR + `/utilisateur/signout`;
 
 // API du controlleur de caisse
 export const PRODUIT = SERVEUR + `/produit`;
@@ -87,3 +88,7 @@ export const READ_ONE_REGLEMENT = REGLEMENT + `/readOne`;
 export const DELETE_REGLEMENT = REGLEMENT + `/delete`;
 export const READ_REGLEMENT_FOURNISSEUR = REGLEMENT + `/read/readFournisseur`;
 
+// API du controlleur de Fournisseur
+export const ACTIVITE = SERVEUR + `/activite`;
+export const LAST_ACTIVITE = ACTIVITE + `/lastConnexion`;
+export const READ_ACTIVITE = ACTIVITE + `/read`;

@@ -1,0 +1,59 @@
+<div class="card-inner card-inner-lg">
+    <div class="nk-block-head nk-block-head-lg">
+        <div class="nk-block-between">
+            <div class="nk-block-head-content">
+                <h4 class="nk-block-title">Informations de l'utilisateur</h4>
+                <div class="nk-block-des">
+                    <p>Vos differentes Informations<span class="text-soft"><em
+                                class="icon ni ni-info"></em></span></p>
+                </div>
+            </div>
+            <div class="nk-block-head-content align-self-start d-lg-none">
+                <div href="#" class="toggle btn btn-icon btn-trigger mt-n1" ><em class="icon ni ni-menu-alt-r"></em></div>
+            </div>
+        </div>
+    </div><!-- .nk-block-head -->
+    <div class="">
+        <div class="nk-data data-list">
+            <div class="data-head">
+                <h6 class="overline-title w-400px">Basics</h6>
+            </div>
+            <div class="data-item" >
+                <div class="data-col">
+                    <span class="data-label w-150px">Nom</span>
+                    <span class="data-value w-300px text-end">{{currentUser.employe.nom}}</span>
+                </div>
+                
+            </div><!-- data-item -->
+            <div class="data-item">
+                <div class="data-col">
+                    <span class="data-label w-150px">Prenom</span>
+                    <span class="data-value w-300px text-end">{{currentUser.employe.prenom}}</span>
+                </div>
+            
+            </div><!-- data-item -->
+            <div class="data-item">
+                <div class="data-col">
+                    <span class="data-label w-150px">Numero</span>
+                    <span class="data-value w-300px text-end">{{currentUser.employe.number}}</span>
+                </div>
+            
+            </div><!-- data-item -->
+            <div class="data-item">
+                <div class="data-col">
+                    <span class="data-label w-150px">Email</span>
+                    <span class="data-value w-300px text-end">{{currentUser.employe.email}}</span>
+                </div>
+            
+            </div><!-- data-item -->
+            <div class="data-item">
+                <div class="data-col">
+                    <span class="data-label w-150px">Date de naissance</span>
+                    <span class="data-value w-300px text-end">{{currentUser.employe.birthday | date:'dd-MM-yyyy'}}</span>
+                </div>
+            
+            </div><!-- data-item -->
+            
+        </div><!-- data-list -->
+       
+    </div><!-- .nk-block -->

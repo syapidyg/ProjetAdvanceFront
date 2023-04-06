@@ -44,7 +44,7 @@ export class AjouterFournisseurComponent implements OnInit {
     console.log(this.type);
     if (this.id && this.type) {
       this.viewFournisseur(this.id);
-    } else {
+    } else  if(this.id){
       this.editFournisseur(this.id);
     }
   }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main/main.component';
+import { ActiviteUtilisateurComponent } from './pages/activite-utilisateur/activite-utilisateur.component';
 import { AjouterCommandeFournisseurComponent } from './pages/ajouter-commande-fournisseur/ajouter-commande-fournisseur.component';
 import { AjouterCommandeComponent } from './pages/ajouter-commande/ajouter-commande.component';
 import { AjouterEmployeComponent } from './pages/ajouter-employe/ajouter-employe.component';
@@ -12,6 +13,7 @@ import { AjouterStockArticleComponent } from './pages/ajouter-stock-article/ajou
 import { CaisseComponent } from './pages/caisse/caisse.component';
 import { DepotComponent } from './pages/depot/depot.component';
 import { FamilleComponent } from './pages/famille/famille.component';
+import { InformationUtilisateurComponent } from './pages/information-utilisateur/information-utilisateur.component';
 import { ListerCommandeClientComponent } from './pages/lister-commande-client/lister-commande-client.component';
 import { ListerCommandeFournisseurComponent } from './pages/lister-commande-fournisseur/lister-commande-fournisseur.component';
 import { ListerEmployeComponent } from './pages/lister-employe/lister-employe.component';
@@ -22,6 +24,7 @@ import { ListerReglementClientComponent } from './pages/lister-reglement-client/
 import { ListerReglementFournisseurComponent } from './pages/lister-reglement-fournisseur/lister-reglement-fournisseur.component';
 import { ListerStockArticleComponent } from './pages/lister-stock-article/lister-stock-article.component';
 import { TransfertStockArticleComponent } from './pages/transfert-stock-article/transfert-stock-article.component';
+import { UtilisateurProfileComponent } from './pages/utilisateur-profile/utilisateur-profile.component';
 import { LoginComponent } from './session/login/login.component';
 import { UserGuardService } from './shared/_helpers/user-guard.service';
 
@@ -58,6 +61,14 @@ const routes: Routes = [
       { path: 'stocks/liste', component: ListerStockArticleComponent },
       { path: 'stocks/mouvement', component: ListerMouvementStockComponent },
       { path: 'stocks/ajouter/:id', component: AjouterEmployeComponent },
+      {
+        path: 'utilisateur', component: UtilisateurProfileComponent,
+        children: [
+          { path: 'utilisateur/profile/activite', component: ActiviteUtilisateurComponent },
+          { path: 'utilisateur/profile/information', component: InformationUtilisateurComponent },
+        ]
+      },
+
     ]
   },
 ];

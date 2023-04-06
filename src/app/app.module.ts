@@ -40,6 +40,9 @@ import { ListerStockArticleComponent } from './pages/lister-stock-article/lister
 import { AjouterStockArticleComponent } from './pages/ajouter-stock-article/ajouter-stock-article.component';
 import { TransfertStockArticleComponent } from './pages/transfert-stock-article/transfert-stock-article.component';
 import { ListerMouvementStockComponent } from './pages/lister-mouvement-stock/lister-mouvement-stock.component';
+import { UtilisateurProfileComponent } from './pages/utilisateur-profile/utilisateur-profile.component';
+import { ActiviteUtilisateurComponent } from './pages/activite-utilisateur/activite-utilisateur.component';
+import { InformationUtilisateurComponent } from './pages/information-utilisateur/information-utilisateur.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +72,9 @@ import { ListerMouvementStockComponent } from './pages/lister-mouvement-stock/li
     AjouterStockArticleComponent,
     TransfertStockArticleComponent,
     ListerMouvementStockComponent,
+    UtilisateurProfileComponent,
+    ActiviteUtilisateurComponent,
+    InformationUtilisateurComponent,
   ],
   imports: [
     BrowserModule,

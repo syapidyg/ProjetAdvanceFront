@@ -13,6 +13,7 @@ import { TokenStorageService } from '../shared/_services/token-storage.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
   collectionSizeClientCommande: any;
   token = '';
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   dataDepot: any;
   collectionSizeCommande: any;
   dataCommande: any;
+
   constructor(
     private commandeService: CommandeService,
     private reglementService: ReglementService,
@@ -46,6 +48,7 @@ export class DashboardComponent implements OnInit {
     this.getClient();
     this.getProduit();
     this.getDepot();
+    this.getdata();
   }
 
   // tslint:disable-next-line: typedef
@@ -98,7 +101,21 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getdata() {
+    let todayOrders = {
+      labels: ["12AM - 02AM", "02AM - 04AM", "04AM - 06AM", "06AM - 08AM", "08AM - 10AM", "10AM - 12PM", "12PM - 02PM", "02PM - 04PM", "04PM - 06PM", "06PM - 08PM", "08PM - 10PM", "10PM - 12PM"],
+      dataUnit: 'Orders',
+      lineTension: .3,
+      datasets: [{
+        label: "Orders",
+        color: "#0fac81",
+        background: "transparent",
+        data: [92, 105, 125, 85, 110, 106, 131, 105, 110, 131, 105, 110]
+      }]
+    };
+  }
 
 
- 
+
+
 }

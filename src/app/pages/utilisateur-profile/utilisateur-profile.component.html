@@ -1,0 +1,75 @@
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <!-- <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                    class="icon ni ni-arrow-left"></em><span>Components</span></a></div> -->
+
+
+        <div class="nk-block nk-block-lg">
+            <div class="nk-block-head">
+                <div class="nk-block-head-content d-flex justify-content-between">
+                    <div>
+                        <h4 class="nk-block-title">PROFILE UTILISATEUR</h4>
+                        <p>profile de l'utilisateur connecté.</p>
+                        <div>
+                            <nav>
+                                <ul class="breadcrumb breadcrumb-arrow">
+                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Utilisateur
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-bordered">
+                <div class="card-aside-wrap">
+    
+                    <router-outlet></router-outlet>
+    
+                    <div class="card-aside card-aside-left user-aside toggle-slide toggle-slide-left toggle-break-lg"
+                        data-toggle-body="true" data-content="userAside" data-toggle-screen="lg"
+                        data-toggle-overlay="true">
+                        <div class="card-inner-group">
+                            <div class="card-inner">
+                                <div class="user-card">
+                                    <div class="user-avatar bg-primary">
+                                        <span>{{currentUser.employe.nom[0]}}{{currentUser.employe.prenom[0]}}</span>
+                                    </div>
+                                    <div class="user-info">
+                                        <span class="lead-text">{{currentUser.employe.nom}}</span>
+                                        <span class="sub-text">{{currentUser?.employe.email}}</span>
+                                    </div>
+                                    
+                                </div><!-- .user-card -->
+                            </div><!-- .card-inner -->
+                            <div class="card-inner" *ngIf="dataLastConnexion">
+                                <div class="user-account-info py-0">
+                                    <h6 class="overline-title-alt">Dernière connexion</h6>
+                                    <div class="user-balance fw-bold">{{dataLastConnexion.date | date:'dd-MM-yyyy HH:mm'}} 
+                                    </div>
+                                    
+                                </div>
+                            </div><!-- .card-inner -->
+                            <div class="card-inner p-0">
+                                <ul class="link-list-menu">
+                                    <li><a [routerLink]="['utilisateur/profile/information']"><em
+                                                class="icon ni ni-user-fill-c"></em><span>Information 
+                                                personnelle</span></a></li>
+                                    
+                                    <li><a [routerLink]="['utilisateur/profile/activite']"><em
+                                                class="icon ni ni-activity-round-fill"></em><span>Activité du compte
+                                                </span></a></li>
+                                    
+                                    
+                                </ul>
+                            </div><!-- .card-inner -->
+                        </div><!-- .card-inner-group -->
+                    </div><!-- card-aside -->
+                </div><!-- card-aside-wrap -->
+            </div><!-- .card -->
+        </div><!-- .nk-block -->
+    </div>
+</div>

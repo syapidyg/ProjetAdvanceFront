@@ -89,9 +89,9 @@
                                                     </div><!--col-->
                                                     <div class="col-xxl-3 col-md-4">
                                                         <div class="form-group">
-                                                            <label class="form-label" for="address">Adresse</label>
-                                                            <input type="address" formControlName="adress"
-                                                                class="form-control" id="pv" placeholder="address"
+                                                            <label class="form-label" for="adress">Adresse</label>
+                                                            <input type="text" formControlName="adress"
+                                                                class="form-control" id="adress" placeholder="adresse"
                                                                 required [attr.disabled]="isDisabled? isDisabled: null">
                                                             <span
                                                                 *ngIf="(submitted || f.adress.touched) && f.adress.errors "

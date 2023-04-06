@@ -71,6 +71,7 @@
                                     <div class="nk-tb-item nk-tb-head bg-primary-dim">
                                         <div class="nk-tb-col tb-col-mb"><span class="sub-text">Facture code/ID</span>
                                         </div>
+                                        <div class="nk-tb-col tb-col"><span class="sub-text">Fournisseur</span></div>
                                         <div class="nk-tb-col tb-col-md"><span class="sub-text">Date</span></div>
                                         <div class="nk-tb-col tb-col-md"><span class="sub-text">Caisse </span></div>
                                         <div class="nk-tb-col"><span class="sub-text">Amount</span></div>
@@ -83,6 +84,9 @@
                                                     (click)="readOneCommande(reglement.commande)"># {{
                                                     reglement.commande.code
                                                     }}</a></span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col">
+                                            <span>{{ reglement.commande.fournisseur.name }} </span>
                                         </div>
                                         <div class="nk-tb-col tb-col-md">
                                             <span>{{ reglement.date | date }} </span>
@@ -187,13 +191,13 @@
                                             <div class="invoice-contact">
                                                 <span class="overline-title">REGLEMENT de</span>
                                                 <div class="invoice-contact-info">
-                                                    <h4 class="title ucap">{{dataRead.client.name}}</h4>
+                                                    <h4 class="title ucap">{{dataRead.fournisseur.name}}</h4>
                                                     <ul class="list-plain">
                                                         <li><em
-                                                                class="icon ni ni-map-pin-fill"></em><span>{{dataRead.client.email}}</span>
+                                                                class="icon ni ni-map-pin-fill"></em><span>{{dataRead.fournisseur.email}}</span>
                                                         </li>
                                                         <li><em
-                                                                class="icon ni ni-call-fill"></em><span>{{dataRead.client.number}}</span>
+                                                                class="icon ni ni-call-fill"></em><span>{{dataRead.fournisseur.number}}</span>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -71,6 +71,8 @@
                                     <div class="nk-tb-item nk-tb-head bg-primary-dim">
                                         <div class="nk-tb-col tb-col-mb"><span class="sub-text">Facture code/ID</span>
                                         </div>
+                                        <div class="nk-tb-col tb-col"><span class="sub-text">Client</span>
+                                        </div>
                                         <div class="nk-tb-col tb-col-md"><span class="sub-text">Date</span></div>
                                         <div class="nk-tb-col tb-col-md"><span class="sub-text">Caisse </span></div>
                                         <div class="nk-tb-col"><span class="sub-text">Amount</span></div>
@@ -83,6 +85,9 @@
                                                     (click)="readOneCommande(reglement.commande)"># {{
                                                     reglement.commande.code
                                                     }}</a></span>
+                                        </div>
+                                        <div class="nk-tb-col tb-col">
+                                            <span>{{ reglement.commande.client.name }} </span>
                                         </div>
                                         <div class="nk-tb-col tb-col-md">
                                             <span>{{ reglement.date | date }} </span>
