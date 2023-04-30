@@ -52,15 +52,15 @@
                         </thead>
                         <tbody>
                             <tr
-                                *ngFor="let item of dataActivite | paginate: { id: 'item', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
+                                        *ngFor="let item of dataActivite | paginate: { id: 'item', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
                                 <td class="odd">
                                     <a><span>{{i+1}}</span></a>
                                 </td>
                                 <td class="even">
-                                    <span class="title w-350px">{{item?.details}}</span>
+                                    <span class="title w-350px">{{item.details}}</span>
                                 </td>
                                 <td class="odd">
-                                    <span class="title w-150px">{{item?.date | date:'dd-MM-yyyy HH:mm'}}</span>
+                                    <span class="title w-150px">{{item.date | date:'dd-MM-yyyy HH:mm'}}</span>
                                 </td>
                                 
                             </tr>
@@ -72,8 +72,8 @@
     
                 </div>
                 <div class="pagination-container pagination">
-                    <li> <pagination-controls [directionLinks]="true" id="item" [autoHide]="true"
-                            (pageChange)="onPageChange($event)" class="bg-primary"></pagination-controls></li>
+                    <li> <pagination-controls [directionLinks]="true" id="item" [autoHide]="true" (pageChange)="onPageChange($event)"
+                            class="bg-primary"></pagination-controls></li>
                 </div>
                
                 <!-- pagination -->

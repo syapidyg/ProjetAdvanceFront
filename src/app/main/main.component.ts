@@ -42,13 +42,13 @@ export class MainComponent implements OnInit {
   // tslint:disable-next-line: typedef
   signOut() {
     this.currentToken = this.tokenStorage.getToken();
-    if (this.currentToken != null) {
-      this.utilisateurService.signOut(SIGNOUT, 'deconnexion').then((response: any) => {
-        console.log(response);
-        this.tokenStorage.signOut();
-      });
-    }
+    this.utilisateurService.signOut(SIGNOUT, 'deconnexion').then((response: any) => {
+      console.log(response);
+    });
+    this.tokenStorage.signOut();
+
   }
+
 
   // tslint:disable-next-line: typedef
   getLastConnexion() {

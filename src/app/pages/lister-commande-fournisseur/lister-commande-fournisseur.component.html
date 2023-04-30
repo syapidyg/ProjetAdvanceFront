@@ -11,7 +11,7 @@
                         <div>
                             <nav>
                                 <ul class="breadcrumb breadcrumb-arrow">
-                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    <li class="breadcrumb-item"><a [routerLink]="['']">Tableau de bord</a>
                                     </li>
                                     <li class="breadcrumb-item active">Commandes
                                     </li>
@@ -86,7 +86,7 @@
                                         *ngFor="let commande of data.reverse() | paginate: { id: 'commande', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
 
                                         <td class="even nk-tb-col">
-                                            <span class="title">{{commande?.fournisseur.name}}</span>
+                                            <span class="title">{{commande.fournisseur.name}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
                                             <span class="title">{{commande?.date_creation | date}}</span>
@@ -198,7 +198,7 @@
                                 <div class="invoice">
                                     <div class="invoice-action">
                                         <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary"
-                                            target="_blank"><em class="icon ni ni-printer-fill"></em></a>
+                                            target="_blank" (click)="imprimerDoc(dataRead.id)"><em class="icon ni ni-printer-fill"></em></a>
                                     </div><!-- .invoice-actions -->
                                     <div class="invoice-wrap">
                                         <div class="invoice-head">

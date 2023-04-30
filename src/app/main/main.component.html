@@ -7,11 +7,11 @@
                         <h5 class="title">Marie Bernard</h5>
                         <ul class="nk-menu">
                             <li class="nk-menu-item">
-                                <a [routerLink]="['/dashboard']" class="nk-menu-link">
+                                <a [routerLink]="['']" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                                     <span class="nk-menu-text ">Tableau de bord</span>
                                 </a>
-                            </li><!-- .nk-menu-item -->
+                            </li>
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-bar-fill-c"></em></span>
@@ -24,11 +24,11 @@
                                     </li>
                                     <li class="nk-menu-item">
                                         <a [routerLink]="['/ventes/commande/liste']" class="nk-menu-link"><span
-                                                class="nk-menu-text">Liste des commandes </span></a>
+                                                class="nk-menu-text">Documents de vente </span></a>
                                     </li>
                                     <li class="nk-menu-item">
                                         <a [routerLink]="['/ventes/commande/reglement']" class="nk-menu-link"><span
-                                                class="nk-menu-text">Reglement client</span></a>
+                                                class="nk-menu-text">Reglement </span></a>
                                     </li>
                                    
                                 </ul><!-- .nk-menu-sub -->
@@ -45,11 +45,11 @@
                                     </li>
                                     <li class="nk-menu-item">
                                         <a [routerLink]="['/achats/commande/liste']"  class="nk-menu-link"><span
-                                                class="nk-menu-text">Liste des commandes Fournisseur</span></a>
+                                                class="nk-menu-text">Documents d'achats</span></a>
                                     </li>
                                     <li class="nk-menu-item">
                                         <a [routerLink]="['/achats/commande/reglement']"  class="nk-menu-link"><span
-                                                class="nk-menu-text">Reglement fournisseur</span></a>
+                                                class="nk-menu-text">Reglement </span></a>
                                     </li>
                                     <!-- <li class="nk-menu-item">
                                         <a href="html/pharmacy/customer-ledger.html" class="nk-menu-link"><span
@@ -94,7 +94,7 @@
                             <li class="nk-menu-item no-sub">
                                 <a [routerLink]="['/patients/ajouter']"  class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-user-circle-fill"></em></span>
-                                    <span class="nk-menu-text">Patients</span>
+                                    <span class="nk-menu-text">Clients</span>
                                 </a>
                                 <!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
@@ -221,15 +221,7 @@
                                 <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em
                                         class="icon ni ni-menu"></em></a>
                             </div>
-                            <div class="nk-header-brand d-xl-none">
-
-                                <a  class="logo-link">
-                                    <img class="logo-light logo-img" src=""
-                                        srcset="assets/images/pharmacie.png 2x" alt="logo">
-                                    <img class="logo-dark logo-img" src="assets/images/pharmacie.png"
-                                        srcset="assets/images/pharmacie.png 2x" alt="logo-dark">
-                                </a>
-                            </div><!-- .nk-header-brand -->
+                            <!-- .nk-header-brand -->
                             <!-- <div class="nk-header-search ms-3 ms-xl-0 d-none d-md-flex">
                                 <em class="icon ni ni-search"></em>
                                 <input type="text" class="form-control border-transparent form-focus-none"

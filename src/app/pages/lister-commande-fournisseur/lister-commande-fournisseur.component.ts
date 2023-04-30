@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DELETE_COMMANDE, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_FOURNISSEUR, READ_LIGNE_COMMANDE_FOURNISSEUR, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
+import { DELETE_COMMANDE, ETAT, READ_CAISSE, READ_COMMANDE, READ_COMMANDE_FOURNISSEUR, READ_LIGNE_COMMANDE_FOURNISSEUR, READ_ONE_COMMANDE } from 'src/app/shared/_elements/api_constant';
 import { CommandeResponseModel } from 'src/app/shared/_models/responses/commande-response.model';
 import { BonToFactureRequestDto } from 'src/app/shared/_models/requests/bon-facture-request.model';
 import { LigneCommandeResponsetModel } from 'src/app/shared/_models/responses/ligne-commande-response.model';
@@ -14,6 +14,7 @@ import { ReglementService } from 'src/app/shared/_services/reglement.service';
 import { ReglementRequestModel } from 'src/app/shared/_models/requests/reglement-request.model';
 import { CaisseService } from 'src/app/shared/_services/caisse-service';
 import { CaisseResponseModel } from 'src/app/shared/_models/responses/caisse-response.model';
+import { GenericService } from 'src/app/shared/_services/generic.service';
 
 @Component({
   selector: 'app-lister-commande-fournisseur',
@@ -45,6 +46,7 @@ export class ListerCommandeFournisseurComponent implements OnInit {
   token = '';
   constructor(
     private commandeService: CommandeService,
+    private genericService: GenericService,
     private reglementService: ReglementService,
     private caisseService: CaisseService,
     private ligneCommandeService: LigneCommandeService,
@@ -289,5 +291,38 @@ export class ListerCommandeFournisseurComponent implements OnInit {
   recupId(commande: CommandeResponseModel) {
     this.router.navigate(['achats/commande/ajouter/', commande.id]);
   }
+
+  imprimerDoc(id: number) {
+    const typeDoc = 'Facture';
+    const dto = {
+      exporter: true,
+      idEtat: 2,
+      paramEtats: [
+        {
+          texte: 'ID',
+          valeur: id
+        }
+      ]
+    };
+    console.log(dto);
+    // const activity = this.activityService.open({
+    //   style: 'color',
+    //   text: '<div class="mt-2 display1 fg-darkBlue">Impression ...</div>',
+    //   type: 'cycle',
+    //   overlayColor: '#A7A0A0',
+    // });
+    this.genericService.reportPostResource(ETAT, dto)
+      .then((result: any) => {
+        //this.activityService.close(activity);
+        console.log(result);
+        const filename = typeDoc.split('-').join('_')
+          + '_';
+        this.genericService.getByteArrayAndSaveReportPDF(result, filename);
+      })
+      .catch((err) => {
+        //this.activityService.close(activity);
+      });
+  }
+
 
 }

@@ -6,7 +6,7 @@
                     <div class="nk-block-between">
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Tableau de bord</h3>
-                            
+
                             <div class="nk-block-des text-soft">
                                 <p>Bienvenue sur votre tableau de bord favoris</p>
                             </div>
@@ -51,7 +51,7 @@
                     <div class="row g-gs">
                         <div class="col-xxl-3 col-sm-6">
                             <div class="card">
-                                <div class="nk-ecwg nk-ecwg6">
+                                <div class="nk-ecwg nk-ecwg6 ">
                                     <div class="card-inner">
                                         <div class="card-title-group">
                                             <div class="card-title">
@@ -60,14 +60,15 @@
                                         </div>
                                         <div class="data">
                                             <div class="data-group">
-                                                <div class="amount">1,945</div>
+                                                <div class="amount">{{collectionSizeDay}}</div>
+                                                <!-- <canvas class="ecommerce-line-chart-s3" id="{{todayOrders}}"></canvas> -->
+                                                <!-- <em class="icon bg-primary-dim ni ni-bag"></em>
+                                                <span class="icon ni ni-files  "></span> -->
                                                 <div class="nk-ecwg6-ck">
-                                                    <canvas class="ecommerce-line-chart-s3" id="{{todayOrders}}"></canvas>
+                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
                                                 </div>
                                             </div>
-                                            <div class="info"><span class="change up text-danger"><em
-                                                        class="icon ni ni-arrow-long-up"></em>4.63%</span><span>
-                                                    vs. last week</span></div>
+
                                         </div>
                                     </div><!-- .card-inner -->
                                 </div><!-- .nk-ecwg -->
@@ -79,75 +80,24 @@
                                     <div class="card-inner">
                                         <div class="card-title-group">
                                             <div class="card-title">
-                                                <h6 class="title">Today Revenue</h6>
+                                                <h6 class="title">Revenues Totaux</h6>
                                             </div>
                                         </div>
                                         <div class="data">
                                             <div class="data-group">
-                                                <div class="amount">2,338</div>
+                                                <div class="amount" *ngFor="let item of dataRevenu">{{item.revenu | number}} CFA</div>
                                                 <div class="nk-ecwg6-ck">
-                                                    <!-- <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas> -->
+                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
                                                 </div>
                                             </div>
-                                            <div class="info"><span class="change down text-danger"><em
-                                                        class="icon ni ni-arrow-long-down"></em>2.34%</span><span>
-                                                    vs. last week</span></div>
+
                                         </div>
                                     </div><!-- .card-inner -->
                                 </div><!-- .nk-ecwg -->
                             </div><!-- .card -->
                         </div><!-- .col -->
-                        <div class="col-xxl-3 col-sm-6">
-                            <div class="card">
-                                <div class="nk-ecwg nk-ecwg6">
-                                    <div class="card-inner">
-                                        <div class="card-title-group">
-                                            <div class="card-title">
-                                                <h6 class="title">Today Customers</h6>
-                                            </div>
-                                        </div>
-                                        <div class="data">
-                                            <div class="data-group">
-                                                <div class="amount">847</div>
-                                                <div class="nk-ecwg6-ck">
-                                                    <!-- <canvas class="ecommerce-line-chart-s3"
-                                                        id="todayCustomers"></canvas> -->
-                                                </div>
-                                            </div>
-                                            <div class="info"><span class="change up text-danger"><em
-                                                        class="icon ni ni-arrow-long-up"></em>4.63%</span><span>
-                                                    vs. last week</span></div>
-                                        </div>
-                                    </div><!-- .card-inner -->
-                                </div><!-- .nk-ecwg -->
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-                        <div class="col-xxl-3 col-sm-6">
-                            <div class="card">
-                                <div class="nk-ecwg nk-ecwg6">
-                                    <div class="card-inner">
-                                        <div class="card-title-group">
-                                            <div class="card-title">
-                                                <h6 class="title">Today Visitors</h6>
-                                            </div>
-                                        </div>
-                                        <div class="data">
-                                            <div class="data-group">
-                                                <div class="amount">23,485</div>
-                                                <div class="nk-ecwg6-ck">
-                                                    <!-- <canvas class="ecommerce-line-chart-s3" id="todayVisitors"></canvas> -->
-                                                </div>
-                                            </div>
-                                            <div class="info"><span class="change down text-danger"><em
-                                                        class="icon ni ni-arrow-long-down"></em>2.34%</span><span>
-                                                    vs. last week</span></div>
-                                        </div>
-                                    </div><!-- .card-inner -->
-                                </div><!-- .nk-ecwg -->
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-                        <!-- .col -->
-                        <div class="col-xxl-3 col-md-6">
+
+                        <!-- <div class="col-xxl-3 col-md-6">
                             <div class="card card-full overflow-hidden">
                                 <div class="nk-ecwg nk-ecwg7 h-100">
                                     <div class="card-inner flex-grow-1">
@@ -157,7 +107,7 @@
                                             </div>
                                         </div>
                                         <div class="nk-ecwg7-ck">
-                                            <!-- <canvas class="ecommerce-doughnut-s1" id="orderStatistics"></canvas> -->
+                                            
                                         </div>
                                         <ul class="nk-ecwg7-legends">
                                             <li>
@@ -179,52 +129,55 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </div><!-- .card-inner -->
+                                    </div>
                                 </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
+                            </div>
+                        </div> -->
                         <div class="col-xxl-3 col-md-6">
                             <div class="card h-100">
                                 <div class="card-inner">
                                     <div class="card-title-group mb-2">
                                         <div class="card-title">
-                                            <h6 class="title">Store Statistics</h6>
+                                            <h6 class="title">Statistiques de notre pharmacie</h6>
                                         </div>
                                     </div>
                                     <ul class="nk-store-statistics">
                                         <li class="item">
                                             <div class="info">
-                                                <div class="title">Commandes</div>
+                                                <div class="title">Commandes de nos clients</div>
                                                 <div class="count">{{collectionSizeClientCommande}}</div>
                                             </div>
-                                            <em class="icon bg-primary-dim ni ni-bag"></em>
+                                            <em [routerLink]="['/ventes/commande/liste']"
+                                                class="icon bg-primary-dim ni ni-bag hover"></em>
                                         </li>
                                         <li class="item">
                                             <div class="info">
                                                 <div class="title">Clients</div>
                                                 <div class="count">{{collectionSizePatient}}</div>
                                             </div>
-                                            <em class="icon bg-info-dim ni ni-users"></em>
+                                            <em [routerLink]="['/patients/ajouter']"
+                                                class="icon bg-info-dim ni ni-users"></em>
                                         </li>
                                         <li class="item">
                                             <div class="info">
                                                 <div class="title">Produits</div>
                                                 <div class="count">{{collectionSizeProduit}}</div>
                                             </div>
-                                            <em class="icon bg-pink-dim ni ni-box"></em>
+                                            <em [routerLink]="['/produits/liste']"
+                                                class="icon bg-pink-dim ni ni-box"></em>
                                         </li>
                                         <li class="item">
                                             <div class="info">
                                                 <div class="title">Depôts</div>
                                                 <div class="count">{{collectionSizeDepot}}</div>
                                             </div>
-                                            <em class="icon bg-purple-dim ni ni-server"></em>
+                                            <em [routerLink]="['/depots']" class="icon bg-purple-dim ni ni-server"></em>
                                         </li>
                                     </ul>
                                 </div><!-- .card-inner -->
                             </div><!-- .card -->
                         </div><!-- .col -->
-                        <div class="col-xxl-8">
+                        <!-- <div class="col-xxl-8">
                             <div class="card card-full">
                                 <div class="card-inner">
                                     <div class="card-title-group">
@@ -279,97 +232,30 @@
                                     </div>
 
                                 </div>
-                            </div><!-- .card -->
-                        </div>
-                        <div class="col-xxl-4 col-md-8 col-lg-6">
+                            </div>
+                        </div> -->
+                        <div class="col-xxl-3 col-md-6">
                             <div class="card h-100">
                                 <div class="card-inner">
                                     <div class="card-title-group mb-2">
                                         <div class="card-title">
-                                            <h6 class="title">Top products</h6>
+                                            <h6 class="title">Les produits les plus demandés</h6>
                                         </div>
-                                        <div class="card-tools">
-                                            <div class="dropdown">
-                                                <a href="#"
-                                                    class="dropdown-toggle link link-light link-sm dropdown-indicator"
-                                                    data-bs-toggle="dropdown">Weekly</a>
-                                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li><a href="#"><span>Daily</span></a></li>
-                                                        <li><a href="#" class="active"><span>Weekly</span></a>
-                                                        </li>
-                                                        <li><a href="#"><span>Monthly</span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <ul class="nk-top-products">
-                                        <li class="item">
-                                            <div class="thumb">
-                                                <img alt="">
-                                            </div>
+                                        <li class="item" *ngFor="let item of dataLPV">
+                                            
                                             <div class="info">
-                                                <div class="title">Pink Fitness Tracker</div>
-                                                <div class="price">99.00</div>
+                                                <div class="title">{{item.dci }}</div>
+                                                <div class="price">{{item.pu}}</div>
                                             </div>
                                             <div class="total">
-                                                <div class="amount">990.00</div>
-                                                <div class="count">10 Sold</div>
+                                                <div class="amount">{{item.qteTotal}}</div>
+                                                <div class="count">{{item.qtePro}} Sold</div>
                                             </div>
                                         </li>
-                                        <li class="item">
-                                            <div class="thumb">
-                                                <img alt="">
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">Purple Smartwatch</div>
-                                                <div class="price">99.00</div>
-                                            </div>
-                                            <div class="total">
-                                                <div class="amount">990.00</div>
-                                                <div class="count">10 Sold</div>
-                                            </div>
-                                        </li>
-                                        <li class="item">
-                                            <div class="thumb">
-                                                <img alt="">
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">Black Mi Band Smartwatch</div>
-                                                <div class="price">99.00</div>
-                                            </div>
-                                            <div class="total">
-                                                <div class="amount">990.00</div>
-                                                <div class="count">10 Sold</div>
-                                            </div>
-                                        </li>
-                                        <li class="item">
-                                            <div class="thumb">
-                                                <img alt="">
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">Black Headphones</div>
-                                                <div class="price">99.00</div>
-                                            </div>
-                                            <div class="total">
-                                                <div class="amount">990.00</div>
-                                                <div class="count">10 Sold</div>
-                                            </div>
-                                        </li>
-                                        <li class="item">
-                                            <div class="thumb">
-                                                <img alt="">
-                                            </div>
-                                            <div class="info">
-                                                <div class="title">iPhone 7 Headphones</div>
-                                                <div class="price">99.00</div>
-                                            </div>
-                                            <div class="total">
-                                                <div class="amount">990.00</div>
-                                                <div class="count">10 Sold</div>
-                                            </div>
-                                        </li>
+
                                     </ul>
                                 </div><!-- .card-inner -->
                             </div><!-- .card -->

@@ -15,7 +15,7 @@ import { StockArticleResponseModel } from 'src/app/shared/_models/responses/stoc
 
 export class ListerStockArticleComponent implements OnInit {
 
-  public data: StockArticleResponseModel[] = [];
+  public data!: any;
   public isDisabled = false;
   currentUser!: any;
   form!: FormGroup;

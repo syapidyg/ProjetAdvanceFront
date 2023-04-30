@@ -56,6 +56,8 @@ export const READ_COMMANDE_CLIENT = COMMANDE + `/readClient`;
 export const READ_COMMANDE_FOURNISSEUR = COMMANDE + `/readFournisseur`;
 export const READ_COMMANDE_STOCK = COMMANDE + `/readStock`;
 export const READ_COMMANDE_TYPE = COMMANDE + `/readType`;
+export const READ_LPV = COMMANDE + `/readProduitLpv`;
+export const READ_REVENU = COMMANDE + `/readRevenuJour`;
 export const READ_ONE_COMMANDE = COMMANDE + `/readOne`;
 export const DELETE_COMMANDE = COMMANDE + `/delete`;
 export const TRANSFORM_COMMANDE = COMMANDE + `/transform`;
@@ -63,6 +65,8 @@ export const LIGNE_COMMANDE = SERVEUR + `/ligneDeCommande`;
 export const READ_LIGNE_COMMANDE_CLIENT = LIGNE_COMMANDE + `/readClient`;
 export const READ_LIGNE_COMMANDE_FOURNISSEUR = LIGNE_COMMANDE + `/readFournisseur`;
 export const READ_LIGNE_COMMANDE_STOCK = LIGNE_COMMANDE + `/readStock`;
+export const READ_COMMANDE_DAY = COMMANDE + `/readCommandeDay`;
+export const READ_COMMANDE_LPV = LIGNE_COMMANDE + `/readCommaTest`;
 
 
 // API du controlleur de Fournisseur
@@ -92,3 +96,4 @@ export const READ_REGLEMENT_FOURNISSEUR = REGLEMENT + `/read/readFournisseur`;
 export const ACTIVITE = SERVEUR + `/activite`;
 export const LAST_ACTIVITE = ACTIVITE + `/lastConnexion`;
 export const READ_ACTIVITE = ACTIVITE + `/read`;
+export const ETAT = SERVEUR + `/etat/imprimer`;

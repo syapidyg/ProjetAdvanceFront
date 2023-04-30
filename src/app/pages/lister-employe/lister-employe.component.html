@@ -15,7 +15,7 @@
                         <div>
                             <nav>
                                 <ul class="breadcrumb breadcrumb-arrow">
-                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    <li class="breadcrumb-item"><a [routerLink]="['']">Tableau de bord</a>
                                     </li>
                                     <li class="breadcrumb-item active">Employes
                                     </li>
@@ -39,11 +39,11 @@
                             <div class="team">
                                 <div class="user-card user-card-s2">
                                     <div class="user-avatar lg bg-primary">
-                                        <span></span>
+                                        <em class="icon ni ni-user-alt"></em>
                                     </div>
                                     <div class="user-info">
                                         <h6> {{employe?.nom}} {{employe?.prenom}}</h6>
-                                        <span class="badge rounded-pill bg-primary">Role</span>
+                                        <span class="badge rounded-pill bg-primary">Admin</span>
                                     </div>
                                 </div>
                                 <ul class="team-info">

@@ -15,7 +15,7 @@
                         <div>
                             <nav>
                                 <ul class="breadcrumb breadcrumb-arrow">
-                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    <li class="breadcrumb-item"><a [routerLink]="['']">Tableau de bord</a>
                                     </li>
                                     <li class="breadcrumb-item active">StockArticles
                                     </li>
@@ -91,16 +91,16 @@
                                         *ngFor="let stockArticle of data | paginate: { id: 'stockArticle', itemsPerPage: pageSize, currentPage: page+1, totalItems: collectionSize } ; let i=index ">
 
                                         <td class="even nk-tb-col">
-                                            <span class="title">{{stockArticle?.produit.code}}</span>
+                                            <span class="title">{{stockArticle.produit.code}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
-                                            <span class="title">{{stockArticle?.produit.dci}}</span>
+                                            <span class="title">{{stockArticle.produit.dci}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-sm">
-                                            <span class="title">{{stockArticle?.depot.name}}</span>
+                                            <span class="title">{{stockArticle.depot.name}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
-                                            <span class="title">{{stockArticle?.qte}}</span>
+                                            <span class="title">{{stockArticle.qte}}</span>
                                         </td>
                                         <td class="odd nk-tb-col tb-col-lg">
                                             <span *ngIf="stockArticle.statut == 'Normal'" class="badge badge-dot bg-primary">{{stockArticle?.statut}}</span>
@@ -118,9 +118,6 @@
                                                                     class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-end">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="html/pharmacy/manufacturer.html"><em
-                                                                                class="icon ni ni-home-fill"></em><span>Commander</span></a>
-                                                                    </li>
                                                                     <li (click)="readOneStockArticle(stockArticle)"><a
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#modalTabs"><em

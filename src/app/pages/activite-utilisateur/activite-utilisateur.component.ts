@@ -13,10 +13,12 @@ export class ActiviteUtilisateurComponent implements OnInit {
 
   currentUser!: any;
   currentToken!: any;
-  dataActivite = [];
-  pageSize: any;
-  page!: number;
-  collectionSize: any;
+  dataActivite!: any;
+  // Pagination options
+  page = 0; // Page courante
+  pageSize = 5; // Nombre d'éléments par page
+  collectionSize!: any;
+  token = '';
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -27,6 +29,7 @@ export class ActiviteUtilisateurComponent implements OnInit {
   ngOnInit(): void {
 
     this.getUser();
+    this.readActivite();
 
   }
 
@@ -37,6 +40,13 @@ export class ActiviteUtilisateurComponent implements OnInit {
     this.page = 0;
     this.readActivite();
   }
+
+  // tslint:disable-next-line: typedef
+  search(event: any) {
+    console.log(event);
+    this.readActivite();
+  }
+
 
   // tslint:disable-next-line: typedef
   onPageChange(event: any) {
@@ -53,10 +63,13 @@ export class ActiviteUtilisateurComponent implements OnInit {
 
   // tslint:disable-next-line: typedef
   readActivite() {
-    this.caisseService.get(READ_ACTIVITE + '/' + this.currentUser.username).then((response: any) => {
+    // tslint:disable-next-line: max-line-length
+    let ACTIVITE = READ_ACTIVITE + '/' + this.currentUser.username;
+    this.caisseService.get(`${ACTIVITE}?page=${this.page}&size=${this.pageSize}`).then((response: any) => {
       this.dataActivite = response.data.content;
       this.collectionSize = response.data.totalElements;
-      console.log(response);
+      console.log('activite', this.dataActivite);
+      console.log('reponse', response);
     });
   }
 

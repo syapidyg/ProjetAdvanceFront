@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { READ_COMMANDE, READ_COMMANDE_CLIENT, READ_DEPOT, READ_PATIENT, READ_PRODUIT } from '../shared/_elements/api_constant';
+import { READ_COMMANDE, READ_COMMANDE_CLIENT, READ_COMMANDE_DAY, READ_COMMANDE_LPV, READ_DEPOT, READ_LPV, READ_PATIENT, READ_PRODUIT, READ_REVENU } from '../shared/_elements/api_constant';
 import { CaisseService } from '../shared/_services/caisse-service';
 import { CommandeService } from '../shared/_services/commande.service';
 import { LigneCommandeService } from '../shared/_services/ligne-commande.service';
@@ -22,13 +22,17 @@ export class DashboardComponent implements OnInit {
   typeCommande = 'stock';
   dataClient: any;
   dataPatient: any;
-  collectionSizePatient: any;
+  dataLPV: any;
+  collectionSizePatient = 0;
   dataProduit: any;
-  collectionSizeProduit: any;
-  collectionSizeDepot: any;
+  collectionSizeProduit = 0;
+  collectionSizeDay = 0;
+  collectionSizeDepot = 0;
+  collectionSizeLPV = 0;
   dataDepot: any;
   collectionSizeCommande: any;
   dataCommande: any;
+  dataRevenu: any;
 
   constructor(
     private commandeService: CommandeService,
@@ -49,6 +53,9 @@ export class DashboardComponent implements OnInit {
     this.getProduit();
     this.getDepot();
     this.getdata();
+    this.getLPV();
+    this.getCommandeDay();
+    this.getRevenu();
   }
 
   // tslint:disable-next-line: typedef
@@ -92,12 +99,41 @@ export class DashboardComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
+  getCommandeDay() {
+    // tslint:disable-next-line: max-line-length
+    this.commandeService.get(`${READ_COMMANDE_DAY}`).then((response: any) => {
+      this.dataProduit = response.data.content;
+      this.collectionSizeDay = response.data.totalElements;
+      console.log(response);
+    });
+  }
+
+  // tslint:disable-next-line: typedef
   getDepot() {
     // tslint:disable-next-line: max-line-length
     this.commandeService.get(`${READ_DEPOT}`).then((response: any) => {
       this.dataDepot = response.data;
       this.collectionSizeDepot = response.data.length;
       console.log(response);
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  getLPV() {
+    // tslint:disable-next-line: max-line-length
+    this.commandeService.get(`${READ_COMMANDE_LPV}`).then((response: any) => {
+      this.dataLPV = response.data.content;
+      this.collectionSizeLPV = response.data.length;
+      console.log('LPV',this.dataLPV);
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  getRevenu() {
+    // tslint:disable-next-line: max-line-length
+    this.commandeService.get(`${READ_REVENU}`).then((response: any) => {
+      this.dataRevenu = response.data;
+      console.log('revenu', this.dataRevenu);
     });
   }
 

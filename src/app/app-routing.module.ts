@@ -29,11 +29,12 @@ import { LoginComponent } from './session/login/login.component';
 import { UserGuardService } from './shared/_helpers/user-guard.service';
 
 const routes: Routes = [
+  
   { path: 'session/login', component: LoginComponent },
   {
     path: '', component: MainComponent, canActivate: [UserGuardService],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: '', component: DashboardComponent },
       { path: 'caisses', component: CaisseComponent },
       { path: 'familles', component: FamilleComponent },
       { path: 'depots', component: DepotComponent },
@@ -74,7 +75,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

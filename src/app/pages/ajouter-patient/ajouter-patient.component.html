@@ -8,15 +8,15 @@
             <div class="nk-block-head">
                 <div class="nk-block-head-content d-flex justify-content-between">
                     <div>
-                        <h4 class="nk-block-title">LISTE DES PATIENTS</h4>
-                        <p>Le tableau suivant liste <strong class="text-primary">les patients et ses differentes
+                        <h4 class="nk-block-title">LISTE DES CLIENTS</h4>
+                        <p>Le tableau suivant liste <strong class="text-primary">les clients et ses differentes
                                 operations</strong>.</p>
                         <div>
                             <nav>
                                 <ul class="breadcrumb breadcrumb-arrow">
-                                    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Tableau de bord</a>
+                                    <li class="breadcrumb-item"><a [routerLink]="['']">Tableau de bord</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Patients
+                                    <li class="breadcrumb-item active">Clients
                                     </li>
                                 </ul>
                             </nav>
@@ -27,7 +27,7 @@
                     <li class="nk-block-tools-opt">
                         <a (click)="editPatient(null)" data-bs-toggle="modal" data-bs-target="#modalForm"
                             class="btn btn-primary d-none d-md-inline-flex"><em
-                                class="icon ni ni-plus"></em><span>Ajouter un patient</span></a>
+                                class="icon ni ni-plus"></em><span>Ajouter un client</span></a>
                     </li>
                 </div>
             </div>
@@ -180,12 +180,12 @@
 
     </div>
 </div>
-<!-- Patient Modal -->
+<!-- Client Modal -->
 <div class="modal fade modal-lg" id="modalForm">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Patient</h5>
+                <h5 class="modal-title">Client</h5>
                 <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <em class="icon ni ni-cross"></em>
                 </a>
@@ -193,19 +193,19 @@
             <div class="modal-body">
                 <form [formGroup]="form" class="form-validate is-alter">
                     <div class="form-group">
-                        <label class="form-label" for="nom">Nom du patient</label>
+                        <label class="form-label" for="nom">Nom du Client</label>
                         <div class="form-control-wrap">
                             <input type="text" class="form-control" formControlName="name" id="nom" required
                               [attr.disabled]="isDisabled? isDisabled: null">
                             <!-- <input type="text" class="form-control" formControlName="nom" id="nom" *ngIf="patient?.id" value={{patient?.nom}} required> -->
                             <span *ngIf="(submitted || f.name.touched) && f.name.errors "
                                 style="color: rgb(255, 75, 75);">
-                                Le nom du patient est requis
+                                Le nom du client est requis
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="number">Numero du patient</label>
+                        <label class="form-label" for="number">Numero du client</label>
                         <div class="form-control-wrap">
                             <input type="text" class="form-control" formControlName="number" id="number"
                                 [attr.disabled]="isDisabled? isDisabled: null">
@@ -217,7 +217,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="email">Email du patient</label>
+                        <label class="form-label" for="email">Email du client</label>
                         <div class="form-control-wrap">
                             <input type="text" class="form-control" formControlName="email" id="email"
                                 [attr.disabled]="isDisabled? isDisabled: null">
@@ -241,7 +241,7 @@
                 </form>
             </div>
             <div class="modal-footer bg-light">
-                <span class="sub-text">PATIENT</span>
+                <span class="sub-text">CLIENT</span>
             </div>
         </div>
     </div>
